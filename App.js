@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-
+import Voice from '@react-native-community/voice';
 import { createStackNavigator,TransitionPresets } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
