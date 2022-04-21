@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { Icon } from 'react-native-elements'
+import  Icon  from 'react-native-vector-icons/FontAwesome5'
 
 import Header from '../components/Header'
 
@@ -10,7 +10,7 @@ export default function categories() {
     
     return (
         <View style={styles.container}>
-            <Header title="Categories  test" type="arrow-left" navigation={() => { }} />
+            <Header title="Categories" type="arrow-left" navigation={() => { }} />
             <View style={styles.search}>
                 <TextInput
                     style={{ width: "80%" }}

@@ -2,14 +2,14 @@ import React from "react";
 import { View,Text,StyleSheet,Dimensions } from "react-native";
 import { color } from "react-native-elements/dist/helpers";
 import {colors, parameters } from "../global/styles";
-import { Icon } from "react-native-elements";
+import  Icon  from 'react-native-vector-icons/FontAwesome5'
+import  Icon1  from 'react-native-vector-icons/MaterialCommunityIcons'
 export default function Header({title,type,navigation}){
     return(
         <View style={styles.header}>
             <View style ={{marginLeft:20}}>
                 <Icon
-                type="material-community"
-                name={type}
+                name='arrow-left'
                 color={colors.headerText}
                 size={28}
                 onPress={()=>{}}
@@ -21,9 +21,9 @@ export default function Header({title,type,navigation}){
                     </Text>
             </View>
             <View style ={{marginEnd:10}}>
-                <Icon
+                <Icon1
                 type="material-community"
-                name={type}
+                name='dots-vertical'
                 color={colors.headerText}
                 size={28}
                 onPress={()=>{}}
