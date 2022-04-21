@@ -10,7 +10,7 @@ export default function categories() {
     
     return (
         <View style={styles.container}>
-            <Header title="Categories" type="arrow-left" navigation={() => { }} />
+            <Header title="Categories  test" type="arrow-left" navigation={() => { }} />
             <View style={styles.search}>
                 <TextInput
                     style={{ width: "80%" }}
