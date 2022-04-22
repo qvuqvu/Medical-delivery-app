@@ -18,6 +18,7 @@ const ClientTabs = createBottomTabNavigator();
 export default function RootClientTabs() {
     return (
         <ClientTabs.Navigator
+        initialRouteName='HomeScreen'
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: colors.buttons
