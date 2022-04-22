@@ -12,7 +12,6 @@ export default function Header({title,type,navigation}){
                 name='arrow-left'
                 color={colors.headerText}
                 size={28}
-                onPress={()=>{}}
                 />                
             </View>
             <View>

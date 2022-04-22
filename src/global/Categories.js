@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import  Icon  from 'react-native-vector-icons/FontAwesome5'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import Header from '../components/Header'
 
-export default function categories() {
+export default function categories({ navigation }) {
 
-    
+
     return (
         <View style={styles.container}>
             <Header title="Categories" type="arrow-left" navigation={() => { }} />
@@ -24,12 +25,17 @@ export default function categories() {
                     />
                 </TouchableOpacity>
             </View>
+            <Button
+                title="Next"
+                onPress={() => navigation.navigate('Success')}
+            />
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'white'
     },
     search: {
         flexDirection: 'row',
