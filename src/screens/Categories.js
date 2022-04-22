@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import Header from '../components/Header'
 
-export default function categories({ navigation }) {
+export default function Categories({ navigation }) {
 
 
     return (

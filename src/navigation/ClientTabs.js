@@ -9,7 +9,7 @@ import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/MaterialIcons'
 import HomeScreen from '../screens/HomeScreen'
 import MyAccountScreen from '../screens/MyAccountScreen'
-import categories from '../screens/Categories'
+import Categories from '../screens/Categories'
 import MyShoppingScreen from '../screens/MyShoppingScreen'
 import MyFavoriteScreen from '../screens/MyFavoriteScreen'
 
@@ -40,8 +40,8 @@ export default function RootClientTabs() {
                 }
             />
             <ClientTabs.Screen
-                name='categories'
-                component={categories}
+                name='Categories'
+                component={Categories}
                 options={
                     {
                         tabBarLabel: "Search",

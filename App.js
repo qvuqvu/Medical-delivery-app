@@ -1,31 +1,25 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import {View, Text,StatusBar,StyleSheet} from 'react-native'
 import Voice from '@react-native-community/voice';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createStackNavigator,TransitionPresets } from '@react-navigation/stack';
+import {colors} from './src/global/styles'
 import { NavigationContainer } from '@react-navigation/native';
+import RootNavigator from './src/navigation/rootNavigation';
 
-import Categories from './src/global/Categories'
-import Success from './src/global/Success'
 
-const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          options={{
-            headerShown: false,
-            ...TransitionPresets.RevealFromBottomAndroid
-          }}
-          name="Categories" component={Categories} />
-        <Stack.Screen
-          options={{
-            headerShown: false,
-            ...TransitionPresets.RevealFromBottomAndroid
-          }}
-          name="Success" component={Success} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <StatusBar
+      barStyle='light-content'
+      backgroundColor={colors.statusbar}
+      />
+       <RootNavigator/>
+    </View>
   )
 }
+
+const styles=StyleSheet.create({
+  container:{flex:1}
+})
