@@ -9,6 +9,7 @@ import 'react-native-gesture-handler';
 import HomeScreen from '../screens/HomeScreen';
 import RootClientTabs from './ClientTabs';
 import Success from '../global/Success'
+import DrawerNavigator from './DrawerNavigator';
 /** */
 const Authstack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,8 +19,8 @@ export default function AuthStack(navigation) {
     return (
             <Authstack.Navigator>
                 <Authstack.Screen
-                name="RootClientTabs"
-                component={RootClientTabs}
+                name="DrawerNavigator"
+                component={DrawerNavigator}
                 options={{
                     headerShown:false,
                 }}

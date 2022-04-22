@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
+import HomeHeader from '../components/HomeHeader';
 /** */
 
-export default function HomeScreen({Navigation}) {
+export default function HomeScreen({navigation}) {
     return (
         <View style={styles.container}>
-            <Text>Home Screen</Text>
+               <HomeHeader navigation={navigation}/>
         </View>
     )
 }
