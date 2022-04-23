@@ -23,7 +23,7 @@ function Success({ navigation }) {
             </View>
             <View style={styles.button}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Categories')}
+                    onPress={() => navigation.navigate('HomeScreen')}
                 >
                     <Text style={{ fontSize: 18, color: 'white' }}>Back Home Screen</Text>
                 </TouchableOpacity>
