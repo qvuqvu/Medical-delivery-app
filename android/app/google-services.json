@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359199845323",
+    "project_id": "medical-delivery-app",
+    "storage_bucket": "medical-delivery-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359199845323:android:52a4e374782aa78398e44e",
+        "android_client_info": {
+          "package_name": "com.medicaldeliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoM9clJP-WvQZouh6rzXOj-0fK21W5QV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,24 +1,46 @@
 import React from 'react'
-import { } from 'react-native'
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TransitionPresets,createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
-import HomeScreen from '../screens/HomeScreen';
-import RootClientTabs from './ClientTabs';
 import Success from '../global/Success'
 import DrawerNavigator from './DrawerNavigator';
+import SignInWelcomeScreen from '../screens/authScreens/SignInWelcomeScreen';
+import SignInScreen from '../screens/authScreens/SignInScreen';
+import SignUpScreen from '../screens/authScreens/SignUpScreen';
 /** */
-const Authstack = createNativeStackNavigator();
+const Auth = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-export default function AuthStack(navigation) {
+export default function AuthStack() {
     return (
-            <Authstack.Navigator>
-                <Authstack.Screen
+            <Auth.Navigator>
+            <Auth.Screen
+            name="SignInWelcomeScreen"
+            component = {SignInWelcomeScreen}
+            options ={{
+                headerShown: false,
+                ...TransitionPresets.RevealFromBottomAndroid
+            }}
+            />
+             <Auth.Screen
+            name="SignInScreen"
+            component = {SignInScreen}
+            options ={{
+                headerShown: false,
+                ...TransitionPresets.RevealFromBottomAndroid
+            }}
+            />
+            <Auth.Screen
+            name="SignUpScreen"
+            component={SignUpScreen}
+            options ={{
+                headerShown: false,
+                ...TransitionPresets.RevealFromBottomAndroid
+            }}
+            />
+                {/* <Authstack.Screen
                 name="DrawerNavigator"
                 component={DrawerNavigator}
                 options={{
@@ -31,7 +53,7 @@ export default function AuthStack(navigation) {
                 options={{
                     headerShown:false,
                 }}
-                />
-            </Authstack.Navigator>
+                /> */}
+            </Auth.Navigator>
     )
 }

@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply plugin: 'com.google.gms.google-services'
 import com.android.build.OutputFile
 
 /**
@@ -140,6 +140,8 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+         multiDexEnabled true
+        vectorDrawables.useSupportLibrary=true
 
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
@@ -250,6 +252,14 @@ android {
 }
 
 dependencies {
+
+     implementation platform('com.google.firebase:firebase-bom:29.3.0')
+
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    implementation "androidx.browser:browser:1.2.0"
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
