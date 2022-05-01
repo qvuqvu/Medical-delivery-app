@@ -41,13 +41,13 @@ const SignUpScreen=({navigation})=>{
              <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation}/>
         <ScrollView keyboardShouldPersistTaps="always">
             <View style={styles.view1}>
-                <Text style={styles.text1}>Sign-Up</Text>
+                <Text style={styles.text1}>Đăng ký</Text>
             </View>
             <Formik initialValues={initialValues} onSubmit={(values)=>{signUp(values)}}>
                 {(props)=>(
                     <View style={styles.view2}>
                         <View>
-                            <Text style={styles.text2}>New on Medical ?</Text>
+                            <Text style={styles.text2}>Tài khoản mới với MedSOS ?</Text>
                         </View>
                             <View style={styles.view6}>
                                 <TextInput
@@ -137,7 +137,7 @@ const SignUpScreen=({navigation})=>{
                                 </View>
                                 <View style={styles.view17}>
                                     <Button
-                                    title="Create my account"
+                                    title="Tạo tài khoản"
                                     buttonStyle={styles.button1}
                                     titleStyle={styles.title1}
                                     onPress={props.handleSubmit}
@@ -151,11 +151,11 @@ const SignUpScreen=({navigation})=>{
             </View>
             <View style={styles.view19}>
                 <View style={styles.view20}>
-                    <Text style={styles.text6}>Bạn đã sẵn sàng tạo một tài khoản với .... ?</Text>
+                    <Text style={styles.text6}>Bạn đã sẵn sàng tạo một tài khoản với MedSOS ?</Text>
                 </View>
                 <View style={styles.view21}>
                     <Button
-                    title="Sign-In"
+                    title="Đăng nhập"
                     buttonStyle={styles.button2}
                     titleStyle={styles.title2}
                     onPress={()=>{navigation.navigate('SignInScreen')}}
@@ -176,13 +176,13 @@ const styles=StyleSheet.create({
     },
     view1:{
         justifyContent:"center",
-        alignItems:"flex-start",
         marginTop:10,
         marginBottom:10,
-        paddingHorizontal:15
+        paddingHorizontal:15,
+        marginLeft:110,
     },
     text1:{
-        fontSize:22,
+        fontSize:28,
         color:colors.buttons,
         fontWeight:"bold"
     },

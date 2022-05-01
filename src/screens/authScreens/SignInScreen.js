@@ -30,178 +30,195 @@ async function signIn(data){
     }
 }
 
-    return (
-        <View style={styles.container}>
-           
-               <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation}/>
-               <View style={{marginLeft:20,marginTop:10}}>
-                   <Text style={title}>Sign-In </Text>
-               </View>
-               <View style={{alignItems:"center",marginTop:10}}>
-                   <Text style ={styles.text1}>
-                    ....... 
-                    </Text>
-                    <Text style ={styles.text1}>
-                    Đăng ký tài khoản của bạn 
-                    </Text>
-               </View>
-               <Formik
-             initialValues={{email:'',password:''}}
-             onSubmit={(values)=>{
-                signIn(values)
-             }}
-            >
-                { (props)=>
-                <View>
-              <View style={{marginTop:20}}>
-                   <View>
-                       <TextInput
-                       style={styles.textinput1}
-                       placeholder="Email"
-                       ref={textinput1}
-                       onChangeText={props.handleChange('email')}
-                       value={props.values.email}
-                       />
-                   </View>
-                   <View style={styles.textinput2}>
-                   <Animatable.View animation={textinput2Fossued?"":"fadeInLeft" } duration={400} >
-                      <Icon
-                      name="lock"
-                      iconStyle={{color:colors.grey3}}
-                      type="material"
-                      style={{}}
-                      />
-                   </Animatable.View>
+return (
+    <View style={styles.container}>
+       
+           <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation}/>
+           <View style={{marginLeft:20,marginTop:10}}>
+               <Text style={title}>Đăng nhập </Text>
+           </View>
+           <View style={{alignItems:"center",marginTop:10}}>
+                <Text style ={styles.text1}>
+                Đăng nhập tài khoản của bạn
+                </Text>
+           </View>
+           <Formik
+         initialValues={{email:'',password:''}}
+         onSubmit={(values)=>{
+            signIn(values)
+         }}
+        >
+            { (props)=>
+            <View>
+          <View style={{marginTop:20}}>
+               <View>
                    <TextInput
-                       style={{width:"80%"}}
-                       placeholder="Password"
-                       ref={textinput2}
-                       onFocus={()=>{
-                           setTextInput2Fossued(false)
-                       }}
-                       
-                       onBlur={()=>{
-                           setTextInput2Fossued(true)
-                       }}
-                       onChangeText={props.handleChange('password')}
-                       value={props.values.password}
-                       />
-                   <Animatable.View animation={textinput2Fossued?"":"fadeInLeft" } duration={400} >
-                      <Icon
-                      name="visibility-off"
-                      iconStyle={{color:colors.grey3}}
-                      type="material"
-                      style={{marginRight:10}}
-                      />
-                   </Animatable.View>
-                   </View>
-               </View>
-
-               <View style={{marginHorizontal:20,marginTop:30}}>
-                   <Button                   
-                   title="SIGN IN"
-                   buttonStyle={parameters.styledButton}
-                   titleStyle={parameters.buttonTitle}
-                   onPress={props.handleSubmit}
+                   style={styles.textinput1}
+                   placeholder="Email"
+                   ref={textinput1}
+                   onChangeText={props.handleChange('email')}
+                   value={props.values.email}
                    />
-               </View>  
                </View>
+               <View style={styles.textinput2}>
+               <Animatable.View animation={textinput2Fossued?"":"fadeInLeft" } duration={400} >
+                  <Icon
+                  name="lock"
+                  iconStyle={{color:colors.grey3}}
+                  type="material"
+                  style={{}}
+                  />
+               </Animatable.View>
+               <TextInput
+                   style={{width:"80%"}}
+                   placeholder="Password"
+                   ref={textinput2}
+                   onFocus={()=>{
+                       setTextInput2Fossued(false)
+                   }}
+                   
+                   onBlur={()=>{
+                       setTextInput2Fossued(true)
+                   }}
+                   onChangeText={props.handleChange('password')}
+                   value={props.values.password}
+                   />
+               <Animatable.View animation={textinput2Fossued?"":"fadeInLeft" } duration={400} >
+                  <Icon
+                  name="visibility-off"
+                  iconStyle={{color:colors.grey3}}
+                  type="material"
+                  style={{marginRight:10}}
+                  />
+               </Animatable.View>
+               </View>
+           </View>
+
+           <View style={{marginHorizontal:20,marginTop:30}}>
+               <Button                   
+               title="Đăng nhập"
+               buttonStyle={styles.styledButton}
+               titleStyle={styles.buttonTitle}
+               onPress={props.handleSubmit}
+               />
+           </View>  
+           </View>
 } 
-            </Formik>
-              
+        </Formik>
+          
 
-               <View style={{alignItems:"center",marginTop:15}}>
-                   <Text style={{...styles.text1,textDecorationLine:"underline"}} > Forgot Password ?</Text>
-               </View>
+           <View style={{alignItems:"center",marginTop:15}}>
+               <Text style={{...styles.text1,textDecorationLine:"underline"}} > Quên mật khẩu ?</Text>
+           </View>
 
-               <View style={{alignItems:"center",marginTop:20,marginBottom:20}}>
-                   <Text style={{fontSize:20,fontWeight:"bold"}}>OR</Text>
-               </View>
+           <View style={{alignItems:"center",marginTop:20,marginBottom:20}}>
+               <Text style={{fontSize:20,fontWeight:"bold"}}>OR</Text>
+           </View>
 
-               <View style={{marginHorizontal:10,marginTop:-2}}>
-                   <SocialIcon
-                   title="Sign in With Facebook"
-                   button
-                   type="facebook"
-                   style={styles.SocialIcon}
-                   onPress={()=>{}}
-                   />
-               </View>
-               <View style={{marginHorizontal:10,marginTop:0}}>
-                   <SocialIcon
-                   title="Sign in With Google"
-                   button
-                   type="google"
-                   style={styles.SocialIcon}
-                   onPress={()=>{}}
-                   />
-               </View>
+           <View style={{marginHorizontal:10,marginTop:-2}}>
+               <SocialIcon
+               title="Đăng nhập với Facebook"
+               button
+               type="facebook"
+               style={styles.SocialIcon}
+               onPress={()=>{}}
+               />
+           </View>
+           <View style={{marginHorizontal:10,marginTop:0}}>
+               <SocialIcon
+               title="Đăng nhập với Google"
+               button
+               type="google"
+               style={styles.SocialIcon}
+               onPress={()=>{}}
+               />
+           </View>
 
-               <View style={{marginTop:20,marginLeft:20}}>
-                   <Text style={{...styles.text1}} > New Account ? </Text>
-               </View>
+           <View style={{marginTop:20,marginLeft:20}}>
+               <Text style={{...styles.text1}} > Chưa có tài khoản ? </Text>
+           </View>
 
-               <View style={{alignItems:"flex-end",marginHorizontal:20}}>
-                   <Button
-                   title="Create an account"
-                   buttonStyle={styles.createButton}
-                   titleStyle={styles.createButtonTittle}
-                   onPress={()=>{navigation.navigate("SignUpScreen")}}
-                   />
-               </View>
-        </View>
-        
-    )
+           <View style={{alignItems:"flex-end",marginHorizontal:20}}>
+               <Button
+               title="Đăng ký"
+               buttonStyle={styles.createButton}
+               titleStyle={styles.createButtonTittle}
+               onPress={()=>{navigation.navigate("SignUpScreen")}}
+               />
+           </View>
+    </View>
+    
+)
 }
 
 const styles = StyleSheet.create({
-    container :{
-        flex:1
-    },
-    text1:{
-        color:colors.grey2,
-        fontSize:16
-        
-    },
-    textinput1:{
-        borderWidth:1,
-        borderColor:"#86939e",
-        marginHorizontal:20,
-        borderRadius:12,
-        marginBottom:20
-    },  
+container :{
+    flex:1
+},
+text1:{
+    color:colors.grey2,
+    fontSize:16
+    
+},
+textinput1:{
+    borderWidth:1,
+    borderColor:"#86939e",
+    marginHorizontal:20,
+    borderRadius:12,
+    marginBottom:20
+},  
 
-    textinput2:{
-        borderWidth:1,
-        borderRadius:12,
-        marginHorizontal:20,
-        borderColor:"#86939e",
-        flexDirection:"row",
-        justifyContent:"space-between",
-        alignContent:"center",
-        alignItems:"center",
-        paddingLeft:15
-    },
-    SocialIcon:{
-        borderRadius:12,
-        height:50,
-    },
-    createButton:{
-        backgroundColor:"white",
-        alignContent:"center",
-        justifyContent:"center",
-        borderRadius:12,
-        borderWidth:1,
-        borderColor:"#1db0e3",
-        height:40,
-        paddingHorizontal:20
-    },
-    createButtonTittle:{
-        color:"#1db0e3",
-        fontSize:16,
-        fontWeight:"bold",
-        alignItems:"center",
-        justifyContent:"center",
-        marginTop:-3
-    }
+textinput2:{
+    borderWidth:1,
+    borderRadius:12,
+    marginHorizontal:20,
+    borderColor:"#86939e",
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignContent:"center",
+    alignItems:"center",
+    paddingLeft:15
+},
+SocialIcon:{
+    borderRadius:12,
+    height:50,
+},
+createButton:{
+    backgroundColor:"white",
+    alignContent:"center",
+    justifyContent:"center",
+    borderRadius:12,
+    borderWidth:1,
+    borderColor:"#1db0e3",
+    height:40,
+    paddingHorizontal:20
+},
+createButtonTittle:{
+    color:"#1db0e3",
+    fontSize:16,
+    fontWeight:"bold",
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:-3
+},
+styledButton:{
+    backgroundColor:"#6BC8FF",
+    alignContent:"center",
+    justifyContent:"center",
+    borderRadius:12,
+    borderWidth:1,
+    borderColor:"#1db0e3",
+    height:50,
+    paddingHorizontal:20,
+    width:"100%",
+},
+
+buttonTitle:{
+    color:"white",
+    fontSize:20,
+    fontWeight:"bold",
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:-3
+}
 })

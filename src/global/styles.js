@@ -12,20 +12,22 @@ export const colors= {
     statusbar:"#1db0e3",
     headerText:"white",
     light_blue:"#6BC8FF",
+    welcome:"#6BC8FF",
 }
 
 export const parameters = {
     headerHeight:40,
     styledButton:{
-        backgroundColor:"#1db0e3",
+        backgroundColor:"#6BC8FF",
         alignContent:"center",
         justifyContent:"center",
-        borderRadius:12,
+        borderRadius:25,
         borderWidth:1,
         borderColor:"#1db0e3",
-        height:50,
+        height:45,
         paddingHorizontal:20,
-        width:'100%'
+        width:250,
+        marginLeft:32
     },
 
     buttonTitle:{
