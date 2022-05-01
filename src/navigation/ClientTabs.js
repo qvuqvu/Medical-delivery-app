@@ -18,21 +18,21 @@ const ClientTabs = createBottomTabNavigator();
 export default function RootClientTabs() {
     return (
         <ClientTabs.Navigator
-        initialRouteName='HomeScreen'
+            initialRouteName='HomeScreen'
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: colors.buttons
             }}
         >
             <ClientTabs.Screen
-                name='MyAccount'
-                component={MyAccountScreen}
+                name='HomeScreen'
+                component={HomeScreen}
                 options={
                     {
-                        tabBarLabel: "My Account",
+                        tabBarLabel: "Home",
                         tabBarIcon: ({ color, size }) => (
-                            <Icon2
-                                name='person'
+                            <Icon
+                                name='home'
                                 color={color}
                                 size={size}
                             />
@@ -56,7 +56,7 @@ export default function RootClientTabs() {
                     }
                 }
             />
-             <ClientTabs.Screen
+            <ClientTabs.Screen
                 name='MyShopping'
                 component={MyShoppingScreen}
                 options={
@@ -72,7 +72,7 @@ export default function RootClientTabs() {
                     }
                 }
             />
-             <ClientTabs.Screen
+            <ClientTabs.Screen
                 name='MyFavorite'
                 component={MyFavoriteScreen}
                 options={
@@ -89,14 +89,14 @@ export default function RootClientTabs() {
                 }
             />
             <ClientTabs.Screen
-                name='HomeScreen'
-                component={HomeScreen}
+                name='MyAccount'
+                component={MyAccountScreen}
                 options={
                     {
-                        tabBarLabel: "Home",
+                        tabBarLabel: "My Account",
                         tabBarIcon: ({ color, size }) => (
-                            <Icon
-                                name='home'
+                            <Icon2
+                                name='person'
                                 color={color}
                                 size={size}
                             />
@@ -104,8 +104,6 @@ export default function RootClientTabs() {
                     }
                 }
             />
-
-            
         </ClientTabs.Navigator>
     )
 }
