@@ -4,10 +4,11 @@ import * as Animatable from 'react-native-animatable'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
+
 import Header from '../components/Header'
+import { ScrollView } from 'react-native-gesture-handler'
 
-export default function Categories({ navigation }) {
-
+const Categories = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
@@ -17,7 +18,7 @@ export default function Categories({ navigation }) {
                     style={{ width: "80%" }}
                     placeholder='Search'
                 />
-                <TouchableOpacity
+                <TouchableOpacity   
                 >
                     <Image
                         source={{ uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-256.png' }}
@@ -25,17 +26,13 @@ export default function Categories({ navigation }) {
                     />
                 </TouchableOpacity>
             </View>
-            <Button
-                title="Next"
-                onPress={() => navigation.navigate('Success')}
-            />
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: 'white',
     },
     search: {
         flexDirection: 'row',
@@ -55,3 +52,5 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     }
 })
+
+export default Categories

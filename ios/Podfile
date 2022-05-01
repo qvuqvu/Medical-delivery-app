@@ -23,6 +23,8 @@ target 'MedicalDeliveryAPP' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'react-native-voice', :path => '../node_modules/@react-native-community/voice'
+
   target 'MedicalDeliveryAPPTests' do
     inherit! :complete
     # Pods for testing
