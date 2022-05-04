@@ -99,7 +99,7 @@ return (
                title="Đăng nhập"
                buttonStyle={styles.styledButton}
                titleStyle={styles.buttonTitle}
-               onPress={props.handleSubmit}
+               onPress={()=>{navigation.navigate("DrawerNavigator")}}
                />
            </View>  
            </View>

@@ -40,20 +40,20 @@ export default function AuthStack() {
                 ...TransitionPresets.RevealFromBottomAndroid
             }}
             />
-                {/* <Authstack.Screen
+                <Auth.Screen
                 name="DrawerNavigator"
                 component={DrawerNavigator}
                 options={{
                     headerShown:false,
                 }}
                 />
-                <Authstack.Screen
+                <Auth.Screen
                 name="Success"
                 component={Success}
                 options={{
                     headerShown:false,
                 }}
-                /> */}
+                />
             </Auth.Navigator>
     )
 }
