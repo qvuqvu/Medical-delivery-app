@@ -1,13 +1,35 @@
 import React, { useState, useContext, useEffect } from 'react'
+import auth from '@react-native-firebase/auth';
 
-import { View, Text, Linking, Pressable, Alert, Switch, StyleSheet } from 'react-native'
+import { View, Text, Linking, Pressable, Alert, Switch, StyleSheet ,TouchableOpacity} from 'react-native'
 
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Avatar, Icon } from 'react-native-elements'
 import { colors } from '../global/styles'
+import { SignInContext } from '../contexts/authContext';
 
 export default function DrawerContent(props) {
+
+    const { dispatchSignedIn } = useContext(SignInContext)
+
+    async function signOut() {
+        try {
+            auth()
+                .signOut()
+                .then(
+                    () => {
+                        console.log("USER SUCCESSFULLY SIGNED OUT")
+                        dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: null } })
+                    })
+
+        } catch (errot) {
+            Alert.alert("aaaaa")
+        }
+    }
+
+
+
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -104,19 +126,21 @@ export default function DrawerContent(props) {
 
             </DrawerContentScrollView>
 
-            <DrawerItem 
-                    label = "Sign Out"
-                    icon = {({color,size})=>(
-                        <Icon 
-                            type ="material-community"
-                            name = "logout-variant"
-                            color ={color}
-                            size ={size}
-                            onPress ={()=>{signOut()}} 
+            <TouchableOpacity onPress={() => { signOut() }}>
+                <DrawerItem
+                    label="Sign Out"
+                    icon={({ color, size }) => (
+                        <Icon
+                            type="material-community"
+                            name="logout-variant"
+                            color={color}
+                            size={size}
+                            onPress={() => { signOut() }}
                         />
                     )}
                 />
-              
+            </TouchableOpacity>
+
         </View>
     )
 }
