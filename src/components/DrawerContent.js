@@ -9,6 +9,7 @@ import { Avatar, Icon } from 'react-native-elements'
 import { colors } from '../global/styles'
 import { SignInContext } from '../contexts/authContext';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -29,6 +30,7 @@ export default function DrawerContent(props) {
                     })
                     await GoogleSignin.revokeAccess();
                     await GoogleSignin.signOut();
+                    await LoginManager.logOut();
 
         } catch (errot) {
         }

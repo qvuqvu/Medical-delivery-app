@@ -8,6 +8,7 @@ import { Formik } from "formik";
 import auth from "@react-native-firebase/auth"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInContext } from '../../contexts/authContext';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -51,6 +52,36 @@ export default function SignInScreen({ navigation }) {
             dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
         }
     }
+
+    async function onFacebookButtonPress() {
+        // Attempt login with permissions
+        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      
+        if (result.isCancelled) {
+          throw 'User cancelled the login process';
+        }
+      
+        // Once signed in, get the users AccesToken
+        const data = await AccessToken.getCurrentAccessToken();
+      
+        if (!data) {
+          throw 'Something went wrong obtaining access token';
+        }
+      
+        // Create a Firebase credential with the AccessToken
+        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+      
+        // Sign-in the user with the credential
+        const user = await auth().signInWithCredential(facebookCredential);
+        if(user)
+        {
+           dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+        }
+        else
+        {
+            console.log(aaaaaa);
+        }
+      }
     return (
         <View style={styles.container}>
 
@@ -142,7 +173,7 @@ export default function SignInScreen({ navigation }) {
                     button
                     type="facebook"
                     style={styles.SocialIcon}
-                    onPress={() => { }}
+                    onPress={() => {onFacebookButtonPress() }}
                 />
             </View>
             <View style={{ marginHorizontal: 10, marginTop: 0 }}>
