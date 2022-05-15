@@ -20,8 +20,6 @@ export default function DrawerContent(props) {
 
     async function signOut() {
         try {
-            await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
             auth()
                 .signOut()
                 .then(
@@ -29,9 +27,10 @@ export default function DrawerContent(props) {
                         console.log("USER SUCCESSFULLY SIGNED OUT")
                         dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: null } })
                     })
+                    await GoogleSignin.revokeAccess();
+                    await GoogleSignin.signOut();
 
         } catch (errot) {
-            Alert.alert("aaaaa")
         }
     }
 
