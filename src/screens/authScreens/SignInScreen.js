@@ -51,7 +51,6 @@ export default function SignInScreen({ navigation }) {
             dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
         }
     }
-
     return (
         <View style={styles.container}>
 
