@@ -21,6 +21,7 @@ export default function SignInScreen({ navigation }) {
 
     const textinput1 = useRef(1)
     const textinput2 = useRef(2)
+    const [getVisible,setVisible]=useState(false)
 
 
     async function signIn(data) {
@@ -142,14 +143,17 @@ export default function SignInScreen({ navigation }) {
                                     }}
                                     onChangeText={props.handleChange('password')}
                                     value={props.values.password}
-                                    secureTextEntry={true}
+                                    secureTextEntry={getVisible?false:true}
                                 />
                                 <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
                                     <Icon
-                                        name="visibility-off"
+                                        name={getVisible?"visibility":"visibility-off"}
                                         iconStyle={{ color: colors.grey3 }}
                                         type="material"
                                         style={{ marginRight: 10 }}
+                                        onPress={()=>{
+                                            setVisible(!getVisible)
+                                        }}
                                     />
                                 </Animatable.View>
                             </View>
