@@ -52,7 +52,7 @@ export default function DrawerContent(props) {
                         />
 
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName?user.displayName:""}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName?user.displayName:"Không tên"}</Text>
                             <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email?user.email:""}</Text>
                         </View>
 
