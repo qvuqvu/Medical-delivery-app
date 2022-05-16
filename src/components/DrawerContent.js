@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import auth from '@react-native-firebase/auth';
 
-import { View, Text, Linking, Pressable, Alert, Switch, StyleSheet ,TouchableOpacity} from 'react-native'
+import { View, Text, Linking, Pressable, Alert, Switch, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -18,6 +18,7 @@ GoogleSignin.configure({
 export default function DrawerContent(props) {
 
     const { dispatchSignedIn } = useContext(SignInContext)
+    const user = auth().currentUser;
 
     async function signOut() {
         try {
@@ -25,19 +26,19 @@ export default function DrawerContent(props) {
                 .signOut()
                 .then(
                     () => {
+                        GoogleSignin.revokeAccess();
+                        GoogleSignin.signOut();
+                        LoginManager.logOut();
                         console.log("USER SUCCESSFULLY SIGNED OUT")
                         dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: null } })
                     })
-                    await GoogleSignin.revokeAccess();
-                    await GoogleSignin.signOut();
-                    await LoginManager.logOut();
-
         } catch (errot) {
+            Alert.alert(
+                error.name,
+                error.message
+            )
         }
     }
-
-
-
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -47,12 +48,12 @@ export default function DrawerContent(props) {
                             size={75}
                             rounded
                             avatarStyle={styles.avatar}
-                            source={{ uri: "https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
+                            source={{ uri: user.photoURL?user.photoURL:"https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
                         />
 
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>Trần Quốc Duy</Text>
-                            <Text style={{ fontSize: 13, color: colors.cardbackground }}>20521250@gm.uit.edu.vn</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName?user.displayName:""}</Text>
+                            <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email?user.email:""}</Text>
                         </View>
 
 

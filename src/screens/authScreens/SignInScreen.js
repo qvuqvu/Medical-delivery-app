@@ -1,4 +1,4 @@
-import React, { useState, useRef,useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, TextInput, Alert } from "react-native";
 import { colors, parameters, title } from "../../global/styles";
 import { Icon, Button, SocialIcon } from "react-native-elements";
@@ -28,6 +28,7 @@ export default function SignInScreen({ navigation }) {
             const { password, email } = data
             const user = await auth().signInWithEmailAndPassword(email, password)
             if (user) {
+                console.log(user)
                 dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
             }
         }
@@ -40,48 +41,53 @@ export default function SignInScreen({ navigation }) {
     }
 
     async function onGoogleButtonPress() {
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-        // Sign-in the user with the credential
-        const user = auth().signInWithCredential(googleCredential);
-        if (user) {
-            dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+        try {
+            const { idToken } = await GoogleSignin.signIn();
+            // Create a Google credential with the token
+            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            // Sign-in the user with the credential
+            const user = await auth().signInWithCredential(googleCredential);
+            if (user) {
+                console.log(user)
+                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+            }
+        }
+        catch (error) {
+            Alert.alert(
+                error.name,
+                error.message
+            )
         }
     }
 
     async function onFacebookButtonPress() {
-        // Attempt login with permissions
-        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-      
-        if (result.isCancelled) {
-          throw 'User cancelled the login process';
+        try {
+            const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+            if (result.isCancelled) {
+                throw 'User cancelled the login process';
+            }
+            // Once signed in, get the users AccesToken
+            const data = await AccessToken.getCurrentAccessToken();
+            if (!data) {
+                throw 'Something went wrong obtaining access token';
+            }
+            // Create a Firebase credential with the AccessToken
+            const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+            // Sign-in the user with the credential
+            const user = await auth().signInWithCredential(facebookCredential);
+            if (user) {
+                console.log(user);
+                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+            }
         }
-      
-        // Once signed in, get the users AccesToken
-        const data = await AccessToken.getCurrentAccessToken();
-      
-        if (!data) {
-          throw 'Something went wrong obtaining access token';
+        catch (error) {
+            Alert.alert(
+                error.name,
+                error.message
+            )
         }
-      
-        // Create a Firebase credential with the AccessToken
-        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-      
-        // Sign-in the user with the credential
-        const user = await auth().signInWithCredential(facebookCredential);
-        if(user)
-        {
-           dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
-        }
-        else
-        {
-            console.log(aaaaaa);
-        }
-      }
+    }
     return (
         <View style={styles.container}>
 
@@ -110,6 +116,7 @@ export default function SignInScreen({ navigation }) {
                                     ref={textinput1}
                                     onChangeText={props.handleChange('email')}
                                     value={props.values.email}
+                                    autoCapitalize='none'
                                 />
                             </View>
                             <View style={styles.textinput2}>
@@ -122,6 +129,7 @@ export default function SignInScreen({ navigation }) {
                                     />
                                 </Animatable.View>
                                 <TextInput
+                                    autoCapitalize="none"
                                     style={{ width: "80%" }}
                                     placeholder="Password"
                                     ref={textinput2}
@@ -134,6 +142,7 @@ export default function SignInScreen({ navigation }) {
                                     }}
                                     onChangeText={props.handleChange('password')}
                                     value={props.values.password}
+                                    secureTextEntry={true}
                                 />
                                 <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
                                     <Icon
@@ -151,7 +160,7 @@ export default function SignInScreen({ navigation }) {
                                 title="Đăng nhập"
                                 buttonStyle={styles.styledButton}
                                 titleStyle={styles.buttonTitle}
-                                onPress={ props.handleSubmit}
+                                onPress={props.handleSubmit}
                             />
                         </View>
                     </View>
@@ -173,7 +182,7 @@ export default function SignInScreen({ navigation }) {
                     button
                     type="facebook"
                     style={styles.SocialIcon}
-                    onPress={() => {onFacebookButtonPress() }}
+                    onPress={() => { onFacebookButtonPress() }}
                 />
             </View>
             <View style={{ marginHorizontal: 10, marginTop: 0 }}>
