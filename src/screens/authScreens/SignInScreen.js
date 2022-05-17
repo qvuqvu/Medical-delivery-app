@@ -1,11 +1,11 @@
 import React, { useState, useRef, useContext } from "react";
-import { View, Text, StyleSheet, Dimensions, TextInput, Alert } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TextInput, Alert, Modal, Pressable, TouchableOpacity } from "react-native";
 import { colors, parameters, title } from "../../global/styles";
 import { Icon, Button, SocialIcon } from "react-native-elements";
 import Header from "../../components/Header";
 import * as Animatable from "react-native-animatable"
 import { Formik } from "formik";
-import auth from "@react-native-firebase/auth"
+import auth,{firebase} from "@react-native-firebase/auth"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInContext } from '../../contexts/authContext';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
@@ -21,7 +21,9 @@ export default function SignInScreen({ navigation }) {
 
     const textinput1 = useRef(1)
     const textinput2 = useRef(2)
-    const [getVisible,setVisible]=useState(false)
+    const [getemail, setemail] = useState("")
+    const [getVisible, setVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
 
     async function signIn(data) {
@@ -89,6 +91,19 @@ export default function SignInScreen({ navigation }) {
             )
         }
     }
+    async function forgotPassword(Email) {
+        if(Email){
+        firebase.auth().sendPasswordResetEmail(Email)
+            .then(function (user) {
+                alert('Please check your email...')
+            }).catch(function (e) {
+                console.log(e)
+            })
+        }
+        else{
+            return;
+        }
+    }
     return (
         <View style={styles.container}>
 
@@ -143,15 +158,15 @@ export default function SignInScreen({ navigation }) {
                                     }}
                                     onChangeText={props.handleChange('password')}
                                     value={props.values.password}
-                                    secureTextEntry={getVisible?false:true}
+                                    secureTextEntry={getVisible ? false : true}
                                 />
                                 <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
                                     <Icon
-                                        name={getVisible?"visibility":"visibility-off"}
+                                        name={getVisible ? "visibility" : "visibility-off"}
                                         iconStyle={{ color: colors.grey3 }}
                                         type="material"
                                         style={{ marginRight: 10 }}
-                                        onPress={()=>{
+                                        onPress={() => {
                                             setVisible(!getVisible)
                                         }}
                                     />
@@ -173,7 +188,9 @@ export default function SignInScreen({ navigation }) {
 
 
             <View style={{ alignItems: "center", marginTop: 15 }}>
-                <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Quên mật khẩu ?</Text>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Quên mật khẩu ?</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={{ alignItems: "center", marginTop: 20, marginBottom: 20 }}>
@@ -211,8 +228,42 @@ export default function SignInScreen({ navigation }) {
                     onPress={() => { navigation.navigate("SignUpScreen") }}
                 />
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.")
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Forgot Password?</Text>
+                        <Text style={styles.modalText1}>Enter your email address and we'll send you a link to reset your password.</Text>
+                        <View>
+                            <TextInput
+                                style={styles.textinput3}
+                                placeholder="example@gmail.com"
+                                ref={textinput1}
+                                autoCapitalize='none'
+                                onChangeText={setemail}
+                                value={getemail}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => {
+                                forgotPassword(getemail)
+                                setModalVisible(!modalVisible)
+                            }}
+                        >
+                            <Text style={styles.textStyle}>Send Mail</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
-
     )
 }
 
@@ -226,6 +277,14 @@ const styles = StyleSheet.create({
 
     },
     textinput1: {
+        borderWidth: 1,
+        borderColor: "#86939e",
+        marginHorizontal: 20,
+        borderRadius: 12,
+        marginBottom: 20
+    },
+    textinput3: {
+        width:320,
         borderWidth: 1,
         borderColor: "#86939e",
         marginHorizontal: 20,
@@ -285,5 +344,60 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: -3
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        width:320,
+        height:50,
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        fontSize:20,
+        justifyContent:"center",
+        alignItems:"center",
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        color: "black",
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    modalText1: {
+        color: "black",
+        fontSize: 15,
+        marginBottom: 15,
+        textAlign: "center"
+    },
 })
