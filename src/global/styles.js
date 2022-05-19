@@ -13,6 +13,10 @@ export const colors= {
     headerText:"white",
     light_blue:"#6BC8FF",
     welcome:"#6BC8FF",
+    blue:"#36a0ef",
+    white:"#FFFFFF",
+    black:"#000000",
+    xam:"#f3f6f4",
 }
 
 export const parameters = {
