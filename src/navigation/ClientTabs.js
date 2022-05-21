@@ -45,7 +45,7 @@ export default function RootClientTabs() {
                 component={Categories}
                 options={
                     {
-                        tabBarLabel: "Search",
+                        tabBarLabel: "Category",
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='search'

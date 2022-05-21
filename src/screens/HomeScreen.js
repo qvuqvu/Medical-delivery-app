@@ -7,10 +7,10 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
 /** */
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
-               <HomeHeader navigation={navigation}/>
+            <HomeHeader navigation={navigation} title="MEDILI" />
         </View>
     )
 }
@@ -90,16 +90,16 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: colors.grey2,
     },
-    floatButton:{
-        position:'absolute',
-        bottom:10,
-        right:15,
-        backgroundColor:'white',
-        elevation:10,
-        width:60,
-        height:60,
-        borderRadius:30,
-        alignItems:"center"
+    floatButton: {
+        position: 'absolute',
+        bottom: 10,
+        right: 15,
+        backgroundColor: 'white',
+        elevation: 10,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        alignItems: "center"
     }
 
 })

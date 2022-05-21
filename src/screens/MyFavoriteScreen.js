@@ -6,10 +6,13 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 /** */
 
-export default function MyFavoriteScreen({Navigation}) {
+export default function MyFavoriteScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text>My Favorite Screenn</Text>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Medical")}>
+                <Text>My Favorite Screenn</Text>
+            </TouchableOpacity>
         </View>
     )
 }
