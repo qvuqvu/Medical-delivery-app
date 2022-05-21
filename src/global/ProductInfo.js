@@ -10,49 +10,91 @@ import HeaderProject from '../components/HeaderProduct';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function HomeScreen({ navigation, route }) {
     const [count, setCount] = useState(1)
+    const [isOpen, setIsOpen] = useState(false)
     const cost = filterData2[route.params.id].gia.split(' ')
+    const endLine = "\n"
+    const handleOpen = () => {
+        if (isOpen) {
+            setIsOpen(false)
+        }
+        else {
+            setIsOpen(true)
+        }
+    }
+
+
     return (
         <View style={styles.container}>
             <HeaderProject navigation={navigation} title="Product" />
-            <View>
-                <View style={{ flexDirection: "column", marginLeft: 15, marginTop: 30, width: "90%" }}>
-                    <View style={{ borderWidth: 0.6, width:'90%', height:'62%', justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
-                        <Image
-                            style={{ width:'90%', height:'90%',resizeMode:"cover" }}
-                            source={{ uri: filterData2[route.params.id].image }} />
-                    </View>
-                    <View style={{ width: '100%', marginTop: 12,alignItems:'center' }}>
-                        <Text style={{fontWeight: 'bold', fontSize: 18, color: 'black' }}>{filterData2[route.params.id].name}</Text>
-                    </View>
-                </View>
-                <View style={{ marginLeft: 15, marginTop: 50, flexDirection: 'row' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (count > 1) {
-                                    setCount(count - 1)
-                                }
-                            }}
-                        >
-                            <Icon style={{ marginBottom: 7 }} name="window-minimize" size={18} color={colors.light_blue} />
-                        </TouchableOpacity>
-                        <View style={{ width: 40, height: 30, backgroundColor: colors.grey5, marginLeft: 10 }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 18, color: 'black', marginTop: 2 }}>{count}</Text>
+            <View style={{ flex: 1, marginTop: 10, backgroundColor: 'white' }}>
+                <ScrollView>
+                    <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
+                        <View style={{ borderWidth: 0.6, borderColor: 'blue', width: 360, height: 300, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
+                            <Image
+                                style={{ width: '90%', height: '90%', resizeMode: "cover" }}
+                                source={{ uri: filterData2[route.params.id].image }} />
                         </View>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setCount(count + 1)
-                            }}
-                        >
-                            <Icon style={{ marginLeft: 10 }} name="plus" size={20} color={colors.light_blue} />
-                        </TouchableOpacity>
+                        <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{filterData2[route.params.id].name}</Text>
+                        </View>
+                        <Text style={{ fontSize: 15, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
+                        <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{filterData2[route.params.id].gia}</Text>
                     </View>
-                    <View style={{ width: '70%', alignItems: 'flex-end' }}>
-                        <Text style={{ fontSize: 25, color: 'black' }}>{cost[0] * count}.000 VND</Text>
+                    <View style={{ height: 150, backgroundColor: 'orange' }}>
+                        <Text>Nhà Thuốc</Text>
                     </View>
+                    <View style={{ marginTop: 20 }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Thông tin sản phẩm</Text>
+                            <TouchableOpacity onPress={handleOpen}>
+                                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold', marginLeft: 150 }}>{isOpen == false ? "Xem thêm" : "Thu Gọn"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={isOpen == true ? styles.moreDetail_close : styles.moreDetail_open}>
+                            <Text style={{ marginLeft: 10, color: 'black', fontSize: 15 }}>
+                                Lyric: {endLine}
+                                "Chào cơn mưa{endLine}
+                                Làm sao cứ kéo ta quay lại{endLine}
+                                Những rung động con tim{endLine}
+                                Lần đầu hai ta gặp gỡ{endLine}
+                                Chào hàng cây{endLine}
+                                Làm sao cố níu tay nhau lại{endLine}
+                                Để thấy nồng nàn{endLine}
+                                Đang về trên đôi mắt em{endLine}
+                                Chợt nhìn đôi bàn tay em run nắm lấy bờ vai, rất lâu{endLine}
+                                Cuối thu với anh là ngày khiến hai hàng mi rối bời{endLine}
+                                Vì ngày ấy gặp nhau không ai dám nói một câu, chào nhau{endLine}
+                                Cứ đắm đuối{endLine}
+                                Cứ thế hát bài hát chia xa{endLine}
+                                Mùa thu rơi vào em, vào trong giấc mơ hôm qua{endLine}
+                                Mùa thu ôm mình em, chạy xa vòng tay vội vã{endLine}
+                                Lời em nói ngày xưa đâu đây{endLine}
+                                Vẫn âm thầm chìm vào trong mây{endLine}
+                                Đến bao giờ, dặn lòng anh không mong nhớ{endLine}
+                                Mùa thu rơi vào em, vào trong chiếc hôn ngây thơ{endLine}
+                                Mùa thu không cần anh, vì em giờ đây còn mãi hững hờ{endLine}
+                                Ngày mai kia nếu có phút giây vô tình thấy nhau sẽ nói câu gì...{endLine}
+                                Hay ta chỉ nhìn{endLine}
+                                Lặng lẽ{endLine}
+                                Đi qua"{endLine}
+                            </Text>
+                        </View>
+                    </View>
+                </ScrollView>
+                <View style={{ flexDirection: 'row', height: 60, justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.2, borderTopLeftRadius: 10, borderTopRightRadius: 10, }}>
+                    <TouchableOpacity>
+                        <View style={styles.button_end}>
+                            <Text style={{ color: 'red' }}>THÊM VÀO GIỎ HÀNG</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={styles.button_end1}>
+                            <Text style={{ color: 'white' }}>MUA NGAY</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-            </View>
-        </View>
+            </View >
+        </View >
     )
 }
 
@@ -142,6 +184,35 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 30,
         alignItems: "center"
+    },
+    moreDetail_close:
+    {
+        height: "100%",
+        marginTop: 5,
+    },
+    moreDetail_open:
+    {
+        height: 100,
+        marginTop: 5
+    },
+    button_end: {
+        borderWidth: 1,
+        width: 170,
+        height: 40,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: 'red',
+    },
+    button_end1: {
+        borderWidth: 1,
+        width: 170,
+        height: 40,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: 'red',
+        backgroundColor: 'red'
     }
 
 })

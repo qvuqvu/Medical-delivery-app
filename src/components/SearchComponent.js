@@ -121,7 +121,7 @@ const SearchComponent = ({  }) => {
                                         Keyboard.dismiss()
                                         setModalVisible(false)
                                         setTextInputFossued(true)
-                                        navigation.navigate("ProductInfo", { id: item.id }, { image: item.image }, { name: item.name }, { gia: item.gia })
+                                        navigation.navigate("ProductInfo", { id: item.id })
                                     }}
                                 >
                                     <View>
