@@ -39,6 +39,17 @@ export default function DrawerContent(props) {
             )
         }
     }
+    const getCurrentDate=()=>{
+
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+  
+        //Alert.alert(date + '-' + month + '-' + year);
+        // You can turn it in to your desired format
+        // return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
+        console.log( date + '-' + month + '-' + year)
+  }
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -105,6 +116,9 @@ export default function DrawerContent(props) {
                             name="cog-outline"
                             color={color}
                             size={size}
+                            onPress={()=>{
+                                getCurrentDate();
+                            }}
                         />
                     )}
                 />

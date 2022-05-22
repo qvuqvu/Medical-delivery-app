@@ -31,7 +31,7 @@ export default function SignInScreen({ navigation }) {
             const { password, email } = data
             const user = await auth().signInWithEmailAndPassword(email, password)
             if (user) {
-                console.log(user)
+                // console.log(user)
                 dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
             }
         }
@@ -51,7 +51,7 @@ export default function SignInScreen({ navigation }) {
             // Sign-in the user with the credential
             const user = await auth().signInWithCredential(googleCredential);
             if (user) {
-                console.log(user)
+                // console.log(user)
                 dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
             }
         }
@@ -80,7 +80,7 @@ export default function SignInScreen({ navigation }) {
             // Sign-in the user with the credential
             const user = await auth().signInWithCredential(facebookCredential);
             if (user) {
-                console.log(user);
+                // console.log(user);
                 dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
             }
         }
