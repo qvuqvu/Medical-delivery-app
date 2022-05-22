@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Modal,Dimensions,ImageBackground, TouchableWithoutFeedback, FlatList, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Modal, Dimensions, ImageBackground, TouchableWithoutFeedback, FlatList, Keyboard } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
@@ -13,7 +13,7 @@ import { filterData2 } from '../global/Data';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const SearchComponent = ({  }) => {
+const SearchComponent = ({ }) => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [textInputFossued, setTextInputFossued] = useState(true)
@@ -37,6 +37,43 @@ const SearchComponent = ({  }) => {
             setData([]);
             setSearch("");
         }
+    }
+    const renderItem = ({ item }) => {
+        return (
+            <TouchableWithoutFeedback
+                onPress={() => {
+                    Keyboard.dismiss()
+                    setModalVisible(false)
+                    setTextInputFossued(true)
+                    navigation.navigate("ProductInfo", { id: item.id })
+                }}
+            >
+                <View>
+                    <View style={[styles.imageView, { marginTop: 15 }]}>
+                        <ImageBackground
+                            style={styles.image}
+                            source={{ uri: item.image }}
+                        >
+                        </ImageBackground>
+                        <View>
+                            <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
+                        </View>
+                        <View>
+                            <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                            <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
+                                <Icon1 name='shoppingcart' size={35} >
+                                </Icon1>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
+                                <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        )
     }
     return (
         <View style={styles.container}>
@@ -112,51 +149,13 @@ const SearchComponent = ({  }) => {
                             </View>
                         </View>
                         <FlatList
-                            style={{}}
                             data={data}
                             keyExtractor={item => item.id}
-                            renderItem={({ item }) => (
-                                <TouchableWithoutFeedback
-                                    onPress={() => {
-                                        Keyboard.dismiss()
-                                        setModalVisible(false)
-                                        setTextInputFossued(true)
-                                        navigation.navigate("ProductInfo", { id: item.id })
-                                    }}
-                                >
-                                    <View>
-                                        <View style={[styles.imageView, { marginTop: 15 }]}>
-                                            <ImageBackground
-                                                style={styles.image}
-                                                source={{ uri: item.image }}
-                                            >
-                                            </ImageBackground>
-                                            <View>
-                                                <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
-                                            </View>
-                                            <View>
-                                                <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
-                                            </View>
-                                            <View style={{ flexDirection: "row" }}>
-                                                <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
-                                                    <Icon1 name='shoppingcart' size={35} >
-                                                    </Icon1>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
-                                                    <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
-                                                </TouchableOpacity>
-                                            </View>
-
-                                        </View>
-                                    </View>
-                                </TouchableWithoutFeedback>
-                            )}
+                            renderItem={renderItem}
                             horizontal={false}
-                            showsverticalScrollIndicator={false}
+                            showsverticalScrollIndicator={true}
                             numColumns={2}
-                            keyExtractor={(item, index) => index.toString()}
                             onScroll={() => { Keyboard.dismiss() }}
-
                         />
                     </View>
                 </Modal>

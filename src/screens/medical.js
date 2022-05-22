@@ -110,7 +110,6 @@ export default function Medical({ navigation }) {
                             horizontal={false}
                             showsverticalScrollIndicator={false}
                             numColumns={2}
-
                         />
                     </View>
 

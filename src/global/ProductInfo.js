@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
+import Icon3 from 'react-native-vector-icons/AntDesign'
 import HomeHeader from '../components/HomeHeader';
 import { filterData2 } from '../global/Data';
 import HeaderProject from '../components/HeaderProduct';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function HomeScreen({ navigation, route }) {
-    const [count, setCount] = useState(1)
+    const [count, setCount] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const cost = filterData2[route.params.id].gia.split(' ')
     const endLine = "\n"
+    const [show, setShow] = useState(8)
     const handleOpen = () => {
         if (isOpen) {
             setIsOpen(false)
@@ -21,8 +23,38 @@ export default function HomeScreen({ navigation, route }) {
             setIsOpen(true)
         }
     }
-
-
+    // const renderItem = ({ item }) => {
+    //         return (
+    //             <TouchableWithoutFeedback>
+    //                 <View>
+    //                     <View style={[styles.imageView, { marginTop: 15 }]}>
+    //                         <TouchableOpacity onPress={() => navigation.navigate("ProductInfo", { id: item.id })}>
+    //                             <ImageBackground
+    //                                 style={styles.image}
+    //                                 source={{ uri: item.image }}
+    //                             >
+    //                             </ImageBackground>
+    //                             <View>
+    //                                 <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
+    //                             </View>
+    //                         </TouchableOpacity>
+    //                         <View>
+    //                             <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+    //                         </View>
+    //                         <View style={{ flexDirection: "row" }}>
+    //                             <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
+    //                                 <Icon3 name='shoppingcart' size={35} >
+    //                                 </Icon3>
+    //                             </TouchableOpacity>
+    //                             <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
+    //                                 <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
+    //                             </TouchableOpacity>
+    //                         </View>
+    //                     </View>
+    //                 </View>
+    //             </TouchableWithoutFeedback>
+    //         )
+    //     }
     return (
         <View style={styles.container}>
             <HeaderProject navigation={navigation} title="Product" />
@@ -40,8 +72,37 @@ export default function HomeScreen({ navigation, route }) {
                         <Text style={{ fontSize: 15, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
                         <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{filterData2[route.params.id].gia}</Text>
                     </View>
-                    <View style={{ height: 150, backgroundColor: 'orange' }}>
-                        <Text>Nhà Thuốc</Text>
+                    <View style={{ height: 150, backgroundColor: '#d2f4f9' }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            <View style={{ borderWidth: 0.7, borderColor: colors.grey4, borderRadius: 45, marginTop: 20, marginLeft: 10, width: 50, height: 50, alignItems: 'center', justifyContent: 'center' }}>
+                                <Image
+                                    style={{ width: 35, height: 35, resizeMode: "cover", marginBottom: 5 }}
+                                    source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
+                            </View>
+                            <View style={{ marginTop: 20, marginLeft: 15 }}>
+                                <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold' }}>Nhà thuốc Ngọc Hằng</Text>
+                                <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
+                            </View>
+                            <TouchableOpacity>
+                                <View style={{ marginTop: 25, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
+                                    <Text style={{ color: 'red' }}>Xem Shop</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16 }}>Đánh Giá</Text>
+                                <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>4.9</Text>
+                            </View>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16 }}>Sản Phẩm</Text>
+                                <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>13</Text>
+                            </View>
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={{ fontSize: 16 }}>Khoảng Cách</Text>
+                                <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
+                            </View>
+                        </View>
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
@@ -80,6 +141,17 @@ export default function HomeScreen({ navigation, route }) {
                             </Text>
                         </View>
                     </View>
+                    {/* <View style={{ marginTop: 10 }}>
+                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold', marginLeft: 10 }}>Sản phẩm cùng nhà thuốc</Text>
+                        <FlatList
+                            data={filterData2}
+                            keyExtractor={item => item.id}
+                            renderItem={renderItem}
+                            horizontal={false}
+                            showsverticalScrollIndicator={false}
+                            numColumns={2}
+                        />
+                    </View> */}
                 </ScrollView>
                 <View style={{ flexDirection: 'row', height: 60, justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.2, borderTopLeftRadius: 10, borderTopRightRadius: 10, }}>
                     <TouchableOpacity>
@@ -107,6 +179,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 15,
         paddingVertical: 5,
+    },
+    imageView: {
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        width: SCREEN_WIDTH * 0.4475,
+        height: SCREEN_WIDTH * 0.7,
+        marginLeft: SCREEN_WIDTH * 0.035,
+        marginBottom: SCREEN_WIDTH * 0.035
+    },
+
+    image: {
+        height: SCREEN_WIDTH * 0.4475,
+        width: SCREEN_WIDTH * 0.4475,
+        borderRadius: 10,
     },
     deliveryText: {
         marginLeft: 5,
@@ -187,7 +274,7 @@ const styles = StyleSheet.create({
     },
     moreDetail_close:
     {
-        height: "100%",
+        height: "64%",
         marginTop: 5,
     },
     moreDetail_open:
