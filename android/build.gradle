@@ -43,8 +43,10 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
-         maven {url 'https://maven.google.com'}
+        maven {url 'https://maven.google.com'}
         google()
+        jcenter()
+        mavenLocal()
         maven { url 'https://www.jitpack.io' }
     }
 }

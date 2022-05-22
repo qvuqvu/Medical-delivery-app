@@ -10,6 +10,7 @@ import { colors } from '../global/styles'
 import { SignInContext } from '../contexts/authContext';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import ImagePicker from 'react-native-image-crop-picker';
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -29,7 +30,6 @@ export default function DrawerContent(props) {
                         GoogleSignin.revokeAccess();
                         GoogleSignin.signOut();
                         LoginManager.logOut();
-                        console.log("USER SUCCESSFULLY SIGNED OUT")
                         dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: null } })
                     })
         } catch (errot) {
@@ -39,17 +39,26 @@ export default function DrawerContent(props) {
             )
         }
     }
-    const getCurrentDate=()=>{
+    const getCurrentDate = () => {
 
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
-  
+
         //Alert.alert(date + '-' + month + '-' + year);
         // You can turn it in to your desired format
         // return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
-        console.log( date + '-' + month + '-' + year)
-  }
+        console.log(date + '-' + month + '-' + year)
+    }
+    const getCurrentImage = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          });
+    }
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -59,12 +68,12 @@ export default function DrawerContent(props) {
                             size={75}
                             rounded
                             avatarStyle={styles.avatar}
-                            source={{ uri: user.photoURL?user.photoURL:"https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
+                            source={{ uri: user.photoURL ? user.photoURL : "https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
                         />
 
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName?user.displayName:"Không tên"}</Text>
-                            <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email?user.email:""}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName ? user.displayName : "Không tên"}</Text>
+                            <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email ? user.email : ""}</Text>
                         </View>
 
 
@@ -116,7 +125,7 @@ export default function DrawerContent(props) {
                             name="cog-outline"
                             color={color}
                             size={size}
-                            onPress={()=>{
+                            onPress={() => {
                                 getCurrentDate();
                             }}
                         />
@@ -129,6 +138,9 @@ export default function DrawerContent(props) {
                             name="lifebuoy"
                             color={color}
                             size={size}
+                            onPress={() => {
+                                getCurrentImage();
+                            }}
                         />
                     )}
                 />

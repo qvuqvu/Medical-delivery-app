@@ -4,20 +4,24 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
-import { Avatar } from 'react-native-paper'
+import { Avatar } from 'react-native-elements'
+import auth from '@react-native-firebase/auth';
 /** */
 
 export default function MyAccountScreen({ Navigation }) {
+    const user = auth().currentUser;
     return (
         <View style={styles.container}>
-            <View style={{backgroundColor:'white'}}>
+            <View style={{ backgroundColor: 'white' }}>
                 <View style={styles.avatarView}>
-                    <Avatar.Image
-                        source={require('../global/image/avtcheems.jpg')}
-                        backgroundColor={"white"}
-                        size={90} />
+                    <Avatar
+                        size={90}
+                        rounded
+                        avatarStyle={styles.avatar}
+                        source={{ uri: user.photoURL ? user.photoURL : "https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
+                    />
                     <Text style={{ color: 'black', fontSize: 20, marginTop: 15 }}>
-                        Vũ Viết Huy
+                    {user.displayName ? user.displayName : "Không tên"}
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10, marginRight: 10 }}>
@@ -53,7 +57,7 @@ export default function MyAccountScreen({ Navigation }) {
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                             <Text>Tên người dùng</Text>
-                            <Text style={{ color: 'black', marginTop: 5 }}>Vũ Viết Huy</Text>
+                            <Text style={{ color: 'black', marginTop: 5 }}>{user.displayName ? user.displayName : "Không tên"}</Text>
                         </View>
                     </View>
                 </View>
