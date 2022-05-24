@@ -1,3 +1,74 @@
+
+//Category list data
+
+export const categoryData =
+[{ name: "Thuốc không kê đơn", image: require('../global/image/categories/category__thuockhongkedon.png'), id: "0" },
+{ name: "COVID-19", image: require("../global/image/categories/category__covid19.png"), id: "1" },
+{ name: "Thực phẩm chức năng", image: require("../global/image/categories/category__thucphamchucnang.png"), id: "2" },
+{ name: "Thiết bị y tế", image: require("../global/image/categories/category__thietbiyte.png"), id: "3" },
+];
+
+
+//HomeScreen product list data
+export const ProductData = [
+{
+    ProductName: "Dung dịch xịt mũi NINOSAT sát khuẩn", Price: "35.000", images: require("../global/image/products/product_1.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "0"
+},
+
+{
+    ProductName: "Thuốc giảm đau Aspirin pH8", Price: "100.000", images: require("../global/image/products/product_2.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "1"
+},
+
+{ 
+    ProductName: "Thuốc nhỏ mắt Natri Clorid 0,9%", Price: "4.000", images: require("../global/image/products/product_3.png"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "2"
+},
+
+{ 
+    ProductName: "Thuốc bột bù nước điện giải Mibezisol ", Price: "62.000", images: require("../global/image/products/product_4.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "3"
+},
+
+{ 
+    ProductName: "Thuốc giảm đau, hạ sốt Tylenol", Price: "155.000", images: require("../global/image/products/product_5.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "4"
+},
+
+{ 
+    ProductName: "Thuốc giảm đau, hạ sốt Phaanedol", Price: "15.000", images: require("../global/image/products/product_6.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "5"
+},
+
+{ 
+    ProductName: "Thuốc tẩy giun Fugacar hộp 1 viên", Price: "18.000", images: require("../global/image/products/product_7.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "6"
+},
+
+{ 
+    ProductName: "Kem bôi da BEGESIC hộp 1 tuýp 30g", Price: "58.000", images: require("../global/image/products/product_8.jpg"),
+    averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
+    collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
+    id: "7"
+},
+
+]
+
 export const filterData = [
     { name: "Mắt, tai mũi họng", image: "https://cdn3.iconfinder.com/data/icons/camping-indigo-vol-2/256/Prescription_Medication-512.png", id: "0" },
     { name: "Tiêu hóa, gan mật", image: "https://cdn3.iconfinder.com/data/icons/camping-indigo-vol-2/256/Prescription_Medication-512.png", id: "1" },
