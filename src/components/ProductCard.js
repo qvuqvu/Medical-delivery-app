@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     ProductName: {
         fontSize: 17,
-        fontWeight: 'semibold',
+        fontWeight: 'bold',
         color: colors.grey1,
         marginTop: 20,
         marginLeft: 10

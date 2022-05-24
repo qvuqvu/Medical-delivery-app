@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { StyleSheet,Text,View,ScrollView,TextInput, Alert} from "react-native";
 import {colors, parameters,title } from "../../global/styles";
 import Header from "../../components/Header"
 import { Formik } from "formik";
+import auth1 from '@react-native-firebase/auth';
 import {Icon,Button} from "react-native-elements"
 import * as Animatable from "react-native-animatable"
 import auth from "@react-native-firebase/auth"
-const initialValues={phone_number:'',name:"",family_name:"",password:"",email:"",username:""}
+import firestore from "@react-native-firebase/firestore"
+import { SignInContext } from '../../contexts/authContext';
 
 const SignUpScreen=({navigation})=>{
     const[passwordFocussed,setPasswordFocussed]=useState(false)
     const[passwordBlured,setPasswordBlured]=useState(false)
+    const[phonenumber,setphonenumber]=useState("");
+    const[fullname,setfullname]=useState("");
+    const[email,setemail]=useState("");
+    const[password,setpassword]=useState("");
 
-    async function signUp(values){
-        const {email,password}=values
-
+    async function signUp(){
         try{
             await auth().createUserWithEmailAndPassword(email,password)
             console.log("USER ACCOUNT CREATED")
+            firestore().collection("Users").add({
+                phone_number:phonenumber,
+                full_name:fullname,
+                email_account:email
+            }).then(()=>{
+                console.log("User add!");
+            })
+            
         }
         catch(error){
             if(error.code=='auth/email-already-in-use'){
@@ -43,9 +55,7 @@ const SignUpScreen=({navigation})=>{
             <View style={styles.view1}>
                 <Text style={styles.text1}>Đăng ký</Text>
             </View>
-            <Formik initialValues={initialValues} onSubmit={(values)=>{signUp(values)}}>
-                {(props)=>(
-                    <View style={styles.view2}>
+                <View style={styles.view2}>
                         <View>
                             <Text style={styles.text2}>Tài khoản mới với MedSOS ?</Text>
                         </View>
@@ -55,8 +65,8 @@ const SignUpScreen=({navigation})=>{
                                 style={styles.input1}
                                 keyboardType="number-pad"
                                 autoFocus={true}
-                                onChangeText={props.handleChange('phone_number')}
-                                value={props.values.phone_number}
+                                onChangeText={(txt)=>setphonenumber(txt)}
+                                value={phonenumber}
                                 />
                             </View>
                             <View style={styles.view6}>
@@ -64,18 +74,8 @@ const SignUpScreen=({navigation})=>{
                                 placeholder="Name"
                                 style={styles.input1}
                                 autoFocus={false}
-                                onChangeText={props.handleChange('name')}
-                                value={props.values.name}
-                                />
-                            </View>
-
-                            <View style={styles.view6}>
-                                <TextInput
-                                placeholder="Family name"
-                                style={styles.input1}
-                                autoFocus={false}
-                                onChangeText={props.handleChange('family_name')}
-                                value={props.values.family_name}
+                                onChangeText={(txt)=>setfullname(txt)}
+                                value={fullname}
                                 />
                             </View>
                             <View style={styles.view10}>
@@ -92,8 +92,8 @@ const SignUpScreen=({navigation})=>{
                                 placeholder="Email"
                                 style={styles.input4}
                                 autoFocus={false}
-                                onChangeText={props.handleChange('email')}
-                                value={props.values.email}
+                                onChangeText={(txt)=>setemail(txt)}
+                                value={email}
                                 />
                             </View>
                             </View>
@@ -110,8 +110,8 @@ const SignUpScreen=({navigation})=>{
                                 placeholder="Password"
                                 style={{flex:1}}
                                 autoFocus={false}
-                                onChangeText={props.handleChange('password')}
-                                value={props.values.password}
+                                onChangeText={(txt)=>setpassword(txt)}
+                                value={password}
                                 onFocus={()=>{setPasswordFocussed(true)}}
                                 onBlur={()=>{setPasswordBlured(true)}}
                                 />
@@ -140,12 +140,10 @@ const SignUpScreen=({navigation})=>{
                                     title="Tạo tài khoản"
                                     buttonStyle={styles.button1}
                                     titleStyle={styles.title1}
-                                    onPress={props.handleSubmit}
+                                    onPress={signUp}
                                     />
                                 </View>
                         </View>    
-                )}
-            </Formik>
             <View style={styles.view18}>
                 <Text style={styles.text5}>OR</Text>
             </View>
