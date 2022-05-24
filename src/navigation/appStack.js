@@ -2,7 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Success from '../global/Success';
 import ProductInfo from '../global/ProductInfo';
-import Medical from '../screens/Medical';
+import medical from '../screens/medical';
 import DrawerNavigator from './DrawerNavigator';
 
 const App = createNativeStackNavigator();
@@ -34,7 +34,7 @@ export function AppStack() {
                 }} />
             <App.Screen
                 name="Medical"
-                component={Medical}
+                component={medical}
                 options={{
                     headerShown: false,
                 }} />
