@@ -7,6 +7,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import { Avatar } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import HomeHeader from '../components/HomeHeader';
+import { discount } from '../global/Data';
 /** */
 
 export default function MyAccountScreen({ navigation }) {
@@ -38,13 +39,16 @@ export default function MyAccountScreen({ navigation }) {
                                 <Text>Đơn đang xử lý</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.viewItem}>
+                        <TouchableOpacity
+                            style={styles.viewItem}
+                            onPress={() => navigation.navigate('Discount')}
+                        >
                             <Image
                                 source={require('../global/image/discount.png')}
                                 style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
-                                <Text style={{ color: 'black' }}>0</Text>
+                                <Text style={{ color: 'black' }}>{discount.length}</Text>
                                 <Text>Mã giảm giá</Text>
                             </View>
                         </TouchableOpacity>

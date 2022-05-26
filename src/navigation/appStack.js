@@ -7,6 +7,7 @@ import DrawerNavigator from './DrawerNavigator';
 import StoreDetail from '../screens/StoreDetail';
 import MyShoppingScreen from '../screens/MyShoppingScreen';
 import ProductCard from '../components/ProductCard';
+import Discount from '../screens/Discount';
 
 const App = createNativeStackNavigator();
 
@@ -58,6 +59,12 @@ export function AppStack() {
             <App.Screen
                 name="MyShopping"
                 component={MyShoppingScreen}
+                options={{
+                    headerShown: false,
+                }} />
+            <App.Screen
+                name="Discount"
+                component={Discount}
                 options={{
                     headerShown: false,
                 }} />

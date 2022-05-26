@@ -252,3 +252,30 @@ export const productData = [{
 { name: "Chicken Burger", price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg", details: "", id: 5 },
 
 ];
+
+export const discount = [
+    {
+        id: 0,
+        name: "Giảm 100% phí giao hàng",
+        image: require("../global/image/discount_2.png"),
+        startDate: "17/5/2022",
+        endDate: "26/8/2022",
+        discount: 100,
+    },
+    {
+        id: 1,
+        name: "Giảm 50% phí giao hàng",
+        image: require("../global/image/discount_2.png"),
+        startDate: "17/5/2022",
+        endDate: "26/8/2022",
+        discount: 50,
+    },
+    {
+        id: 2,
+        name: "Giảm 30% phí mua hàng",
+        image: require("../global/image/discount_2.png"),
+        startDate: "17/5/2022",
+        endDate: "26/8/2022",
+        discount: 30,
+    },
+]
