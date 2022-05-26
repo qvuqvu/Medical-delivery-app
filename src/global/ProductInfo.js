@@ -8,8 +8,11 @@ import Icon3 from 'react-native-vector-icons/AntDesign'
 import HomeHeader from '../components/HomeHeader';
 import { filterData2 } from '../global/Data';
 import HeaderProject from '../components/HeaderProduct';
+import firestore, { firebase } from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth"
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function StoreDetail({ navigation, route }) {
+    const user = auth().currentUser;
     const [count, setCount] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const cost = filterData2[route.params.id].gia.split(' ')
@@ -23,6 +26,21 @@ export default function StoreDetail({ navigation, route }) {
             setIsOpen(true)
         }
     }
+    const addCartToFireBase = () => {
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+        const db = firebase.firestore();
+        db.collection('cart'+user.uid)
+            .add({
+                items: filterData2[route.params.id],
+                date: date + '-' + month + '-' + year,
+            })
+            .then(() => {
+                console.log('User added!');
+                alert("added " + filterData2[route.params.id].name + " success");
+            });
+    };
     // const renderItem = ({ item }) => {
     //         return (
     //             <TouchableWithoutFeedback>
@@ -154,12 +172,18 @@ export default function StoreDetail({ navigation, route }) {
                     </View> */}
                 </ScrollView>
                 <View style={{ flexDirection: 'row', height: 60, justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.2, borderTopLeftRadius: 10, borderTopRightRadius: 10, }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=>{
+                        addCartToFireBase();
+                    }}>
                         <View style={styles.button_end}>
                             <Text style={{ color: 'red' }}>THÊM VÀO GIỎ HÀNG</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=>{
+                        navigation.navigate("MyShopping")
+                    }}>
                         <View style={styles.button_end1}>
                             <Text style={{ color: 'white' }}>MUA NGAY</Text>
                         </View>
