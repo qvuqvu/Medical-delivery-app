@@ -1,5 +1,5 @@
-import React, { useState,useContext } from "react";
-import { StyleSheet,Text,View,ScrollView,TextInput, Alert} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet,Text,View,ScrollView,TextInput, Alert,TouchableOpacity} from "react-native";
 import {colors, parameters,title } from "../../global/styles";
 import Header from "../../components/Header"
 import { Formik } from "formik";
@@ -9,6 +9,7 @@ import * as Animatable from "react-native-animatable"
 import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import { SignInContext } from '../../contexts/authContext';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const SignUpScreen=({navigation})=>{
     const[passwordFocussed,setPasswordFocussed]=useState(false)
@@ -17,7 +18,18 @@ const SignUpScreen=({navigation})=>{
     const[fullname,setfullname]=useState("");
     const[email,setemail]=useState("");
     const[password,setpassword]=useState("");
-
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [datetime,setdatetime]=useState(new Date())
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+    const handleConfirm = (date) => {
+       setdatetime(date);
+       hideDatePicker();
+    };
     async function signUp(){
         try{
             await auth().createUserWithEmailAndPassword(email,password)
@@ -26,6 +38,7 @@ const SignUpScreen=({navigation})=>{
                 phone_number:phonenumber,
                 full_name:fullname,
                 email_account:email
+                
             }).then(()=>{
                 console.log("User add!");
             })
@@ -78,6 +91,7 @@ const SignUpScreen=({navigation})=>{
                                 value={fullname}
                                 />
                             </View>
+                    
                             <View style={styles.view10}>
                                 <View>
                                     <Icon
@@ -149,9 +163,9 @@ const SignUpScreen=({navigation})=>{
             </View>
             <View style={styles.view19}>
                 <View style={styles.view20}>
-                    <Text style={styles.text6}>Bạn đã sẵn sàng tạo một tài khoản với MedSOS ?</Text>
+                    <Text style={{color:colors.grey1}}>Bạn đã sẵn sàng tạo một tài khoản với MedSOS ?</Text>
                 </View>
-                <View style={styles.view21}>
+                <View style={[styles.view21,{marginTop:22}]}>
                     <Button
                     title="Đăng nhập"
                     buttonStyle={styles.button2}
@@ -182,7 +196,8 @@ const styles=StyleSheet.create({
     text1:{
         fontSize:28,
         color:colors.buttons,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        marginLeft:17
     },
     view2:{
         justifyContent:"flex-start",

@@ -12,6 +12,7 @@ export default function Header({title,type,navigation}){
                 name='arrow-left'
                 color={colors.headerText}
                 size={28}
+                onPress={()=>{navigation.goBack()}}
                 />                
             </View>
             <View>

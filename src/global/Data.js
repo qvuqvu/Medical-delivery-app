@@ -173,6 +173,27 @@ export const filterData2 = [
     { name: "Kem bôi trị nấm da Comozol cream hộp 1 tuýp 10g", image: "https://img.thuocbietduoc.com.vn/images/drugs/2019/1/kem-comozol_21-13119.jpg", id: "36", gia: "19.000 đ/hộp" },
 ];
 
+export const filterData3=[
+    {name:"Xịt họng keo ong Thái Sơn hộp 1 chai 20ml",image:"https://cf.shopee.vn/file/a4e7f8017d3d41c6e41a795c80785d15",id:"0",gia:"90.000 đ/hộp"},
+    {name:"Viên sủi Vitamed DIAMOND (hương cam)",image:"https://cdn.medigoapp.com/product/1c90b8adb5d944dbb5ea7111252ec0b0.jpeg",id:"1",gia:"75.000 đ/tuýp"},
+    {name:"Men vi sinh Bacibio Extra hộp 20 ống",image:"https://cdn.medigoapp.com/product/2cf2089940574f3b8cf78eaf7d3cb634.jpg",id:"2",gia:"105.000 đ/hộp"},
+    {name:"Viên sủi bổ sung vitamin và kẽm Multi Green C",image:"https://cf.shopee.vn/file/635ec7caaf8e82b2b2018b1e74b9d0f2_tn",id:"3",gia:"35.000 đ/hộp"},
+    {name:"Viên sủi bổ sung vitamin tổng hợp Plusssz Gold",image:"https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(90):fill(white)/nhathuoclongchau.com/images/product/2020/07/00006012-plusssz-max-multi-5229-5f21_large.JPG",id:"4",gia:"32.000 đ/hộp"},
+    {name:"Bổ sung lợi khuẩn Enteropromina hộp 4 vỉ x 5 ống x 5ml",image:"https://thuocdantoc.vn/wp-content/uploads/2019/03/enterogermina.jpg",id:"5",gia:"5.000 đ/ống"},
+    {name:"Xịt họng thảo dược trị ho, viêm họng Eugica hộp 1",image:"https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(90):fill(white)/nhathuoclongchau.com/images/product/2021/12/00020443-eugica-mouth-spay-10ml-mega-9606-61a9_large.jpg",id:"6",gia:"44.000 đ/hộp"},
+    {name:"Cao lỏng thảo mộc Đông Trùng Bổ Phổi Greenlung",image:"https://cdn.medigoapp.com/product/dong_trung_bo_phoi_bbdb4f5bde.png",id:"7",gia:"75.000 đ/hộp"},
+    {name:"Viên sủi đề kháng C Multi",image:"https://vivita.vn/wp-content/uploads/2021/08/bo-doi-vien-sui-c-xutali-va-multi-2.jpg",id:"8",gia:"62.000 đ/hộp"},
+    {name:"Xịt họng Bổ Phế Nam Hà hộp 1 chai 30mlhttps://salt.tikicdn.com/cache/400x400/ts/product/f1/44/a1/22a088d73305b0c3c03a0396f4f04c1a.jpg",id:"9",gia:"62.000 đ/hộp"},
+    {name:"Bù nước và điện giải Digi Oresol",image:"https://cdn-onshop.cdn.vccloud.vn/images/nha-thuoc-dai-minh/w_2000,h_2000/03a51fa0e7c414e367558ed0e471f276_tn.jpg",id:"10",gia:"40.000 đ/hộp"},
+    {name:"Thực phẩm bảo vệ sức khỏe TP Thymomin",image:"https://cdn.medigoapp.com/product/6942d565788f44c6ab247fae0b30bc11.jpeg",id:"11",gia:"135.000 đ/hộp"},
+    {name:"Viên uống bổ não Nature's Bounty Ginkgo",image:"https://media.hasaki.vn/catalog/product/g/o/google-shopping-vien-uong-nature-s-bounty-hoat-huyet-duong-nao-60-vien.jpg",id:"12",gia:"300.000 đ/lọ"},
+    {name:"Thực phẩm bảo vệ sức khỏe Dr Bio",image:"https://cdn.medigoapp.com/product/Dr_Bio_Thymomodulin_80_mg_40e190c2bf.jpg",id:"13",gia:"240.000 đ/hộp"},
+    {name:"Thực phẩm bảo vệ sức khỏe Bổ Phổi",image:"https://cdn.medigoapp.com/product/bo_phoi_thymomodulin_0a92ac8cea.jpg",id:"14",gia:"150.000 đ/hộp"},
+    {name:"Viên sủi cung cấp vitamin và khoáng chất",image:"https://cdn.medigoapp.com/product/A_Z_Fizz_Bo_sung_cac_vitamin_va_khoang_chat_4112a6054e.jpg",id:"15",gia:"78.000 đ/tuýp"},
+    {name:"Viêm khớp Tâm Bình hộp 60 viên",image:"https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(80):fill(white)/nhathuoclongchau.com/images/product/2021/01/00007929-vien-khop-tam-binh-8483-5ff2_large.JPG",id:"16",gia:"90.000 đ/hộp"},
+    
+]
+
 export const restaurantsData = [
     {
         restaurantName: "Mc Donalds", farway: "21.2",

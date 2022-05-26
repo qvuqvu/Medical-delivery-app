@@ -30,9 +30,9 @@ export const parameters = {
         borderRadius:25,
         borderWidth:1,
         borderColor:"#1db0e3",
-        height:45,
+        height:50,
         paddingHorizontal:20,
-        width:250,
+        width:300,
         marginLeft:32
     },
 
@@ -50,5 +50,5 @@ export const title ={
     color:colors.buttons,
     fontSize:22,
     fontWeight:"bold",
-    marginLeft:5
+    marginLeft:2
 }

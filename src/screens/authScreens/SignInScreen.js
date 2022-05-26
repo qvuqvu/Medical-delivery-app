@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, TextInput, Alert, Modal, Pressable, TouchableOpacity } from "react-native";
 import { colors, parameters, title } from "../../global/styles";
 import { Icon, Button, SocialIcon } from "react-native-elements";
+import Icon1 from "react-native-vector-icons/FontAwesome"
 import Header from "../../components/Header";
 import * as Animatable from "react-native-animatable"
 import { Formik } from "formik";
@@ -233,33 +234,39 @@ export default function SignInScreen({ navigation }) {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    Alert.alert("Modal has been closed.")
                     setModalVisible(!modalVisible);
                 }}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Forgot Password?</Text>
-                        <Text style={styles.modalText1}>Enter your email address and we'll send you a link to reset your password.</Text>
+                        <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible);}} >
+                        <Icon1
+                        size={20}
+                        name="close"
+                        style={{marginLeft:265,marginTop:-20}}
+                        />
+                        </TouchableOpacity>
+                        <Text style={styles.modalText}>Quên mật khẩu</Text>
+                        <Text style={styles.modalText1}>Nhập email của bạn. Chúng tôi sẽ gửi đường link để đặt lại mật khẩu.</Text>
                         <View>
                             <TextInput
                                 style={styles.textinput3}
-                                placeholder="example@gmail.com"
+                                placeholder="example@gmail.com  "
                                 ref={textinput1}
                                 autoCapitalize='none'
                                 onChangeText={setemail}
                                 value={getemail}
                             />
                         </View>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonClose]}
+                        <Button
+                            title="Gửi Email"
+                            buttonStyle={{alignContent:"center",borderRadius:15,height:45,width:250,backgroundColor:colors.blue,marginLeft:8}}
+                            titleStyle={styles.buttonTitle}
                             onPress={() => {
                                 forgotPassword(getemail)
                                 setModalVisible(!modalVisible)
                             }}
-                        >
-                            <Text style={styles.textStyle}>Send Mail</Text>
-                        </TouchableOpacity>
+                       />
                     </View>
                 </View>
             </Modal>
@@ -397,6 +404,7 @@ const styles = StyleSheet.create({
     modalText1: {
         color: "black",
         fontSize: 15,
+        marginTop:-5,
         marginBottom: 15,
         textAlign: "center"
     },
