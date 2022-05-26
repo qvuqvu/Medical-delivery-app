@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
         color: colors.headerText,
         fontSize: 21,
         fontWeight: "bold",
-        marginRight:5
+        marginRight:25
     }
 })
