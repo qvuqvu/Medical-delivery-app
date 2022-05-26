@@ -6192,6 +6192,11 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-native-bouncy-checkbox@^2.1.10":
+  "integrity" "sha512-znKVSJQ71+NRTcOG9zuMXBRrUgFsUutGbQoOwasRyVlrJU4djX1Ny0CvCMgOy/Fh+lu9qdLtQFUQLfKwnWXt3Q=="
+  "resolved" "https://registry.npmjs.org/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-2.1.10.tgz"
+  "version" "2.1.10"
+
 "react-native-codegen@*", "react-native-codegen@^0.0.13":
   "integrity" "sha512-rCh1P+s0Q4N6vNgS97ckafbhJRztz22+0l0VZoyQC06F07J98kI5cUByH0ATypPRIdpkMbAZc59DoPdDFc01bg=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.13.tgz"
@@ -6314,7 +6319,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.63.3", "react-native@0.68.0":
+"react-native@*", "react-native@>= 0.55.x", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.63.3", "react-native@0.68.0":
   "integrity" "sha512-Qi8KpG9rqiU0hVp05GKkuRe8iAVhblYMwpnwG3wkBi99Z/X8iZ0jD1b1UW0/y6oesmCyGQAxpsB36imU8zg1AQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.0.tgz"
   "version" "0.68.0"
@@ -6375,7 +6380,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.2"
 
-"react@*", "react@^16.0.0 || ^17.0.0", "react@^17.0.0", "react@^18.0.0", "react@>=16.3.0", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^16.0.0 || ^17.0.0", "react@^17.0.0", "react@^18.0.0", "react@>= 16.x.x", "react@>=16.3.0", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -7284,10 +7289,10 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.1":
-  "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
-  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
-  "version" "2.3.1"
+"tslib@^2.0.1", "tslib@^2.4.0":
+  "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
+  "version" "2.4.0"
 
 "tsutils@^3.21.0":
   "integrity" "sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA=="

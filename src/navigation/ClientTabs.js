@@ -12,10 +12,18 @@ import MyAccountScreen from '../screens/MyAccountScreen'
 import Categories from '../screens/Categories'
 import MyShoppingScreen from '../screens/MyShoppingScreen'
 import MyFavoriteScreen from '../screens/MyFavoriteScreen'
+import auth from "@react-native-firebase/auth"
+import firestore, { firebase } from '@react-native-firebase/firestore';
 
 const ClientTabs = createBottomTabNavigator();
 
 export default function RootClientTabs() {
+    const user = auth().currentUser;
+    firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                });
+            });
     return (
         <ClientTabs.Navigator
             initialRouteName='HomeScreen'

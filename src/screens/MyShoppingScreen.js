@@ -12,6 +12,7 @@ import { RadioButton } from 'react-native-paper';
 import { test } from '../global/Data';
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
@@ -19,6 +20,7 @@ export default function MyShoppingScreen({ navigation }) {
     const [getdoc, setdoc] = useState([]);
     const [num, setNum] = useState(1);
     const [data, setData] = useState(test);
+    const arr = []
     const [getdoc1, setdoc1] = useState(
         {
             items: [{ name: "", image: "", id: "0", gia: "" }],
@@ -78,6 +80,22 @@ export default function MyShoppingScreen({ navigation }) {
         setNum(num + 1);
     }
 
+    const selectItem = (item, checkboxValue) => {
+        if (!checkboxValue) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].id == item.items.id) {
+                    arr.splice(i, 1)
+                }
+            }
+            console.log('remove')
+            console.log(arr)
+        }
+        else {
+            arr.push(item.items)
+            console.log("added")
+            console.log(arr)
+        }
+    }
     const ListItem = ({ item }) => {
         return (
             <ScrollView>
@@ -106,9 +124,12 @@ export default function MyShoppingScreen({ navigation }) {
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <RadioButton
-                                    value="choose"
-                                    onPress={() => { Alert.alert("Huy said", 'App ngu') }}
+                                <BouncyCheckbox
+                                    style={{ marginLeft: 10 }}
+                                    iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+                                    fillColor="green"
+                                    // isChecked={isFoodInCart(food, cartItems)}
+                                    onPress={(checkboxValue) => selectItem(item, checkboxValue)}
                                 />
                                 <Image
                                     style={{ width: 80, height: 80, resizeMode: "cover" }}
@@ -181,9 +202,12 @@ export default function MyShoppingScreen({ navigation }) {
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <RadioButton
-                                    value="choose"
-                                    onPress={() => { Alert.alert("Huy said", 'App ngu') }}
+                                <BouncyCheckbox
+                                    style={{ marginLeft: 10 }}
+                                    iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+                                    fillColor="green"
+                                // isChecked={isFoodInCart(food, cartItems)}
+                                // onPress={(checkboxValue) => selectItem(food, checkboxValue)}
                                 />
 
                                 <Image
@@ -246,7 +270,7 @@ export default function MyShoppingScreen({ navigation }) {
                     <Text>Load</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{height:'79.5%'}}>
+            <View style={{ height: '79.5%' }}>
                 {check ?
                     (
                         renderItem1(getdoc1)
@@ -266,8 +290,8 @@ export default function MyShoppingScreen({ navigation }) {
                     <Text style={{ color: 'black', fontSize: 16 }}>Tất cả</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ marginRight: 15, alignItems: 'center',justifyContent:'center' }}>
-                        <Text style={{ color: 'black',fontSize:16,fontWeight:'bold' }}>Tổng tiền</Text>
+                    <View style={{ marginRight: 15, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tổng tiền</Text>
                         <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}>0đ</Text>
                     </View>
                     <TouchableOpacity
