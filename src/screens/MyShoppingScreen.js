@@ -239,27 +239,25 @@ export default function MyShoppingScreen({ navigation }) {
                 />
                 <Text style={{ color: 'black', fontSize: 15 }}>Vui lòng chọn sản phẩm bạn muốn mua!</Text>
                 <TouchableOpacity
-                style={{marginLeft:10}}
+                    style={{ marginLeft: 10 }}
                     onPress={() => {
                         addd()
                     }}>
                     <Text>Load</Text>
                 </TouchableOpacity>
             </View>
-            <View>
+            <View style={{height:'79.5%'}}>
                 {check ?
                     (
                         renderItem1(getdoc1)
                     )
                     : (<FlatList data={item}
                         renderItem={({ item, index }) => <ListItem item={item} />}
-                        contentContainerStyle={{ padding: 20, paddingBottom: 100 }}
+                        contentContainerStyle={{ paddingBottom: 100 }}
                         showsVerticalScrollIndicator={false}
                     />)}
-
             </View>
-            <View style={{flex:1,justifyContent:"flex-end"}}>
-            <View style={{ flexDirection: 'row', height: 50, justifyContent: "space-between" }}>
+            <View style={{ flexDirection: 'row', height: 60, justifyContent: "space-between" }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 5 }}>
                     <RadioButton
                         value="all"
@@ -268,8 +266,8 @@ export default function MyShoppingScreen({ navigation }) {
                     <Text style={{ color: 'black', fontSize: 16 }}>Tất cả</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ marginRight: 10, alignItems: 'center' }}>
-                        <Text style={{ color: 'black' }}>Tổng tiền:</Text>
+                    <View style={{ marginRight: 15, alignItems: 'center',justifyContent:'center' }}>
+                        <Text style={{ color: 'black',fontSize:16,fontWeight:'bold' }}>Tổng tiền</Text>
                         <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}>0đ</Text>
                     </View>
                     <TouchableOpacity
@@ -283,7 +281,6 @@ export default function MyShoppingScreen({ navigation }) {
                 </View>
             </View>
         </View >
-        </View>
     )
 }
 
