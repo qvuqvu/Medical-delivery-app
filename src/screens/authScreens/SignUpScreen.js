@@ -9,7 +9,6 @@ import * as Animatable from "react-native-animatable"
 import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import { SignInContext } from '../../contexts/authContext';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const SignUpScreen=({navigation})=>{
     const[passwordFocussed,setPasswordFocussed]=useState(false)

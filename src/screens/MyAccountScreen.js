@@ -13,6 +13,7 @@ export default function MyAccountScreen({ navigation }) {
     const [fullname,setfullname]=useState("")
     const[phonenumber,setphonenumber]=useState("")
     const[email,setemail]=useState("");
+    const[address,setaddress]=useState("");
     const user = auth().currentUser;
     useEffect(() => {
         firestore()

@@ -239,7 +239,7 @@ export default function SignInScreen({ navigation }) {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible);}} >
+                        <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible)}} >
                         <Icon1
                         size={20}
                         name="close"
