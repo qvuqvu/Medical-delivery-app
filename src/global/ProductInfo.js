@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
@@ -13,7 +13,7 @@ import auth from "@react-native-firebase/auth"
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
     const user = auth().currentUser;
-    const [count, setCount] = useState(0)
+    const [getcheck, setCheck] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const cost = filterData2[route.params.id].gia.split(' ')
     const endLine = "\n"
@@ -31,7 +31,7 @@ export default function ProductInfo({ navigation, route }) {
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         const db = firebase.firestore();
-        db.collection('cart'+user.uid)
+        db.collection('cart' + user.uid)
             .add({
                 items: filterData2[route.params.id],
                 date: date + '-' + month + '-' + year,
@@ -41,6 +41,34 @@ export default function ProductInfo({ navigation, route }) {
                 alert("added " + filterData2[route.params.id].name + " success");
             });
     };
+    useEffect(() => {
+        firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    if (doc.data().items.id == filterData2[route.params.id].id) {
+                        setCheck(1)
+                    }
+                });
+            });
+
+    }, [])
+    const check = () => {
+        setCheck(0)
+        firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    if (doc.data().items.id == filterData2[route.params.id].id) {
+                        setCheck(1)
+                    }
+                });
+            });
+        if (getcheck == 1) {
+            alert("exist");
+        }
+        else {
+            addCartToFireBase();
+        }
+    }
     // const renderItem = ({ item }) => {
     //         return (
     //             <TouchableWithoutFeedback>
@@ -173,17 +201,18 @@ export default function ProductInfo({ navigation, route }) {
                 </ScrollView>
                 <View style={{ flexDirection: 'row', height: 60, justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.2, borderTopLeftRadius: 10, borderTopRightRadius: 10, }}>
                     <TouchableOpacity
-                    onPress={()=>{
-                        addCartToFireBase();
-                    }}>
+                        onPress={() => {
+                            check();
+                            // addCartToFireBase();
+                        }}>
                         <View style={styles.button_end}>
                             <Text style={{ color: 'red' }}>THÊM VÀO GIỎ HÀNG</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                    onPress={()=>{
-                        navigation.navigate("MyShopping")
-                    }}>
+                        onPress={() => {
+                            navigation.navigate("MyShopping")
+                        }}>
                         <View style={styles.button_end1}>
                             <Text style={{ color: 'white' }}>MUA NGAY</Text>
                         </View>

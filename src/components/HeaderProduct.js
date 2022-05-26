@@ -30,6 +30,7 @@ export default function HeaderProject({ navigation, title }) {
 
             <View style={{ marginEnd: 10 }}>
                 <Icon1
+                    onPress={() => { navigation.navigate('MyShopping') }}
                     name='shoppingcart'
                     color={colors.cardbackground}
                     size={35}>
