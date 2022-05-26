@@ -18,12 +18,10 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <HomeHeader navigation={navigation} />
+            <HomeHeader navigation={navigation} title="MEDILI" />
 
 
             <ScrollView showsVerticalScrollIndicator={false}>
-
-                
 
                 <View style={styles.headerTextView}>
                     <Text style={styles.headerText}>Danh mục</Text>

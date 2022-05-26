@@ -14,12 +14,12 @@ import SearchComponent from '../components/SearchComponent';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default function Categoties({navigation}) {
-    
+export default function Categoties({ navigation }) {
+
     return (
         <View style={styles.container}>
-            <HomeHeader navigation={navigation} title="Categories" />
-            <SearchComponent/>
+            <HomeHeader navigation={navigation} title="Tìm Kiếm" />
+            <SearchComponent />
         </View>
     )
 }

@@ -1,27 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef,useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Modal, Dimensions, ImageBackground, TouchableWithoutFeedback, FlatList, Keyboard } from 'react-native'
-import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import HeaderSimple from '../components/HeaderSimple'
+import Icon from "react-native-vector-icons/FontAwesome";
 import Icon1 from 'react-native-vector-icons/AntDesign'
-import { colors } from "../global/styles"
-
-import Header from './Header'
-import { ScrollView } from 'react-native-gesture-handler'
+import { colors } from "../global/styles";
 import { filterData2 } from '../global/Data';
-
 const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const SearchComponent = () => {
-    const navigation = useNavigation();
-    const [modalVisible, setModalVisible] = useState(false);
-    const [textInputFossued, setTextInputFossued] = useState(true)
+export default function StoreDetail({ navigation }) {
+    const [textInputFossued, setTextInputFossued] = useState(false)
     const textInput = useRef(0)
-
     const [data, setData] = useState([])
     const [search, setSearch] = useState("")
-
     const handleSearch = (text) => {
         if (text) {
             const newData = filterData2.filter(item => {
@@ -43,7 +32,6 @@ const SearchComponent = () => {
             <TouchableWithoutFeedback
                 onPress={() => {
                     Keyboard.dismiss()
-                    setModalVisible(false)
                     setTextInputFossued(true)
                     navigation.push("ProductInfo", { id: item.id })
                 }}
@@ -76,89 +64,78 @@ const SearchComponent = () => {
         )
     }
     return (
-        <View style={styles.container}>
-            <View style={{ alignItems: "center" }}>
-                <TouchableWithoutFeedback
-                    onPress={() => {
-                        setModalVisible(true)
-                    }}
-                >
-                    <View style={styles.SearchArea}>
-                        <Icon name="search"
-                            style={styles.searchIcon}
-                        />
-                        <Text style={{ fontSize: 15, marginLeft: 10 }}>What are you looking for ?</Text>
+        <View style={{ flex: 1 }}>
+            <HeaderSimple title="Nhà Thuốc" navigation={navigation} />
+            <View style={{ height: 220, backgroundColor: '#d2f4f9', marginLeft: 10 }}>
+                <View style={{ flexDirection: 'row', borderWidth: 0.6, width: 330, marginTop: 10, height: 40, backgroundColor: 'white', alignSelf: 'center' }}>
+                    <Icon
+                        name="search"
+                        size={20}
+                        style={{ color: 'black', marginLeft: 10, marginTop: 8 }}
+                    />
+                    <TextInput
+                        placeholder="Tìm kiếm "
+                        style={{ marginLeft: 10, width: 260 }}
+                        ref={textInput}
+                        value={search}
+                        onFocus={() => {
+                            setTextInputFossued(true)
+                        }}
+                        onBlur={() => {
+                            setTextInputFossued(false)
+                        }}
+                        onChangeText={(text) => handleSearch(text)}
+                    />
+                    <Icon1
+                        name={textInputFossued ? "close" : null}
+                        iconStyle={{ color: colors.grey3 }}
+                        type="material"
+                        style={{ fontSize: 20, marginTop: 7 }}
+                        onPress={() => {
+                            textInput.current.clear()
+                            setData([])
+                            setSearch("")
+                        }}
+
+                    />
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ borderWidth: 0.7, borderColor: colors.grey4, borderRadius: 45, marginTop: 20, marginLeft: 10, width: 70, height: 70, alignItems: 'center', justifyContent: 'center' }}>
+                        <Image
+                            style={{ width: 50, height: 50, resizeMode: "cover", marginBottom: 5 }}
+                            source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                     </View>
-                </TouchableWithoutFeedback>
-                <Modal
-                    animationType="fade"
-                    transparent={false}
-                    visible={modalVisible}
-                >
-                    <View style={styles.modal}>
-                        <View style={styles.view1}>
-                            <View style={styles.TextInput}>
-                                <Animatable.View
-                                    animation={textInputFossued ? "fadeInRight" : "fadeInLeft"}
-                                    duration={400}
-                                >
-                                    <Icon name={textInputFossued ? "arrow-left" : "search"}
-                                        onPress={() => {
-                                            if (textInputFossued)
-                                                setModalVisible(false)
-                                            setTextInputFossued(true)
-                                        }}
-                                        style={styles.icon2}
-                                        type="material"
-                                        iconStyle={{ marginRight: 5 }}
-                                    />
-                                </Animatable.View>
-                                <TextInput
-                                    style={{ width: "80%" }}
-                                    placeholder=""
-                                    autoFocus={true}
-                                    ref={textInput}
-                                    value={search}
-
-                                    onFocus={() => {
-                                        setTextInputFossued(true)
-                                    }}
-
-                                    onBlur={() => {
-                                        setTextInputFossued(false)
-                                    }}
-                                    onChangeText={(text) => handleSearch(text)}
-
-                                />
-                                <Animatable.View
-                                    animation={textInputFossued ? "fadeInLeft" : ""}
-                                    duration={400}
-                                >
-                                    <Icon1
-                                        name={textInputFossued ? "close" : null}
-                                        iconStyle={{ color: colors.grey3 }}
-                                        type="material"
-                                        style={{ marginRight: 10, fontSize: 20 }}
-                                        onPress={() => {
-                                            textInput.current.clear()
-                                            setData([])
-                                            setSearch("")
-                                        }}
-                                    />
-                                </Animatable.View>
-                            </View>
-                        </View>
-                        <FlatList
-                            data={data}
-                            keyExtractor={item => item.id}
-                            renderItem={renderItem}
-                            horizontal={false}
-                            showsverticalScrollIndicator={true}
-                            numColumns={2}
-                            onScroll={() => { Keyboard.dismiss() }}
-                        />
+                    <View style={{ marginTop: 25, marginLeft: 20 }}>
+                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold' }}>Nhà Thuốc Ngọc Hằng</Text>
+                        <Text style={{ marginTop: 5 }}>iku iku</Text>
                     </View>
-                </Modal>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ fontSize: 16 }}>Đánh Giá</Text>
+                        <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>4.9</Text>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ fontSize: 16 }}>Sản Phẩm</Text>
+                        <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>13</Text>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={{ fontSize: 16 }}>Khoảng Cách</Text>
+                        <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
+                    </View>
+                </View>
+            </View>
+            <View>
+                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, marginTop: 10 }}>Sản phẩm của shop</Text>
+                <FlatList
+                    data={data}
+                    keyExtractor={item => item.id}
+                    renderItem={renderItem}
+                    horizontal={false}
+                    showsverticalScrollIndicator={true}
+                    numColumns={2}
+                    onScroll={Keyboard.dismiss}
+                />
             </View>
         </View>
     )
@@ -222,9 +199,6 @@ const styles = StyleSheet.create({
         padding: 5,
         color: colors.grey2,
     },
-    modal: {
-        flex: 1
-    },
     imageView: {
         borderRadius: 10,
         justifyContent: "center",
@@ -257,4 +231,3 @@ const styles = StyleSheet.create({
     },
 
 })
-export default SearchComponent

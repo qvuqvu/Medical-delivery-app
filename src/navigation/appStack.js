@@ -4,6 +4,8 @@ import Success from '../global/Success';
 import ProductInfo from '../global/ProductInfo';
 import medical from '../screens/medical';
 import DrawerNavigator from './DrawerNavigator';
+import StoreDetail from '../screens/StoreDetail';
+import MyShoppingScreen from '../screens/MyShoppingScreen';
 
 const App = createNativeStackNavigator();
 
@@ -35,6 +37,18 @@ export function AppStack() {
             <App.Screen
                 name="Medical"
                 component={medical}
+                options={{
+                    headerShown: false,
+                }} />
+            <App.Screen
+                name="StoreDetail"
+                component={StoreDetail}
+                options={{
+                    headerShown: false,
+                }} />
+            <App.Screen
+                name="MyShopping"
+                component={MyShoppingScreen}
                 options={{
                     headerShown: false,
                 }} />

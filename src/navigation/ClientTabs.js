@@ -45,7 +45,7 @@ export default function RootClientTabs() {
                 component={Categories}
                 options={
                     {
-                        tabBarLabel: "Category",
+                        tabBarLabel: "Search",
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='search'
@@ -56,7 +56,7 @@ export default function RootClientTabs() {
                     }
                 }
             />
-            <ClientTabs.Screen
+            {/* <ClientTabs.Screen
                 name='MyShopping'
                 component={MyShoppingScreen}
                 options={
@@ -71,7 +71,7 @@ export default function RootClientTabs() {
                         )
                     }
                 }
-            />
+            /> */}
             <ClientTabs.Screen
                 name='MyFavorite'
                 component={MyFavoriteScreen}

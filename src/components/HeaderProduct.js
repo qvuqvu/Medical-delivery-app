@@ -16,7 +16,7 @@ export default function HeaderProject({ navigation, title }) {
                     color={colors.cardbackground}
                     size={25}
                     onPress={() => {
-                        navigation.goBack()
+                        navigation.goBack(1)
                     }}
                 />
             </View>
@@ -42,15 +42,15 @@ export default function HeaderProject({ navigation, title }) {
 }
 
 const styles = StyleSheet.create({
-    header :{
-        flexDirection:"row",
-        backgroundColor:colors.buttons,
-        height:parameters.headerHeight,
-        justifyContent:'space-between'
+    header: {
+        flexDirection: "row",
+        backgroundColor: colors.buttons,
+        height: parameters.headerHeight,
+        justifyContent: 'space-between'
     },
-    headerText:{
-        color:colors.headerText,
-        fontSize:21,
-        fontWeight:"bold",
+    headerText: {
+        color: colors.headerText,
+        fontSize: 21,
+        fontWeight: "bold",
     }
 })

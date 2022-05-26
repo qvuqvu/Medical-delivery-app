@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
@@ -9,7 +9,7 @@ import HomeHeader from '../components/HomeHeader';
 import { filterData2 } from '../global/Data';
 import HeaderProject from '../components/HeaderProduct';
 const SCREEN_WIDTH = Dimensions.get('window').width;
-export default function HomeScreen({ navigation, route }) {
+export default function StoreDetail({ navigation, route }) {
     const [count, setCount] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
     const cost = filterData2[route.params.id].gia.split(' ')
@@ -83,7 +83,7 @@ export default function HomeScreen({ navigation, route }) {
                                 <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold' }}>Nhà thuốc Ngọc Hằng</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
                             </View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail") }}>
                                 <View style={{ marginTop: 25, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
                                     <Text style={{ color: 'red' }}>Xem Shop</Text>
                                 </View>
