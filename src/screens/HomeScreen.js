@@ -5,7 +5,7 @@ import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
-import { ProductData, categoryData, filterData1 } from '../global/Data';
+import { ProductData, categoryData, filterData1, filterData2 } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 
 
@@ -18,47 +18,50 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="MEDILI" />
 
+            <View style={styles.headerTextView}>
+                <Text style={styles.headerText}>Danh mục</Text>
+            </View>
+
+            <View>
+                {/* Categories list  */}
+                <FlatList
+                    style={{ marginLeft: 10, marginTop: 3 }}
+                    data={categoryData}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    keyExtractor={(item, index) => index.id}
+                    extraData={indexCheck}
+                    renderItem={({ item, index }) => (
+                        <Pressable
+                            onPress={() => { setIndexCheck(item.id) }}
+                        >
+                            <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
+
+                                <Image
+                                    style={{ height: 75, width: 100 }}
+                                    source={item.image}
+                                />
+
+                                <View style={styles.categoryTextView}>
+                                    <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
+                                        { ...styles.smallCardText }}>{item.name}</Text>
+                                </View>
+                            </View>
+                        </Pressable>
+                    )}
+
+                />
+            </View>
+
+
+            <View style={styles.headerTextView}>
+                <Text style={styles.headerText}>Sản phẩm</Text>
+            </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}>Danh mục</Text>
-                </View>
 
-                <View>
-                    {/* Categories list  */}
-                    <FlatList
-                        style={{ marginLeft: 10, marginTop: 3 }}
-                        data={categoryData}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        keyExtractor={(item, index) => index.id}
-                        extraData={indexCheck}
-                        renderItem={({ item, index }) => (
-                            <Pressable
-                                onPress={() => { setIndexCheck(item.id) }}
-                            >
-                                <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
 
-                                    <Image
-                                        style={{ height: 75, width: 100 }}
-                                        source={item.image}
-                                    />
-
-                                    <View style={styles.categoryTextView}>
-                                        <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
-                                            { ...styles.smallCardText }}>{item.name}</Text>
-                                    </View>
-                                </View>
-                            </Pressable>
-                        )}
-
-                    />
-                </View>
-
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}>Sản phẩm</Text>
-                </View>
 
                 {/* Product list  */}
                 <View>
@@ -67,16 +70,18 @@ export default function HomeScreen({ navigation }) {
                         showsVerticalScrollIndicator={false}
                         horizontal={false}
                         numColumns={2}
-                        data={filterData1}
+                        data={filterData2}
                         keyExtractor={item => item.id.toString}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
                             <View >
                                 <ProductCard
+                                    navigation={navigation}
                                     screenWidth={SCREEN_WIDTH * 0.40}
                                     images={item.image}
                                     ProductName={item.name}
                                     Price={item.gia}
+                                    id={item.id}
                                 />
                             </View>)}
                     />
@@ -134,7 +139,8 @@ const styles = StyleSheet.create({
     },
     headerTextView: {
         marginLeft: 20,
-        marginTop: 20,
+        marginTop: 10,
+        marginBottom:8,
         paddingVertical: 3,
     },
     smallCard: {

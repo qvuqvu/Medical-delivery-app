@@ -11,7 +11,7 @@ import HeaderProject from '../components/HeaderProduct';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
 const SCREEN_WIDTH = Dimensions.get('window').width;
-export default function StoreDetail({ navigation, route }) {
+export default function ProductInfo({ navigation, route }) {
     const user = auth().currentUser;
     const [count, setCount] = useState(0)
     const [isOpen, setIsOpen] = useState(false)

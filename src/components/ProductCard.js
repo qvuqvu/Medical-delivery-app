@@ -8,20 +8,19 @@ import Icon1 from 'react-native-vector-icons/AntDesign'
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default function ProductCard({
+export default function ProductCard({navigation,
     ProductName,
     Price,
     images,
-    screenWidth
+    screenWidth,
+    id
 }) {
 
     return (
         <TouchableWithoutFeedback
             onPress={() => {
-                Keyboard.dismiss()
-                setModalVisible(false)
-                setTextInputFossued(true)
-                navigation.navigate("ProductInfo", { id: item.id })
+                navigation.push("ProductInfo", { id: id })
+                // navigation.goback()
             }}
         >
             <View style ={styles.cardView}>

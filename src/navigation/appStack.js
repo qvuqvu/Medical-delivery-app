@@ -6,6 +6,7 @@ import medical from '../screens/medical';
 import DrawerNavigator from './DrawerNavigator';
 import StoreDetail from '../screens/StoreDetail';
 import MyShoppingScreen from '../screens/MyShoppingScreen';
+import ProductCard from '../components/ProductCard';
 
 const App = createNativeStackNavigator();
 
@@ -17,6 +18,14 @@ export function AppStack() {
             <App.Screen
                 name="App"
                 component={DrawerNavigator}
+                options={{
+                    headerShown: false,
+                }}
+            />
+
+            <App.Screen
+                name="card"
+                component={ProductCard}
                 options={{
                     headerShown: false,
                 }}
