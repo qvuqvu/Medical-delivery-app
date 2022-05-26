@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback,TouchableOpacity, ImageBackground, Dimensions } from 'react-native'
 import React from 'react'
 import { colors, paremeter } from '../global/styles';
 import {
     Icon
 } from 'react-native-elements';
+import Icon1 from 'react-native-vector-icons/AntDesign'
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function ProductCard({
     ProductName,
@@ -14,48 +16,52 @@ export default function ProductCard({
 }) {
 
     return (
-        <TouchableOpacity>
-            <View style={{ ...styles.cardView, width: screenWidth, }}>
-                <Image
-                    style={{ ...styles.image, width: "100%" }}
-                    source={images}
-                />
-
-                <View>
+        <TouchableWithoutFeedback
+            onPress={() => {
+                Keyboard.dismiss()
+                setModalVisible(false)
+                setTextInputFossued(true)
+                navigation.navigate("ProductInfo", { id: item.id })
+            }}
+        >
+            <View style ={styles.cardView}>
+                <View style={[styles.imageView, { marginTop: 15 }, {width: screenWidth}]}>
+                    <ImageBackground
+                        style={styles.image}
+                        source={{ uri: images }}
+                    >
+                    </ImageBackground>
                     <View>
-                        <Text style={styles.ProductName}>{ProductName}</Text>
+                        <Text style={{ color: colors.grey1, textAlign: 'center' }}>{ProductName}</Text>
                     </View>
-
-                    <View style={{ flex: 1, flexDirection: "row" }}>
-
-                        <View style={styles.Price}>
-
-                            <Text style={styles.UnitCurrency}> {Price} đ</Text>
-                        </View>
-
-                        {/* <View style ={{flex:9, flexDirection:"row"}}>
-                        <Text style ={styles.address}>{businessAddress}</Text>
-                    </View> */}
-
+                    <View>
+                        <Text style={[{ color: colors.price, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
+                    </View>
+                    <View style={{ flexDirection: "row", marginBottom: 15  }}>
+                        <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
+                            <Icon1 name='shoppingcart' size={35} >
+                            </Icon1>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
+                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
             </View>
-
-            {/* <View style ={styles.review}>
-                   <Text style ={styles.average}>{averageReview}</Text>   
-                   <Text style ={styles.numberOfReview}>{numberOfReview} reviews</Text>  
-            </View> */}
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
     )
+
 
 }
 
 const styles = StyleSheet.create({
+
+    
+
     cardView: {
-        padding: 15,
-        marginBottom: 20,
-        marginHorizontal: 9,
+        padding: 5,
+        marginBottom: 10,
+        marginHorizontal: 5,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
         borderColor: colors.buttons,
@@ -63,13 +69,25 @@ const styles = StyleSheet.create({
         backgroundColor: colors.cardbackground,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
+        
 
 
     },
+
+    imageView: {
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        width: SCREEN_WIDTH * 0.3,
+        height: SCREEN_WIDTH * 0.7,
+        marginLeft: SCREEN_WIDTH * 0.035,
+        marginBottom: SCREEN_WIDTH * 0.035
+    },
+    
     image: {
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
-        height: 130,
+        height: SCREEN_WIDTH * 0.35,
+        width: SCREEN_WIDTH * 0.35,
+        borderRadius: 10,
     },
 
     shadow: {
@@ -84,7 +102,7 @@ const styles = StyleSheet.create({
     },
     ProductName: {
         fontSize: 17,
-        fontWeight: 'bold',
+        fontWeight: 'semibold',
         color: colors.grey1,
         marginTop: 20,
         marginLeft: 10
@@ -95,7 +113,7 @@ const styles = StyleSheet.create({
         borderRightColor: colors.grey4,
         paddingHorizontal: 5,
         // borderRightWidth: 1,
-        
+
     },
     UnitCurrency: {
         fontSize: 16,
@@ -110,17 +128,6 @@ const styles = StyleSheet.create({
         color: colors.grey2,
         paddingHorizontal: 10
     },
-
-    //  review :{
-    //     position:"absolute",
-    //     top:0,
-    //     right:10,
-    //     backgroundColor:'rgba(52, 52, 52,0.3)',
-    //     padding:2,alignItems:"center",
-    //     justifyContent:"center", 
-    //     borderTopRightRadius:5,
-    //     borderBottomLeftRadius:12 
-    //  },
 
     average: {
         color: "white",

@@ -5,10 +5,8 @@ import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
-import { ProductData, categoryData } from '../global/Data';
+import { ProductData, categoryData, filterData1 } from '../global/Data';
 import ProductCard from '../components/ProductCard';
-
-
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -65,27 +63,22 @@ export default function HomeScreen({ navigation }) {
                 {/* Product list  */}
                 <View>
                     <FlatList
-                        style={{ marginLeft: 25, marginBottom: 10, marginTop: 20 }}
+                        style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
                         showsVerticalScrollIndicator={false}
                         horizontal={false}
                         numColumns={2}
-                        data={ProductData}
+                        data={filterData1}
                         keyExtractor={item => item.id.toString}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
                             <View >
                                 <ProductCard
-                                    screenWidth={SCREEN_WIDTH * 0.4}
-                                    images={item.images}
-                                    ProductName={item.ProductName}
-                                    Price={item.Price}
-                                    businessAddress={item.businessAddress}
-                                    averageReview={item.averageReview}
-                                    numberOfReview={item.numberOfReview}
-
+                                    screenWidth={SCREEN_WIDTH * 0.40}
+                                    images={item.image}
+                                    ProductName={item.name}
+                                    Price={item.gia}
                                 />
-                            </View>
-                        )}
+                            </View>)}
                     />
                 </View>
             </ScrollView>
