@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import Icon3 from 'react-native-vector-icons/EvilIcons'
 import Icon4 from 'react-native-vector-icons/AntDesign'
@@ -15,6 +14,77 @@ import { discount } from '../global/Data';
 export default function MyOrder({ navigation, route }) {
     const [checked, setChecked] = useState(false);
     console.log(route.params.items)
+    const [num, setNum] = useState(1);
+    
+    const renderItem = ({ item }) => (
+        <ScrollView>
+            <View style={{ alignSelf: 'center', width: 380 }}>
+                <View style={{ backgroundColor: '#ebf3f4', height: 160, justifyContent: 'center', marginTop: 10 }}>
+                    <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                        <Image
+                            style={{ width: 22, height: 22, }}
+                            source={require('../global/image/store.png')} />
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>Nhà Thuốc Ngọc Anh</Text>
+                        <Icon3
+                            name='chevron-right'
+                            size={30}
+                            color='black'
+                            style={{ marginLeft: 10 }}
+                        />
+                        <Icon3
+                            name='close'
+                            size={22}
+                            color='black'
+                            style={{ marginLeft: 'auto', marginRight: 10, color: 'black' }}
+                            onPress={() => {
+                                
+                            }}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Image
+                                style={{ width: 80, height: 80, resizeMode: "cover" }}
+                                source={{ uri: item.image }} />
+                        </View>
+                        <View style={{ marginLeft: 10 }}>
+                            <View style={{ width: 240, height: 20 }}>
+                                <Text style={{ color: 'black', fontSize: 16 }}>{item.name}</Text>
+                            </View>
+                            <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.gia}</Text>
+                            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                                <TouchableOpacity
+
+                                >
+                                    <View style={{ borderWidth: 1, borderColor: 'grey' }}>
+                                        <Icon4
+                                            name='minus'
+                                            size={20}
+                                            color='black'
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                                <View style={{ borderWidth: 1, borderColor: 'grey', width: 40, alignItems: 'center' }}>
+                                    <Text style={{ color: 'black' }}>1</Text>
+                                </View>
+                                <TouchableOpacity
+
+                                >
+                                    <View style={{ borderWidth: 1, borderColor: 'grey' }}>
+                                        <Icon4
+                                            name='plus'
+                                            size={20}
+                                            color='black'
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </ScrollView>
+    );
     return (
         <View style={{ flex: 1 }}>
             <HeaderOrder navigation={navigation} />
@@ -40,12 +110,12 @@ export default function MyOrder({ navigation, route }) {
                         />
                     </View>
                 </View>
-                <View>
-                    {/* <FlatList data={item}
-                        renderItem={({ item, index }) => <ListItem item={item} />}
-                        contentContainerStyle={{ paddingBottom: 100 }}
-                        showsVerticalScrollIndicator={false}
-                    /> */}
+                <View style={{height:'40%'}}>
+                    <FlatList
+                        data={route.params.items}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                    />
                 </View>
                 <View style={{ marginTop: 10, marginBottom: 10, height: '15%' }}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>

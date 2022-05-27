@@ -5,7 +5,7 @@ import { colors, paremeter } from '../global/styles';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
-import { ProductData, categoryData, filterData1, thuoc } from '../global/Data';
+import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 
 
@@ -70,7 +70,7 @@ export default function HomeScreen({ navigation }) {
                         showsVerticalScrollIndicator={false}
                         horizontal={false}
                         numColumns={2}
-                        data={thuoc}
+                        data={Totaldate}
                         keyExtractor={item => item.id.toString}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (

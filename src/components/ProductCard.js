@@ -20,7 +20,6 @@ export default function ProductCard({navigation,
         <TouchableWithoutFeedback
             onPress={() => {
                 navigation.push("ProductInfo", { id: id })
-                // navigation.goback()
             }}
         >
             <View style ={styles.cardView}>

@@ -84,9 +84,6 @@ export default function MyShoppingScreen({ navigation }) {
                 checkboxValue: checkboxValue,
             },
         });
-    // const cartItems=(()=>{})
-    // const isMedicalInCart = (medical, cartItems) =>
-    // Boolean(cartItems.find((item) => item.id === medical.id));
     const ListItem = ({ item }) => {
         return (
             <ScrollView>
@@ -96,7 +93,7 @@ export default function MyShoppingScreen({ navigation }) {
                             <Image
                                 style={{ width: 22, height: 22, }}
                                 source={require('../global/image/store.png')} />
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>Nhà Thuốc Ngọc Anh</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.items.nhathuoc}</Text>
                             <Icon3
                                 name='chevron-right'
                                 size={30}
@@ -174,7 +171,7 @@ export default function MyShoppingScreen({ navigation }) {
                             <Image
                                 style={{ width: 22, height: 22, }}
                                 source={require('../global/image/store.png')} />
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>Nhà Thuốc Ngọc Anh</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.items.nhathuoc}</Text>
                             <Icon3
                                 name='chevron-right'
                                 size={30}
