@@ -13,14 +13,16 @@ import { test } from '../global/Data';
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import ViewCart from './ViewCart';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
+
     const user = auth().currentUser;
     const [getdoc, setdoc] = useState([]);
     const [num, setNum] = useState(1);
-    const [data, setData] = useState(test);
-    const arr = []
     const [getdoc1, setdoc1] = useState(
         {
             items: [{ name: "", image: "", id: "0", gia: "" }],
@@ -71,31 +73,19 @@ export default function MyShoppingScreen({ navigation }) {
                 addd();
             });
     }
-    const handleMinusNum = () => {
-        if (num > 1) {
-            setNum(num - 1);
-        }
-    }
-    const handlePlusNum = () => {
-        setNum(num + 1);
-    }
 
-    const selectItem = (item, checkboxValue) => {
-        if (!checkboxValue) {
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].id == item.items.id) {
-                    arr.splice(i, 1)
-                }
-            }
-            console.log('remove')
-            console.log(arr)
-        }
-        else {
-            arr.push(item.items)
-            console.log("added")
-            console.log(arr)
-        }
-    }
+    const dispatch = useDispatch();
+
+    const selectItem = (item, checkboxValue) =>
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        checkboxValue: checkboxValue,
+      },
+    });
+
+    var total = 1;
     const ListItem = ({ item }) => {
         return (
             <ScrollView>
@@ -129,7 +119,7 @@ export default function MyShoppingScreen({ navigation }) {
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
                                     // isChecked={isFoodInCart(food, cartItems)}
-                                    onPress={(checkboxValue) => selectItem(item, checkboxValue)}
+                                    onPress={(checkboxValue) => selectItem(item.items,checkboxValue)}
                                 />
                                 <Image
                                     style={{ width: 80, height: 80, resizeMode: "cover" }}
@@ -142,7 +132,7 @@ export default function MyShoppingScreen({ navigation }) {
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
                                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                                     <TouchableOpacity
-                                        onPress={handleMinusNum}
+                                      
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -156,7 +146,7 @@ export default function MyShoppingScreen({ navigation }) {
                                         <Text style={{ color: 'black' }}>{num}</Text>
                                     </View>
                                     <TouchableOpacity
-                                        onPress={handlePlusNum}
+                                        
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -221,7 +211,7 @@ export default function MyShoppingScreen({ navigation }) {
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
                                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                                     <TouchableOpacity
-                                        onPress={handleMinusNum}
+                            
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -235,7 +225,7 @@ export default function MyShoppingScreen({ navigation }) {
                                         <Text style={{ color: 'black' }}>{num}</Text>
                                     </View>
                                     <TouchableOpacity
-                                        onPress={handlePlusNum}
+                              
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -281,29 +271,7 @@ export default function MyShoppingScreen({ navigation }) {
                         showsVerticalScrollIndicator={false}
                     />)}
             </View>
-            <View style={{ flexDirection: 'row', height: 60, justifyContent: "space-between" }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 5 }}>
-                    <RadioButton
-                        value="all"
-
-                    />
-                    <Text style={{ color: 'black', fontSize: 16 }}>Tất cả</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ marginRight: 15, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tổng tiền</Text>
-                        <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}>0đ</Text>
-                    </View>
-                    <TouchableOpacity
-                        style={{ width: 120, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}
-                        onPress={() => { }}
-                    >
-                        <View>
-                            <Text style={{ color: 'white', fontSize: 16 }}>Mua Hàng</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <ViewCart navigation={navigation} />
         </View >
     )
 }

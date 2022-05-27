@@ -9,6 +9,7 @@ import MyShoppingScreen from '../screens/MyShoppingScreen';
 import ProductCard from '../components/ProductCard';
 import Discount from '../screens/Discount';
 
+
 const App = createNativeStackNavigator();
 
 export function AppStack() {

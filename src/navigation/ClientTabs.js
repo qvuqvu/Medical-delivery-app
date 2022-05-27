@@ -64,22 +64,6 @@ export default function RootClientTabs() {
                     }
                 }
             />
-            {/* <ClientTabs.Screen
-                name='MyShopping'
-                component={MyShoppingScreen}
-                options={
-                    {
-                        tabBarLabel: "My Shopping",
-                        tabBarIcon: ({ color, size }) => (
-                            <Icon3
-                                name='shoppingcart'
-                                color={color}
-                                size={size}
-                            />
-                        )
-                    }
-                }
-            /> */}
             <ClientTabs.Screen
                 name='MyFavorite'
                 component={MyFavoriteScreen}
