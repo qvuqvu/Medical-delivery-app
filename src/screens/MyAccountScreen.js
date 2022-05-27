@@ -1,13 +1,14 @@
 import React, { useState,useEffect, useTransition } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions,TextInput,Modal,Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions,TextInput,Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
 import Icon1 from "react-native-vector-icons/FontAwesome"
-import { Avatar } from 'react-native-elements'
+import { Avatar,Button } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import DatetimePicker from "@react-native-community/datetimepicker"
-import {discount} from '../global/Data'
+import {discount} from "../global/Data"
+
 
 export default function MyAccountScreen({ navigation }) {
     const [fullname,setfullname]=useState("")
@@ -58,7 +59,9 @@ export default function MyAccountScreen({ navigation }) {
             }
               });
               
-        });    
+        }); 
+        
+        
       });
       const update=()=>{
         firestore()
@@ -78,6 +81,7 @@ export default function MyAccountScreen({ navigation }) {
                         sex:sex1,         
                     })
             }
+            
               });
               
         });
@@ -131,11 +135,9 @@ export default function MyAccountScreen({ navigation }) {
             </View>
             <View style={{ backgroundColor: 'white', width: "100%", height: '45%', marginTop: 10 }}>
                 <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Thông tin cá nhân</Text>
-                <View style={{ alignItems: "center", marginTop: 15 }}>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Cập nhật </Text>
-                </TouchableOpacity>
-            </View>
+                <View style={{ alignItems: "center",marginTop:-30,marginLeft:270}}>
+                <Button title='Cập nhật' onPress={() => setModalVisible(true)}/>      
+                </View>
                 <Modal
                 animationType="slide"
                 transparent={true}
@@ -153,8 +155,8 @@ export default function MyAccountScreen({ navigation }) {
                         style={{marginLeft:265,marginTop:-20}}
                         />
                         </TouchableOpacity>
-                        <Text style={{}}>Cập nhật thông tin</Text>
-                        <View>
+                        <Text style={{fontSize:20,fontWeight:'bold',color:colors.black}}>Cập nhật thông tin</Text>
+                        <View style={{marginTop:15}}>
                             <TextInput
                                 style={styles.textinput3}
                                 placeholder="Full Name"
@@ -167,8 +169,8 @@ export default function MyAccountScreen({ navigation }) {
                                 onChangeText={(txt)=>setphonenumber1(txt)}
                                 value={phonenumber1}
                             />
-                              <View>
-                                <Button onPress={showDatepicker} title="Ngày sinh"/>
+                              <View style={{width:320,marginLeft:21}}>
+                                <Button onPress={showDatepicker} title="Ngày sinh" buttonStyle={{alignContent:"center",borderRadius:20,height:40,width:320,backgroundColor:colors.blue}}/>
                                 {show &&(
                                     <DatetimePicker
                                     testID="dateTimePicker"
@@ -182,7 +184,7 @@ export default function MyAccountScreen({ navigation }) {
                               
                             </View>
                               <TextInput
-                                style={styles.textinput3}
+                                style={[styles.textinput3,{marginTop:17}]}
                                 placeholder="Sex"
                                 onChangeText={(txt)=>setsex1(txt)}
                                 value={sex1}
@@ -196,7 +198,7 @@ export default function MyAccountScreen({ navigation }) {
                         </View>
                         <Button
                             title="Lưu thông tin"
-                            buttonStyle={{alignContent:"center",borderRadius:15,height:45,width:250,backgroundColor:colors.blue,marginLeft:8}}
+                            buttonStyle={{alignContent:"center",borderRadius:20,height:45,width:250,backgroundColor:colors.blue,marginLeft:8}}
                             titleStyle={styles.buttonTitle}
                             onPress={update}
                        />
