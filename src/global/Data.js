@@ -86,7 +86,7 @@ export const filterData = [
     { name: "Ung thư, ung bướu", image: "https://cdn3.iconfinder.com/data/icons/camping-indigo-vol-2/256/Prescription_Medication-512.png", id: "13" },
 ];
 
-export const filterData1 = [
+export const Thietbiyte = [
     { name: "Dung dịch sát khuẩn Cồn 70 độ Dr.Line (có vòi xịt)", image: "https://cdn.medigoapp.com/product/64e4f40b031749d3bc910811f152c03a./file/e9f872c1f2bc57271badc848a1c703ec", id: "0", gia: "48.000 đ/chai" },
     { name: "Máy đo nồng độ oxy trong máu Sp02 và nhịp tim", image: "https://cf.shopee.vn/file/e0413447c61b17b4e88dda0b0c18aa58", id: "1", gia: "100.000 đ/hộp" },
     { name: "Nước muối sinh lý Nam Hà Natri Clorid 0.9% chai", image: "https://www.ytecaocap.com/uploads/Products/2653/m_2653.jpg", id: "2", gia: "12.000 đ/chai" },
@@ -135,7 +135,7 @@ export const test = [
     { name: "Cao dán giảm đau Salonpas hộp 12 miếng", image: "https://cf.shopee.vn/file/d1393b7b65ce3c8f13815e6bc0d59719", id: "3", gia: "12.000 đ/hộp" },
     { name: "Dung dịch sát khuẩn, khử khuẩn Providon lod", image: "https://cdn.medigoapp.com/product/05a5503fe48b4f06a3736a282ae2fceb.jpg", id: "4", gia: "7.000 đ/hộp" },
 ]
-export const filterData2 = [
+export const thuoc = [
     { name: "Dung dịch xịt mũi NINOSAT hộp 1 chai 50", image: 'https://cf.shopee.vn/file/d3261f73bad1b215933e160ac841e5e7', id: "0", gia: "35.000 đ/hộp" },
     { name: "Thuốc nhỏ mắt - nhỏ mũi Natri Clorid 0.9%", image: "https://sieuthithuocdongy.vn/upload/images/nuoc-muoi-nho-mat-natri-clorid-0-9-pharmedic-chai-10ml.jpg", id: "1", gia: "3.200 đ/hộp" },
     { name: "Thuốc trị tiêu chảy, đau dạ dày tá tràng ruột", image: "https://img.thuocbietduoc.com.vn/images/drugs/2018/12/Smeclife_21-311218.jpg", id: "2", gia: "5.000 đ/hộp" },
@@ -176,7 +176,7 @@ export const filterData2 = [
     { name:"Dung dịch xịt mũi kháng khuẩn Dr.Nasal Kids hộp 1 chai 70ml",image:"https://cdn.medigoapp.com/product/57a50c4dd4174842a1f7024f581c773c.jpg",id:"37",gia:"40.000 đ/hộp"},
 ];
 
-export const filterData3=[
+export const thucphamchucnang=[
     {name:"Xịt họng keo ong Thái Sơn hộp 1 chai 20ml",image:"https://cf.shopee.vn/file/a4e7f8017d3d41c6e41a795c80785d15",id:"0",gia:"90.000 đ/hộp"},
     {name:"Viên sủi Vitamed DIAMOND (hương cam)",image:"https://cdn.medigoapp.com/product/1c90b8adb5d944dbb5ea7111252ec0b0.jpeg",id:"1",gia:"75.000 đ/tuýp"},
     {name:"Men vi sinh Bacibio Extra hộp 20 ống",image:"https://cdn.medigoapp.com/product/2cf2089940574f3b8cf78eaf7d3cb634.jpg",id:"2",gia:"105.000 đ/hộp"},
