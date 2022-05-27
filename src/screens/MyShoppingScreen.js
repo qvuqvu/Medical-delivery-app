@@ -84,12 +84,9 @@ export default function MyShoppingScreen({ navigation }) {
         checkboxValue: checkboxValue,
       },
     });
-    const returnCost = (gia) => {
-        var a = gia.split(" ");
-        console.log(a[0])
-    }
-
-    var total = 1;
+    // const cartItems=(()=>{})
+    // const isMedicalInCart = (medical, cartItems) =>
+    // Boolean(cartItems.find((item) => item.id === medical.id));
     const ListItem = ({ item }) => {
         return (
             <ScrollView>
@@ -105,7 +102,6 @@ export default function MyShoppingScreen({ navigation }) {
                                 size={30}
                                 color='black'
                                 style={{ marginLeft: 10 }}
-                                onPress={returnCost(item.items.gia)}
                             />
                             <Icon3
                                 name='close'
@@ -123,7 +119,7 @@ export default function MyShoppingScreen({ navigation }) {
                                     style={{ marginLeft: 10 }}
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
-                                    // isChecked={isFoodInCart(food, cartItems)}
+                                    // isChecked={isMedicalInCart(item.items, cartItems)}
                                     onPress={(checkboxValue) => selectItem(item.items,checkboxValue)}
                                 />
                                 <Image
@@ -250,7 +246,7 @@ export default function MyShoppingScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <HeaderSimple navigation={navigation} title="Giỏ Hàng" />
+            <HeaderSimple navigation={navigation} title="Giỏ Hàng"  />
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                     source={require('../global/image/cart_purchase.png')}

@@ -5,8 +5,20 @@ import { colors, parameters } from '../global/styles'
 // import IconBadge from 'react-native-icon-badge'
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { Badge } from '@rneui/base'
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function HeaderProject({ navigation, title }) {
+    const dispatch = useDispatch();
+    const setnull = (item,checkboxValue) => {
+        dispatch({
+            type: "DELETE_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
+    }
     var BadgeCount = 1;
     return (
         <View style={styles.header}>
@@ -16,6 +28,7 @@ export default function HeaderProject({ navigation, title }) {
                     color={colors.cardbackground}
                     size={25}
                     onPress={() => {
+                        setnull([],false)
                         navigation.goBack()
                     }}
                 />
@@ -43,6 +56,6 @@ const styles = StyleSheet.create({
         color: colors.headerText,
         fontSize: 21,
         fontWeight: "bold",
-        marginRight:25
+        marginRight: 25
     }
 })

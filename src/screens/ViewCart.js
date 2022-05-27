@@ -4,7 +4,6 @@ import { RadioButton } from 'react-native-paper';
 import { set } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
 export default function ViewCart({ navigation }) {
-
     const [gettotal, settotal] = useState(1);
     const items = useSelector((state) => state.cartReducer.selectedItems.items)
     const returnCost = (gia) => {
