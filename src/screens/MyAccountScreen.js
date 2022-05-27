@@ -36,6 +36,19 @@ export default function MyAccountScreen({ navigation }) {
         showMode("date");
     };
 
+    const createuser=()=>{
+        setModalVisible(true);
+        if(user.displayName !=""){
+            firestore().collection("Users"+user.uid).add({
+                phone_number:"",
+                datetime:"",
+                address:"",
+                sex:""
+            }).then(()=>{
+                console.log("User add!");
+            })
+        }
+    }
     const formattedDate = datetime.getDate() + "/" + (datetime.getMonth() + 1) + "/" + datetime.getFullYear()
     const onChange=(event,selectedDate)=>{
         const currentDate=selectedDate||date;
@@ -56,14 +69,24 @@ export default function MyAccountScreen({ navigation }) {
                setemail(documentSnapshot.data().email_account)
                setdate(documentSnapshot.data().datetime)
                setaddress(documentSnapshot.data().address)
+               setsex(documentSnapshot.data().sex)
             }
-              });
-              
+              });            
         }); 
-        
-        
+        firestore()
+        .collection('Users'+user.uid)
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(documentSnapshot => {
+               setphonenumber(documentSnapshot.data().phone_number)
+               setdate(documentSnapshot.data().datetime)
+               setaddress(documentSnapshot.data().address)
+               setsex(documentSnapshot.data().sex)
+              });            
+        }); 
       });
       const update=()=>{
+          if(user.displayName==null){
         firestore()
         .collection('Users')
         .get()
@@ -85,12 +108,30 @@ export default function MyAccountScreen({ navigation }) {
               });
               
         });
+     }
+        else{
+         firestore()
+        .collection('Users'+user.uid)
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(documentSnapshot => {
+                    firestore()
+                    .collection('Users'+user.uid).doc(documentSnapshot.id)
+                    .update({
+                        phone_number:phonenumber1,
+                        datetime:formattedDate,
+                        address:address1,
+                        sex:sex1,         
+                    })
+              });
+        });
+        }
         setModalVisible(!modalVisible)
         setfullname1("");
         setaddress1("");
         setdatetime(new Date());
         setsex1("");
-        setphonenumber1("");    
+        setphonenumber1("");   
       }
     return (
         <View style={styles.container}>
@@ -136,7 +177,7 @@ export default function MyAccountScreen({ navigation }) {
             <View style={{ backgroundColor: 'white', width: "100%", height: '45%', marginTop: 10 }}>
                 <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Thông tin cá nhân</Text>
                 <View style={{ alignItems: "center",marginTop:-30,marginLeft:270}}>
-                <Button title='Cập nhật' onPress={() => setModalVisible(true)}/>      
+                <Button title='Cập nhật' onPress={createuser}/>      
                 </View>
                 <Modal
                 animationType="slide"
