@@ -4,7 +4,6 @@ import { RadioButton } from 'react-native-paper';
 import { set } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
 export default function ViewCart({ navigation }) {
-
     const [gettotal, settotal] = useState(1);
     const items = useSelector((state) => state.cartReducer.selectedItems.items)
     const returnCost = (gia) => {
@@ -29,7 +28,7 @@ export default function ViewCart({ navigation }) {
                 </View>
                 <TouchableOpacity
                     style={{ width: 120, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => { navigation.navigate("MyOrder") }}
+                    onPress={() => { navigation.navigate("MyOrder", { id: -1 }) }}
                 >
                     <View>
                         <Text style={{ color: 'white', fontSize: 16 }}>Mua Hàng</Text>

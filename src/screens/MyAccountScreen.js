@@ -9,6 +9,7 @@ import firestore from "@react-native-firebase/firestore"
 import DatetimePicker from "@react-native-community/datetimepicker"
 import {discount} from "../global/Data"
 
+
 export default function MyAccountScreen({ navigation }) {
     const [fullname,setfullname]=useState("")
     const[phonenumber,setphonenumber]=useState("")
