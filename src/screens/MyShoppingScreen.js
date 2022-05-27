@@ -77,13 +77,13 @@ export default function MyShoppingScreen({ navigation }) {
     const dispatch = useDispatch();
 
     const selectItem = (item, checkboxValue) =>
-    dispatch({
-      type: "ADD_TO_CART",
-      payload: {
-        ...item,
-        checkboxValue: checkboxValue,
-      },
-    });
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
     // const cartItems=(()=>{})
     // const isMedicalInCart = (medical, cartItems) =>
     // Boolean(cartItems.find((item) => item.id === medical.id));
@@ -120,7 +120,7 @@ export default function MyShoppingScreen({ navigation }) {
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
                                     // isChecked={isMedicalInCart(item.items, cartItems)}
-                                    onPress={(checkboxValue) => selectItem(item.items,checkboxValue)}
+                                    onPress={(checkboxValue) => selectItem(item.items, checkboxValue)}
                                 />
                                 <Image
                                     style={{ width: 80, height: 80, resizeMode: "cover" }}
@@ -133,7 +133,7 @@ export default function MyShoppingScreen({ navigation }) {
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
                                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                                     <TouchableOpacity
-                                      
+
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -147,7 +147,7 @@ export default function MyShoppingScreen({ navigation }) {
                                         <Text style={{ color: 'black' }}>{num}</Text>
                                     </View>
                                     <TouchableOpacity
-                                        
+
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -197,8 +197,8 @@ export default function MyShoppingScreen({ navigation }) {
                                     style={{ marginLeft: 10 }}
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
-                                // isChecked={isFoodInCart(food, cartItems)}
-                                // onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+                                    // isChecked={isFoodInCart(food, cartItems)}
+                                    onPress={(checkboxValue) => selectItem(item.items, checkboxValue)}
                                 />
 
                                 <Image
@@ -212,7 +212,7 @@ export default function MyShoppingScreen({ navigation }) {
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
                                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                                     <TouchableOpacity
-                            
+
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -226,7 +226,7 @@ export default function MyShoppingScreen({ navigation }) {
                                         <Text style={{ color: 'black' }}>{num}</Text>
                                     </View>
                                     <TouchableOpacity
-                              
+
                                     >
                                         <View style={{ borderWidth: 1, borderColor: 'grey' }}>
                                             <Icon4
@@ -246,7 +246,7 @@ export default function MyShoppingScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <HeaderSimple navigation={navigation} title="Giỏ Hàng"  />
+            <HeaderSimple navigation={navigation} title="Giỏ Hàng" />
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                     source={require('../global/image/cart_purchase.png')}

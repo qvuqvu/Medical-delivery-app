@@ -6,7 +6,7 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import HomeHeader from '../components/HomeHeader';
-import { filterData2 } from '../global/Data';
+import { thuoc } from '../global/Data';
 import HeaderProject from '../components/HeaderProduct';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
@@ -15,7 +15,7 @@ export default function ProductInfo({ navigation, route }) {
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
-    const cost = filterData2[route.params.id].gia.split(' ')
+    const cost = thuoc[route.params.id].gia.split(' ')
     const endLine = "\n"
     const [show, setShow] = useState(8)
     const handleOpen = () => {
@@ -33,19 +33,19 @@ export default function ProductInfo({ navigation, route }) {
         const db = firebase.firestore();
         db.collection('cart' + user.uid)
             .add({
-                items: filterData2[route.params.id],
+                items: thuoc[route.params.id],
                 date: date + '-' + month + '-' + year,
             })
             .then(() => {
                 console.log('User added!');
-                alert("added " + filterData2[route.params.id].name + " success");
+                alert("added " + thuoc[route.params.id].name + " success");
             });
     };
     useEffect(() => {
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == filterData2[route.params.id].id) {
+                    if (doc.data().items.id == thuoc[route.params.id].id) {
                         setCheck(1)
                     }
                 });
@@ -57,7 +57,7 @@ export default function ProductInfo({ navigation, route }) {
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == filterData2[route.params.id].id) {
+                    if (doc.data().items.id == thuoc[route.params.id].id) {
                         setCheck(1)
                     }
                 });
@@ -110,13 +110,13 @@ export default function ProductInfo({ navigation, route }) {
                         <View style={{ borderWidth: 0.6, borderColor: 'blue', width: 360, height: 300, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
                             <Image
                                 style={{ width: '90%', height: '90%', resizeMode: "cover" }}
-                                source={{ uri: filterData2[route.params.id].image }} />
+                                source={{ uri: thuoc[route.params.id].image }} />
                         </View>
                         <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{filterData2[route.params.id].name}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{thuoc[route.params.id].name}</Text>
                         </View>
                         <Text style={{ fontSize: 15, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
-                        <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{filterData2[route.params.id].gia}</Text>
+                        <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{thuoc[route.params.id].gia}</Text>
                     </View>
                     <View style={{ height: 150, backgroundColor: '#d2f4f9' }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>

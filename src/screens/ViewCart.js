@@ -28,7 +28,7 @@ export default function ViewCart({ navigation }) {
                 </View>
                 <TouchableOpacity
                     style={{ width: 120, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => { navigation.navigate("MyOrder", { id: -1 }) }}
+                    onPress={() => { navigation.navigate("MyOrder", { items: items }) }}
                 >
                     <View>
                         <Text style={{ color: 'white', fontSize: 16 }}>Mua Hàng</Text>

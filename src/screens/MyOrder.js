@@ -6,7 +6,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import Icon3 from 'react-native-vector-icons/EvilIcons'
 import Icon4 from 'react-native-vector-icons/AntDesign'
 import { colors, paremeter } from '../global/styles';
-import HeaderSimple from '../components/HeaderSimple';
+import HeaderOrder from '../components/HeaderOrder';
 import { TextInput } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 import { test } from '../global/Data';
@@ -14,11 +14,10 @@ import { discount } from '../global/Data';
 
 export default function MyOrder({ navigation, route }) {
     const [checked, setChecked] = useState(false);
-    const { name } = route.params;
-    const { discount1 } = route.params;
+    console.log(route.params.items)
     return (
         <View style={{ flex: 1 }}>
-            <HeaderSimple navigation={navigation} title="Thanh toán" />
+            <HeaderOrder navigation={navigation} />
             <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
@@ -42,7 +41,11 @@ export default function MyOrder({ navigation, route }) {
                     </View>
                 </View>
                 <View>
-                    <Text>Flat list here</Text>
+                    {/* <FlatList data={item}
+                        renderItem={({ item, index }) => <ListItem item={item} />}
+                        contentContainerStyle={{ paddingBottom: 100 }}
+                        showsVerticalScrollIndicator={false}
+                    /> */}
                 </View>
                 <View style={{ marginTop: 10, marginBottom: 10, height: '15%' }}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>
@@ -53,10 +56,10 @@ export default function MyOrder({ navigation, route }) {
                         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Phí vận chuyển</Text>
                         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>0 đ</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: 10, marginTop: 10 }}>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: 10, marginTop: 10 }}>
                         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{name}</Text>
                         <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>{discount1}</Text>
-                    </View>
+                    </View> */}
                 </View>
                 <View style={{ height: 70, justifyContent: 'center' }}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>

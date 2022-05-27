@@ -68,7 +68,6 @@ export const ProductData = [
     },
 
 ]
-
 export const filterData = [
     { name: "Mắt, tai mũi họng", image: "https://cdn3.iconfinder.com/data/icons/camping-indigo-vol-2/256/Prescription_Medication-512.png", id: "0" },
     { name: "Tiêu hóa, gan mật", image: "https://cdn3.iconfinder.com/data/icons/camping-indigo-vol-2/256/Prescription_Medication-512.png", id: "1" },
@@ -242,86 +241,6 @@ export const nhathuoc=[
         status:"Đóng cửa", averageReview:"4.9",id:"3"
     }
 ]
-
-export const restaurantsData = [
-    {
-        restaurantName: "Mc Donalds", farway: "21.2",
-        businessAdrress: "22 Bessi street, Cape Town", images: "https://ecycjxn9yfu.exactdn.com/wp-content/uploads/2021/04/46ea9e771ab7f49747e4c09ae02aa418.jpg",
-        averageReview: 4.9, numberOfReview: 272, coordinates: { lat: -26.1888612, lng: 28.246325 }, discount: 10, deliveryTime: 15,
-        collectTime: 5, foodType: "Burgers, Wraps,Milkshakes...",
-        productData: [{ name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg" },
-        { name: "Big Mac", price: 50.80, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg" }, {
-            name: "Chicken Burger",
-            price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg"
-        },
-        ],
-        id: 0
-    },
-
-    {
-        restaurantName: "KFC", farway: "12.7",
-        businessAdrress: "22 Bessi street, Cape Town", images: 'https://media-cdn.tripadvisor.com/media/photo-s/1b/99/44/8e/kfc-faxafeni.jpg',
-        averageReview: 4.3, numberOfReview: 306, coordinates: { lat: -26.1891648, lng: 28.2441808 }, discount: 20, deliveryTime: 30,
-        collectTime: 10, foodType: "Chicken,Chicken wings...",
-        productData: [{ name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg" },
-        { name: "Big Mac", price: 50.80, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg" }, {
-            name: "Chicken Burger",
-            price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg"
-        },
-        ],
-        id: 1
-    },
-
-    {
-        restaurantName: "Steers", farway: "5",
-        businessAdrress: "17 Olivia Rd, Johannesburg", images: 'https://businesstech.co.za/news/wp-content/uploads/2019/06/Mighty-King-Steer.png',
-        averageReview: 4.9, numberOfReview: 1272, coordinates: { lat: -26.1886781, lng: 28.244879 }, discount: 12, deliveryTime: 25,
-        collectTime: 15, foodType: "Flame grilled beef Burgers",
-        productData: [{ name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg" },
-        { name: "Big Mac", price: 50.80, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg" }, {
-            name: "Chicken Burger",
-            price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg"
-        },
-        ],
-        id: 2
-    },
-
-    {
-        restaurantName: "Roman Pizza", farway: "7",
-        businessAdrress: "15 Atlas Rd, Kempton Park", images: 'https://media.lacucinaitaliana.com/photos/5ff46f619405f8652a925314/2:1/w_1200,c_limit/pizza%20roman%20style%20%20cover.jpg',
-        averageReview: 4.3, numberOfReview: 700, coordinates: { lat: -26.1845336, lng: 28.2481691 }, discount: null, deliveryTime: 20,
-        collectTime: 10, foodType: "Chicken pizza, vegetarian pizza...",
-        productData: [{ name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg" },
-        { name: "Big Mac", price: 50.80, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg" }, {
-            name: "Chicken Burger",
-            price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg"
-        },
-        ],
-        id: 3
-    },
-]
-
-export const productData = [{
-    name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg",
-    details: "Two 100% fresh beef burger patties that are hot,deliciously", id: 0
-},
-{
-    name: "Big Mac", price: 50.80, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg",
-    details: "McFeast features two 100% fresh beef burger patties that are hot", id: 1
-},
-{ name: "Chicken Burger", price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg", details: "", id: 2 },
-
-{
-    name: "Hand cut chips", price: 29.30, image: "https://brioclapham.co.uk/wp-content/uploads/2020/11/Homemade-Potato-Chips.jpg",
-    details: "Two 100% fresh beef burger patties that are hot,deliciously", id: 3
-},
-{
-    name: "Big Mac", price: 70.20, image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/sriracha-glazed-chicken-burger-pickled-cabbage-b041944.jpg",
-    details: "McFeast features two 100% fresh beef burger patties that are hot", id: 4
-},
-{ name: "Chicken Burger", price: 70, image: "https://img.taste.com.au/iVfsU0oV/taste/2017/03/33_hawaiian_chicken_burger-35-edit-125119-1.jpg", details: "", id: 5 },
-
-];
 
 export const discount = [
     {
