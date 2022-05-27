@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet,Text,View,ScrollView,TextInput, Alert,TouchableOpacity} from "react-native";
+import { StyleSheet,Text,View,ScrollView,TextInput, Alert,TouchableOpacity, Platform} from "react-native";
 import {colors, parameters,title } from "../../global/styles";
 import Header from "../../components/Header"
 import { Formik } from "formik";
@@ -9,6 +9,7 @@ import * as Animatable from "react-native-animatable"
 import auth from "@react-native-firebase/auth"
 import firestore from "@react-native-firebase/firestore"
 import { SignInContext } from '../../contexts/authContext';
+import DatetimePicker from "@react-native-community/datetimepicker"
 
 const SignUpScreen=({navigation})=>{
     const[passwordFocussed,setPasswordFocussed]=useState(false)
@@ -17,18 +18,28 @@ const SignUpScreen=({navigation})=>{
     const[fullname,setfullname]=useState("");
     const[email,setemail]=useState("");
     const[password,setpassword]=useState("");
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [datetime,setdatetime]=useState(new Date())
-    const showDatePicker = () => {
-        setDatePickerVisibility(true);
+    const[address,setaddress]=useState("");
+    const[sex,setsex]=useState("");
+    const[date,setdate]=useState(new Date());
+    const[mode,setmode]=useState('date');
+    const[show,setShow]=useState(false);
+
+    const formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+    const onChange=(event,selectedDate)=>{
+        const currentDate=selectedDate||date;
+        setShow(false);
+        setdate(currentDate);  
     };
-    const hideDatePicker = () => {
-        setDatePickerVisibility(false);
+;
+    const showMode=(currentMode)=>{
+        setShow(true);
+        setmode(currentMode);
     };
-    const handleConfirm = (date) => {
-       setdatetime(date);
-       hideDatePicker();
+
+    const showDatepicker=()=>{
+        showMode("date");
     };
+
     async function signUp(){
         try{
             await auth().createUserWithEmailAndPassword(email,password)
@@ -36,7 +47,10 @@ const SignUpScreen=({navigation})=>{
             firestore().collection("Users").add({
                 phone_number:phonenumber,
                 full_name:fullname,
-                email_account:email
+                email_account:email,
+                datetime:formattedDate,
+                address:address,
+                sex:sex
                 
             }).then(()=>{
                 console.log("User add!");
@@ -89,8 +103,22 @@ const SignUpScreen=({navigation})=>{
                                 onChangeText={(txt)=>setfullname(txt)}
                                 value={fullname}
                                 />
+                               
                             </View>
-                    
+                            <View style={{width:365,marginTop:15}}>
+                                <Button onPress={showDatepicker} title="Ngày sinh"/>
+                                {show &&(
+                                    <DatetimePicker
+                                    testID="dateTimePicker"
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display="default"
+                                    onChange={onChange}
+                                    />
+                                )}
+                              
+                            </View>
                             <View style={styles.view10}>
                                 <View>
                                     <Icon
@@ -164,7 +192,7 @@ const SignUpScreen=({navigation})=>{
                 <View style={styles.view20}>
                     <Text style={{color:colors.grey1}}>Bạn đã sẵn sàng tạo một tài khoản với MedSOS ?</Text>
                 </View>
-                <View style={[styles.view21,{marginTop:22}]}>
+                <View style={[styles.view21,{marginTop:16}]}>
                     <Button
                     title="Đăng nhập"
                     buttonStyle={styles.button2}
