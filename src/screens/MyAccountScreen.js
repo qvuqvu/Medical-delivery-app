@@ -7,6 +7,7 @@ import { Avatar } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import DatetimePicker from "@react-native-community/datetimepicker"
+import {discount} from '../global/Data'
 
 export default function MyAccountScreen({ navigation }) {
     const [fullname,setfullname]=useState("")
