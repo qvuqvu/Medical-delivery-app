@@ -84,6 +84,10 @@ export default function MyShoppingScreen({ navigation }) {
         checkboxValue: checkboxValue,
       },
     });
+    const returnCost = (gia) => {
+        var a = gia.split(" ");
+        console.log(a[0])
+    }
 
     var total = 1;
     const ListItem = ({ item }) => {
@@ -101,6 +105,7 @@ export default function MyShoppingScreen({ navigation }) {
                                 size={30}
                                 color='black'
                                 style={{ marginLeft: 10 }}
+                                onPress={returnCost(item.items.gia)}
                             />
                             <Icon3
                                 name='close'
