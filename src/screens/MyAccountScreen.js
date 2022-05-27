@@ -1,36 +1,92 @@
 import React, { useState,useEffect, useTransition } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions,TextInput,Modal,Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
+import Icon1 from "react-native-vector-icons/FontAwesome"
 import { Avatar } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
-import { discount } from '../global/Data';
-/** */
+import DatetimePicker from "@react-native-community/datetimepicker"
 
 export default function MyAccountScreen({ navigation }) {
     const [fullname,setfullname]=useState("")
     const[phonenumber,setphonenumber]=useState("")
     const[email,setemail]=useState("");
     const[address,setaddress]=useState("");
+    const[date,setdate]=useState("")
+    const[sex,setsex]=useState("")
+    const [fullname1,setfullname1]=useState("")
+    const[phonenumber1,setphonenumber1]=useState("")
+    const[address1,setaddress1]=useState("");
+    const[sex1,setsex1]=useState("")
+    const [modalVisible, setModalVisible] = useState(false)
+    const[datetime,setdatetime]=useState(new Date());
+    const[mode,setmode]=useState('date');
+    const[show,setShow]=useState(false);
     const user = auth().currentUser;
+
+    const showMode=(currentMode)=>{
+        setShow(true);
+        setmode(currentMode);
+    };
+
+    const showDatepicker=()=>{
+        showMode("date");
+    };
+
+    const formattedDate = datetime.getDate() + "/" + (datetime.getMonth() + 1) + "/" + datetime.getFullYear()
+    const onChange=(event,selectedDate)=>{
+        const currentDate=selectedDate||date;
+        setShow(false);
+        setdatetime(currentDate);  
+    };
+
     useEffect(() => {
         firestore()
         .collection('Users')
         .get()
         .then(querySnapshot => {
             querySnapshot.forEach(documentSnapshot => {
+                
                 if(user.email==documentSnapshot.data().email_account){
                setfullname(documentSnapshot.data().full_name)
                setphonenumber(documentSnapshot.data().phone_number)
-               setemail(documentSnapshot.data().email_account)}
+               setemail(documentSnapshot.data().email_account)
+               setdate(documentSnapshot.data().datetime)
+               setaddress(documentSnapshot.data().address)
+            }
               });
-        });
-        
+              
+        });    
       });
-    
+      const update=()=>{
+        firestore()
+        .collection('Users')
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(documentSnapshot => {
+                
+                if(user.email==documentSnapshot.data().email_account){
+                    firestore()
+                    .collection('Users').doc(documentSnapshot.id)
+                    .update({
+                        full_name:fullname1,
+                        phone_number:phonenumber1,
+                        datetime:formattedDate,
+                        address:address1,
+                        sex:sex1,         
+                    })
+            }
+              });
+              
+        });
+        setModalVisible(!modalVisible)
+        setfullname1("");
+        setaddress1("");
+        setdatetime(new Date());
+        setsex1("");
+        setphonenumber1("");    
+      }
     return (
         <View style={styles.container}>
             <View style={{ backgroundColor: 'white' }}>
@@ -42,7 +98,7 @@ export default function MyAccountScreen({ navigation }) {
                         source={{ uri: user.photoURL ? user.photoURL : "https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
                     />
                     <Text style={{ color: 'black', fontSize: 20, marginTop: 15 }}>
-                    {user.displayName ? user.displayName : "Không tên"}
+                    {user.displayName ? user.displayName : fullname}
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10, marginRight: 10 }}>
@@ -69,10 +125,83 @@ export default function MyAccountScreen({ navigation }) {
                             <Text>Mã giảm giá</Text>
                         </View>
                     </TouchableOpacity>
+
                 </View>
             </View>
             <View style={{ backgroundColor: 'white', width: "100%", height: '45%', marginTop: 10 }}>
                 <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Thông tin cá nhân</Text>
+                <View style={{ alignItems: "center", marginTop: 15 }}>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Cập nhật </Text>
+                </TouchableOpacity>
+            </View>
+                <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible)}} >
+                        <Icon1
+                        size={20}
+                        name="close"
+                        style={{marginLeft:265,marginTop:-20}}
+                        />
+                        </TouchableOpacity>
+                        <Text style={{}}>Cập nhật thông tin</Text>
+                        <View>
+                            <TextInput
+                                style={styles.textinput3}
+                                placeholder="Full Name"
+                                onChangeText={(txt)=>setfullname1(txt)}
+                                value={fullname1}
+                            />
+                              <TextInput
+                                style={styles.textinput3}
+                                placeholder="Phone Number"
+                                onChangeText={(txt)=>setphonenumber1(txt)}
+                                value={phonenumber1}
+                            />
+                              <View>
+                                <Button onPress={showDatepicker} title="Ngày sinh"/>
+                                {show &&(
+                                    <DatetimePicker
+                                    testID="dateTimePicker"
+                                    value={datetime}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display="default"
+                                    onChange={onChange}
+                                    />
+                                )}
+                              
+                            </View>
+                              <TextInput
+                                style={styles.textinput3}
+                                placeholder="Sex"
+                                onChangeText={(txt)=>setsex1(txt)}
+                                value={sex1}
+                            />
+                            <TextInput
+                                style={styles.textinput3}
+                                placeholder="Address"
+                                onChangeText={(txt)=>setaddress1(txt)}
+                                value={address1}
+                            />
+                        </View>
+                        <Button
+                            title="Lưu thông tin"
+                            buttonStyle={{alignContent:"center",borderRadius:15,height:45,width:250,backgroundColor:colors.blue,marginLeft:8}}
+                            titleStyle={styles.buttonTitle}
+                            onPress={update}
+                       />
+                    </View>
+                </View>
+            </Modal>
                 <View>
                     <View style={styles.viewInfo}>
                         <Image
@@ -80,6 +209,7 @@ export default function MyAccountScreen({ navigation }) {
                             style={styles.styleImgItem}
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
+                            
                             <Text>Tên người dùng</Text>
                             <Text style={{ color: 'black', marginTop: 5 }}>{user.displayName ? user.displayName : fullname}</Text>
                         </View>
@@ -93,7 +223,7 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                             <Text>Số điện thoại</Text>
-                            <Text style={{ color: 'black', marginTop: 5 }}>{phonenumber}</Text>
+                            <Text  style={{ color: 'black', marginTop: 5 }} >{phonenumber}</Text>
                         </View>
                     </View>
                 </View>
@@ -105,7 +235,7 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                             <Text>Ngày sinh</Text>
-                            <Text style={{ color: 'black', marginTop: 5 }}>18/08/2002</Text>
+                            <Text style={{ color: 'black', marginTop: 5 }} >{date}</Text>
                         </View>
                     </View>
                 </View>
@@ -117,7 +247,7 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                             <Text>Giới tính</Text>
-                            <Text style={{ color: 'black', marginTop: 5 }}>Nam</Text>
+                            <Text style={{ color: 'black', marginTop: 5 }} >{sex}</Text>
                         </View>
                     </View>
                 </View>
@@ -135,7 +265,7 @@ export default function MyAccountScreen({ navigation }) {
                         style={{ height: 30, width: "10%", resizeMode: 'contain', marginLeft: 5, marginTop: 10 }}
                     />
                     <View style={{ width: "85%", marginLeft: 5 }}>
-                        <Text style={{ fontSize: 16, color: 'black' }}>36C/41 Đường Số 16, Linh Trung, Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam</Text>
+                        <Text style={{ fontSize: 16, color: 'black' }}>{address}</Text>
                         <TouchableOpacity style={{ marginTop: 5 }}>
                             <Text style={{ fontSize: 15, color: 'blue' }}>Mặc định</Text>
                         </TouchableOpacity>
@@ -182,5 +312,34 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: '100%',
         height: '100%',
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    textinput3: {
+        width:320,
+        borderWidth: 1,
+        borderColor: "#86939e",
+        marginHorizontal: 20,
+        borderRadius: 12,
+        marginBottom: 20
+    },
 })
