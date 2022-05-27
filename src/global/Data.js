@@ -125,6 +125,8 @@ export const filterData1 = [
     { name: "Băng thun Quang Mậu gói 1 cuộn 4 móc", image: "https://cdn.medigoapp.com/product/b4f2f3477f414fe4be541aeaef00ff55.jpg", id: "36", gia: "13.000 đ/cuộn" },
     { name: "Máy đo đường huyết SAFE-ACCU SINOCARE", image: "http://thietbiytevp.com/products/sinocare.jpg", id: "37", gia: "260.000 đ/hộp" },
     { name: "Dụng cụ rửa mũi Natip hộp 1 cái", image: "https://cdn.medigoapp.com/product/9afa68871eb149d6a4dbc06b2fd7587b.jpg", id: "38", gia: "23.000 đ/hộp" },
+
+    
 ]
 export const test = [
     { name: "Dung dịch xịt mũi NINOSAT hộp 1 chai 50", image: 'https://cf.shopee.vn/file/d3261f73bad1b215933e160ac841e5e7', id: "0", gia: "35.000 đ/hộp" },
@@ -171,6 +173,7 @@ export const filterData2 = [
     { name: "Trà gừng Traphaco hộp 10 túi x 3g", image: "https://thienducpharma.vn/wp-content/uploads/2020/04/tra-gung-traphaco.jpg", id: "34", gia: "12.000 đ/hộp" },
     { name: "Ống hít trị nghẹt mũi Axe Brand Inhaler vỉ 6 ống x 1.7g dịch thuốc", image: "https://cf.shopee.vn/file/c93edbee7b0a7a0d85ccb7f0489b7581", id: "35", gia: "15.000 đ/ống" },
     { name: "Kem bôi trị nấm da Comozol cream hộp 1 tuýp 10g", image: "https://img.thuocbietduoc.com.vn/images/drugs/2019/1/kem-comozol_21-13119.jpg", id: "36", gia: "19.000 đ/hộp" },
+    { name:"Dung dịch xịt mũi kháng khuẩn Dr.Nasal Kids hộp 1 chai 70ml",image:"https://cdn.medigoapp.com/product/57a50c4dd4174842a1f7024f581c773c.jpg",id:"37",gia:"40.000 đ/hộp"},
 ];
 
 export const filterData3=[
@@ -191,7 +194,53 @@ export const filterData3=[
     {name:"Thực phẩm bảo vệ sức khỏe Bổ Phổi",image:"https://cdn.medigoapp.com/product/bo_phoi_thymomodulin_0a92ac8cea.jpg",id:"14",gia:"150.000 đ/hộp"},
     {name:"Viên sủi cung cấp vitamin và khoáng chất",image:"https://cdn.medigoapp.com/product/A_Z_Fizz_Bo_sung_cac_vitamin_va_khoang_chat_4112a6054e.jpg",id:"15",gia:"78.000 đ/tuýp"},
     {name:"Viêm khớp Tâm Bình hộp 60 viên",image:"https://images.fpt.shop/unsafe/fit-in/600x600/filters:quality(80):fill(white)/nhathuoclongchau.com/images/product/2021/01/00007929-vien-khop-tam-binh-8483-5ff2_large.JPG",id:"16",gia:"90.000 đ/hộp"},
-    
+    {name:"Dạ dày chữ H HEDAVIT hộp 15 gói x 10ml",image:"https://cdn.medigoapp.com/product/z3428504654118_10b661932b3957f3102e7c2fb9ad8fb6_f51cabffcb.jpg",id:"17",gia:"100.000 đ/hộp"},
+    {name:"Combo đẹp da, móng, tóc Collagen + Biotin Youtheory lọ 390 viên & Vitamin E 180mg (KIRKLAND Signature) lọ 500 viên",image:"https://cdn.medigoapp.com/product/z3438121217404_3fb4e1e5a12f936b2630d3011942760a_ee43fe4be9.jpg",id:"18",gia:"1.080.000 đ/combo"},
+    {name:"Bổ sung kẽm hữu cơ NovoZinC drops hộp 1 lọ x 15ml",image:"https://cdn.medigoapp.com/product/3a196ae6f51374b59bb1bb05945eb7ff_630ced4123.png",id:"19",gia:"65.000 đ/hộp"},
+    {name:"Bổ sung dưỡng chất cho mắt Thiên Lý Nhãn hộp 3 vỉ x 10 viên",image:"https://cdn.medigoapp.com/product/z2868240305618a495060b716b2c74afc8ab7238db4ee3_1_5910_19b7f4f8b9.jpg",id:"20",gia:"80.000 đ/hộp"},
+    {name:"Hỗ trợ tăng cường sức đề kháng Sâm Ngọc Linh Boston hộp 6 vỉ x 10 viên",image:"https://cdn.medigoapp.com/product/vien_nang_sam_ngoc_linh_2_300x300_2ff97e7091.jpg",id:"21",gia:"280.000 đ/hộp"},
+    {name:"Dầu Tràm Cung Đình hộp 1 chai 10ml",image:"https://cdn.medigoapp.com/product/dau_tram_cung_dinh_gold_10ml_1_e7540c0bc7.png",id:"22",gia:"46.000 đ/hộp"},
+    {name:"Men vi sinh Bifina R hộp 60 gói",image:"https://cdn.medigoapp.com/product/d29b000c34e94defa8654ff47cd7fcff.png",id:"23",gia:"17.600 đ/hộp"},
+    {name:"Viên uống bổ sung vitamin tổng hợp Mumcare QT hộp 30 viên",image:"https://cdn.medigoapp.com/product/a3c8008142494a2c8f44613c308549f7.jpg",id:"24",gia:"220.000 đ/hộp"},
+    {name:"Viên uống Bổ Thận Inca lọ 30 viên",image:"https://cdn.medigoapp.com/product/bo_than_inca_1_44e68ec430.jpeg",id:"25",gia:"250.000 đ/hộp"},
+    {name:"Bổ sung lợi khuẩn Alive Probiotics hộp 30 gói",image:"https://cdn.medigoapp.com/product/6fb988c3a980436a8c0d26394c97eab0.png",id:"26",gia:"359.000 đ/hộp"},
+    {name:"Viên uống hoạt huyết dưỡng não Cevinton Forte With Citicoline hộp 30 viên",image:"https://cdn.medigoapp.com/product/af55c5556b7840f4985f9ce8ba90b791.png",id:"27",gia:"40.000 đ/hộp"},
+    {name:"Viên uống đề phòng các bệnh tim mạch Koligin-D hộp 60 viên",image:"https://cdn.medigoapp.com/product/47cd8fe45f42463b9d9e09da950fe470.png",id:"28",gia:"250.000 đ/hộp"},
+    {name:"Viên uống bổ não, thần kinh BỔ THẦN KINH Green hộp 1 lọ 30 viên",image:"https://cdn.medigoapp.com/product/300c5046cb9041d1b4511efeab6fb543.png",id:"29",gia:"200.000 đ/hộp"},
+    {name:"Thực phẩm bảo vệ sức khỏe Tràng Phục Linh Plus hộp 1 lọ x 80 viên",image:"https://cdn.medigoapp.com/product/3d17f14db3bf4d75adc2225d732018f5.png",id:"30",gia:"660.000 đ/hộp"},
+    {name:"Viên uống hỗ trợ tiêu hoá IMUPASIN hộp 3 vỉ x 10 viên",image:"https://cdn.medigoapp.com/product/IMUPASIN_Vien_uong_ho_tro_tieu_hoa_1_f4d7e5f6e5.png",id:"31",gia:"98.000 đ/hộp"},
+    {name:"Hỗ trợ điều trị tê bì chân tay TÊ BÌ CHI Fast hộp 30 viên",image:"https://cdn.medigoapp.com/product/e1cc84fa30da4f09a0a9e7475fbb0e68.png",id:"32",gia:"300.000 đ/hộp"},
+    {name:"Viên uống chiết xuất nhau thai cừu Premium Placenta Anti-Aging hộp 1 lọ 120 viên",image:"https://cdn.medigoapp.com/product/f44f95dc37814cc59c7506bef627887c.png",id:"33",gia:"1.300.000 đ/hộp"},
+    {name:"Hỗ trợ bổ phế, tăng cường sức đề kháng SynchroVitals V hộp 1 lọ 60 viên",image:"https://cdn.medigoapp.com/product/500073_e474d535_fit_300_300_9bf1f372fd.png",id:"34",gia:"345.000 đ/hộp"},
+    {name:"Viên uống bổ sung cho bà bầu PREGNA MOM DHA (Speclife) hộp 1 lọ 30 viên",image:"https://cdn.medigoapp.com/product/pregna_d4c1981a37.png",id:"35",gia:"170.000 đ/hộp"},
+    {name:"Viên giải rượu XRU-21 hộp 4 viên",image:"https://cdn.medigoapp.com/product/269a6fb25b12f607e400122b10703426_f64d5001bf.jpg",id:"36",gia:"18.000 đ/hộp"},
+    {name:"Viên uống bổ não MEGA BRAIN hộp 1 lọ 60 viên",image:"https://cdn.medigoapp.com/product/d6505cebb35212488c7d7875b2d8f89f_eef54fffbf.png",id:"37",gia:"360.000 đ/hộp"},
+    {name:"Combo tăng cường sinh lý nam V Oxy+ & Ginpower & Jetmen for 69",image:"https://cdn.medigoapp.com/product/combo_tcsl_81e6025215.png",id:"38",gia:"5.100.000 đ/combo"},
+    {name:"Viên tăng lực, bồi bổ sức khỏe Pharatonix Gold hộp 1 lọ 40 viên",image:"https://cdn.medigoapp.com/product/pharatonix_gold_hop_chai_v6_3c993e8d0b.png",id:"39",gia:"150.000 đ/hộp"},
+    {name:"Viên uống bổ sung Essential Vitamins Vitamins with Calcium hộp 1 lọ 60 viên",image:"https://cdn.medigoapp.com/product/essential_vitamins_1261f19c32.png",id:"40",gia:"250.000 đ/hộp"},
+]
+
+export const nhathuoc=[
+    {
+        name:"Nhà thuốc Hà My",farway:"19.6", address:"Quận 4, Thành phố Hồ Chí Minh", 
+        image:"https://www.medigoapp.com/assets/images/pharmacy-profile.svg",
+        status:"Đang mở cửa", averageReview:"4.0",id:"0"
+    },
+    {
+        name:"Nhà thuốc Green Pharma", farway:"15.5", address:"Hoàng Diệu 2, Thủ Đức, Hồ Chí Minh",
+        image:"https://www.medigoapp.com/assets/images/pharmacy-profile.svg",
+        status:"Đóng cửa", averageReview:"5.0",id:"1"
+    },
+    {
+        name:"Nhà thuốc Long Châu", farway:"10.4", address:"375 Hai Bà Trưng, P. Võ Thị Sáu, Q. 3, TP. Hồ Chí Minh",
+        image:"https://www.medigoapp.com/assets/images/pharmacy-profile.svg",
+        status:"Đang mở cửa", averageReview:"5.0",id:"2"
+    },
+    {
+        name:"Nhà thuốc Minh Châu", farway:"20.3", address:"226 Hai Bà Trưng Quận 1 TP.HCM",
+        image:"https://www.medigoapp.com/assets/images/pharmacy-profile.svg",
+        status:"Đóng cửa", averageReview:"4.9",id:"3"
+    }
 ]
 
 export const restaurantsData = [
