@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback,TouchableOpacity, ImageBackground, Dimensions } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, Dimensions } from 'react-native'
+import React,{useEffect,useState} from 'react'
 import { colors, paremeter } from '../global/styles';
 import {
     Icon
@@ -7,23 +7,66 @@ import {
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
+import auth from "@react-native-firebase/auth"
+import { Totaldate } from '../global/Data';
+import firestore, { firebase } from '@react-native-firebase/firestore';
 
-export default function ProductCard({navigation,
+export default function ProductCard({ navigation,
     ProductName,
     Price,
     images,
     screenWidth,
     id
 }) {
+    const user = auth().currentUser;
+    const [getcheck, setCheck] = useState(0)
+    const addCartToFireBase = () => {
+        const db = firebase.firestore();
+        db.collection('cart' + user.uid)
+            .add({
+                items: Totaldate[id],
+            })
+            .then(() => {
+                console.log('User added!');
+                alert("added " + Totaldate[id].name + " success");
+            });
+    };
+    useEffect(() => {
+        firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    if (doc.data().items.id == Totaldate[id].id) {
+                        setCheck(1)
+                    }
+                });
+            });
 
+    }, [])
+    const check = () => {
+        setCheck(0)
+        firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    if (doc.data().items.id == Totaldate[id].id) {
+                        setCheck(1)
+                    }
+                });
+            });
+        if (getcheck == 1) {
+            alert("exist");
+        }
+        else {
+            addCartToFireBase();
+        }
+    }
     return (
         <TouchableWithoutFeedback
             onPress={() => {
                 navigation.push("ProductInfo", { id: id })
             }}
         >
-            <View style ={styles.cardView}>
-                <View style={[styles.imageView, { marginTop: 15 }, {width: screenWidth}]}>
+            <View style={styles.cardView}>
+                <View style={[styles.imageView, { marginTop: 15 }, { width: screenWidth }]}>
                     <ImageBackground
                         style={styles.image}
                         source={{ uri: images }}
@@ -35,12 +78,21 @@ export default function ProductCard({navigation,
                     <View>
                         <Text style={[{ color: colors.price, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", marginBottom: 15  }}>
+                    <View style={{ flexDirection: "row", marginBottom: 15 }}>
                         <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
-                            <Icon1 name='shoppingcart' size={35} >
+                            <Icon1
+                            onPress={()=>{
+                                check()
+                            }}
+                                name='shoppingcart'
+                                size={35} >
                             </Icon1>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
+                        <TouchableOpacity
+                        onPress={() => { 
+                            navigation.navigate("MyOrder", { items: [Totaldate[id]] }) 
+                        }}
+                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
                             <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
                         </TouchableOpacity>
                     </View>
@@ -54,7 +106,7 @@ export default function ProductCard({navigation,
 
 const styles = StyleSheet.create({
 
-    
+
 
     cardView: {
         padding: 5,
@@ -67,7 +119,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.cardbackground,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        
+
 
 
     },
@@ -81,7 +133,7 @@ const styles = StyleSheet.create({
         marginLeft: SCREEN_WIDTH * 0.035,
         marginBottom: SCREEN_WIDTH * 0.035
     },
-    
+
     image: {
         height: SCREEN_WIDTH * 0.35,
         width: SCREEN_WIDTH * 0.35,
