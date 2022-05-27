@@ -7,6 +7,7 @@ import DrawerNavigator from './DrawerNavigator';
 import StoreDetail from '../screens/StoreDetail';
 import MyShoppingScreen from '../screens/MyShoppingScreen';
 import ProductCard from '../components/ProductCard';
+import MyOrder from '../screens/MyOrder';
 import Discount from '../screens/Discount';
 
 
@@ -66,6 +67,12 @@ export function AppStack() {
             <App.Screen
                 name="Discount"
                 component={Discount}
+                options={{
+                    headerShown: false,
+                }} />
+            <App.Screen
+                name="MyOrder"
+                component={MyOrder}
                 options={{
                     headerShown: false,
                 }} />
