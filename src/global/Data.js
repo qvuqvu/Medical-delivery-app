@@ -281,7 +281,7 @@ export const discount = [
         image: require("../global/image/discount_2.png"),
         startDate: "17/5/2022",
         endDate: "26/8/2022",
-        discount: 100,
+        discount: 1,
     },
     {
         id: 1,
@@ -289,14 +289,14 @@ export const discount = [
         image: require("../global/image/discount_2.png"),
         startDate: "17/5/2022",
         endDate: "26/8/2022",
-        discount: 50,
+        discount: 0.5,
     },
     {
         id: 2,
-        name: "Giảm 30% phí mua hàng",
+        name: "Giảm 30% phí giao hàng",
         image: require("../global/image/discount_2.png"),
         startDate: "17/5/2022",
         endDate: "26/8/2022",
-        discount: 30,
+        discount: 0.3,
     },
 ]
