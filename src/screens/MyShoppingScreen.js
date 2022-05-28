@@ -16,11 +16,9 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import ViewCart from './ViewCart';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import LottieView from "lottie-react-native";
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
-    const [loading, setLoading] = useState(false);
     const user = auth().currentUser;
     const [getdoc, setdoc] = useState([]);
     const [num, setNum] = useState(1);
@@ -53,7 +51,6 @@ export default function MyShoppingScreen({ navigation }) {
             getcheck(false)
     })
     const deleteCartToFireBase = (id) => {
-        setLoading(true)
         firestore()
             .collection('cart' + user.uid)
             .get()
@@ -72,13 +69,9 @@ export default function MyShoppingScreen({ navigation }) {
             .delete()
             .then(() => {
                 console.log('cart deleted!');
-               
-                setTimeout(() => {
-                    setLoading(false);
-                    addd();
-                    // getcheck(false)
-                }, 1000);
-              
+                addd();
+                // getcheck(false)
+
             });
     }
 
@@ -266,39 +259,17 @@ export default function MyShoppingScreen({ navigation }) {
                     <Text>Load</Text>
                 </TouchableOpacity>
             </View>
-
-            {loading ? (
-                <View
-                    style={{
-                        backgroundColor: "black",
-                        position: "absolute",
-                        opacity: 0.6,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                        width: "100%",
-                    }}
-                >
-                    <LottieView
-                        style={{ height: 200 }}
-                        source={require("../assets/animations/scanner.json")}
-                        autoPlay
-                        speed={3}
-                    />
-                </View>
-            ) : (
-                <View style={{ height: '79.5%' }}>
-                    {check ?
-                        (
-                            renderItem1(getdoc1)
-                        )
-                        : (<FlatList data={item}
-                            renderItem={({ item, index }) => <ListItem item={item} />}
-                            contentContainerStyle={{ paddingBottom: 100 }}
-                            showsVerticalScrollIndicator={false}
-                        />)}
-                </View>
-            )}
+            <View style={{ height: '79.5%' }}>
+                {check ?
+                    (
+                        renderItem1(getdoc1)
+                    )
+                    : (<FlatList data={item}
+                        renderItem={({ item, index }) => <ListItem item={item} />}
+                        contentContainerStyle={{ paddingBottom: 100 }}
+                        showsVerticalScrollIndicator={false}
+                    />)}
+            </View>
             <ViewCart navigation={navigation} />
         </View >
     )
