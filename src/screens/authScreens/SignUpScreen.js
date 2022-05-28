@@ -12,6 +12,7 @@ import { SignInContext } from '../../contexts/authContext';
 import DatetimePicker from "@react-native-community/datetimepicker"
 
 const SignUpScreen=({navigation})=>{
+
     const[passwordFocussed,setPasswordFocussed]=useState(false)
     const[passwordBlured,setPasswordBlured]=useState(false)
     const[phonenumber,setphonenumber]=useState("");
@@ -44,14 +45,13 @@ const SignUpScreen=({navigation})=>{
         try{
             await auth().createUserWithEmailAndPassword(email,password)
             console.log("USER ACCOUNT CREATED")
-            firestore().collection("Users").add({
+            const user = auth().currentUser;
+            firestore().collection('User'+user.uid).add({
                 phone_number:phonenumber,
                 full_name:fullname,
-                email_account:email,
                 datetime:formattedDate,
                 address:address,
                 sex:sex
-                
             }).then(()=>{
                 console.log("User add!");
             })

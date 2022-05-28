@@ -20,8 +20,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.headerText}>Danh mục</Text>
             </View>
 
-            <View>
-                {/* Categories list  */}
+            {/* <View>
                 <FlatList
                     style={{ marginLeft: 10, marginTop: 3 }}
                     data={categoryData}
@@ -54,10 +53,9 @@ export default function HomeScreen({ navigation }) {
 
             <View style={styles.headerTextView}>
                 <Text style={styles.headerText}>Sản phẩm</Text>
-            </View>
+            </View> */}
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                {/* Product list  */}
+            {/* <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
                     <FlatList
                         style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
@@ -80,7 +78,7 @@ export default function HomeScreen({ navigation }) {
                             </View>)}
                     />
                 </View>
-            </ScrollView>
+            </ScrollView> */}
         </View>
     )
 }
