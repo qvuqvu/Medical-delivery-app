@@ -9,7 +9,7 @@ import { colors } from "../global/styles"
 
 import Header from './Header'
 import { ScrollView } from 'react-native-gesture-handler'
-import { filterData2 } from '../global/Data';
+import { Totaldate } from '../global/Data';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -24,7 +24,7 @@ const SearchComponent = () => {
 
     const handleSearch = (text) => {
         if (text) {
-            const newData = filterData2.filter(item => {
+            const newData = Totaldate.filter(item => {
                 const itemData = item.name ?
                     item.name.toUpperCase()
                     : ''.toUpperCase();
@@ -123,10 +123,6 @@ const SearchComponent = () => {
                                     onFocus={() => {
                                         setTextInputFossued(true)
                                     }}
-
-                                    onBlur={() => {
-                                        setTextInputFossued(false)
-                                    }}
                                     onChangeText={(text) => handleSearch(text)}
 
                                 />
@@ -141,6 +137,8 @@ const SearchComponent = () => {
                                         style={{ marginRight: 10, fontSize: 20 }}
                                         onPress={() => {
                                             textInput.current.clear()
+                                            setTextInputFossued(false)
+                                            setModalVisible(false)
                                             setData([])
                                             setSearch("")
                                         }}

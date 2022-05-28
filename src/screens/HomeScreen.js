@@ -8,7 +8,6 @@ import HomeHeader from '../components/HomeHeader';
 import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 
-
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
 
@@ -17,7 +16,6 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="MEDILI" />
-
             <View style={styles.headerTextView}>
                 <Text style={styles.headerText}>Danh mục</Text>
             </View>
@@ -59,10 +57,6 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-
-
-
-
                 {/* Product list  */}
                 <View>
                     <FlatList
@@ -140,7 +134,7 @@ const styles = StyleSheet.create({
     headerTextView: {
         marginLeft: 20,
         marginTop: 10,
-        marginBottom:8,
+        marginBottom: 8,
         paddingVertical: 3,
     },
     smallCard: {

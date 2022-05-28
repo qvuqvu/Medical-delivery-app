@@ -1,16 +1,15 @@
 import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, Dimensions } from 'react-native'
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, paremeter } from '../global/styles';
-import {
-    Icon
-} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
-const SCREEN_WIDTH = Dimensions.get('window').width;
 import auth from "@react-native-firebase/auth"
 import { Totaldate } from '../global/Data';
 import firestore, { firebase } from '@react-native-firebase/firestore';
-
+import ModalPoup from '../global/ModalPoup';
+import LottieView from "lottie-react-native";
+const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductCard({ navigation,
     ProductName,
     Price,
@@ -18,6 +17,7 @@ export default function ProductCard({ navigation,
     screenWidth,
     id
 }) {
+    const [visible, setVisible] = useState(false);
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
     const addCartToFireBase = () => {
@@ -53,10 +53,11 @@ export default function ProductCard({ navigation,
                 });
             });
         if (getcheck == 1) {
-            alert("exist");
+            setVisible(true)
         }
         else {
             addCartToFireBase();
+            setVisible(true)
         }
     }
     return (
@@ -79,19 +80,45 @@ export default function ProductCard({ navigation,
                         <Text style={[{ color: colors.price, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
                     </View>
                     <View style={{ flexDirection: "row", marginBottom: 15 }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ModalPoup visible={visible}>
+                                <View style={{ alignItems: 'center' }}>
+                                    <View style={styles.header}>
+                                        <TouchableOpacity onPress={() => setVisible(false)}>
+                                            <Icon1
+                                                name="close"
+                                                style={{ height: 30, width: 30 }}
+                                                size={25}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <LottieView
+                                    style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
+                                    source={require("../assets/animations/check-mark.json")}
+                                    autoPlay
+                                    speed={0.8}
+                                    loop={false}
+
+                                />
+                                <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: 'black', fontWeight: 'bold' }}>
+                                    Thêm sản phẩm thành công
+                                </Text>
+                            </ModalPoup>
+                        </View>
                         <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
                             <Icon1
-                            onPress={()=>{
-                                check()
-                            }}
+                                onPress={() => {
+                                    check()
+                                }}
                                 name='shoppingcart'
                                 size={35} >
                             </Icon1>
                         </TouchableOpacity>
                         <TouchableOpacity
-                        onPress={() => { 
-                            navigation.navigate("MyOrder", { items: [Totaldate[id]] }) 
-                        }}
+                            onPress={() => {
+                                navigation.navigate("MyOrder", { items: [Totaldate[id]] })
+                            }}
                             style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
                             <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
                         </TouchableOpacity>
@@ -190,5 +217,26 @@ const styles = StyleSheet.create({
         fontSize: 13,
         marginRight: 0,
         marginLeft: 0
-    }
+    },
+    modalBackGround: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 20,
+        elevation: 20,
+    },
+    header: {
+        width: '100%',
+        height: 20,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
+
 })
