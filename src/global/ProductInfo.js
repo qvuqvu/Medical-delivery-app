@@ -10,11 +10,8 @@ import { Totaldate } from '../global/Data';
 import HeaderProject from '../components/HeaderProduct';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
-import LottieView from "lottie-react-native";
-import ModalPoup from '../global/ModalPoup';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
-    const [visible, setVisible] = useState(false);
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +38,7 @@ export default function ProductInfo({ navigation, route }) {
             })
             .then(() => {
                 console.log('User added!');
+                alert("added " + Totaldate[route.params.id].name + " success");
             });
     };
     useEffect(() => {
@@ -65,11 +63,10 @@ export default function ProductInfo({ navigation, route }) {
                 });
             });
         if (getcheck == 1) {
-            setVisible(true)
+            alert("exist");
         }
         else {
             addCartToFireBase();
-            setVisible(true)
         }
     }
     // const renderItem = ({ item }) => {
@@ -107,8 +104,6 @@ export default function ProductInfo({ navigation, route }) {
     return (
         <View style={styles.container}>
             <HeaderProject navigation={navigation} title="Product" />
-
-            <ModalPoup visible={visible} setVisible={setVisible} />
             <View style={{ flex: 1, marginTop: 10, backgroundColor: 'white' }}>
                 <ScrollView>
                     <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
@@ -116,32 +111,6 @@ export default function ProductInfo({ navigation, route }) {
                             <Image
                                 style={{ width: '90%', height: '90%', resizeMode: "cover" }}
                                 source={{ uri: Totaldate[route.params.id].image }} />
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <ModalPoup visible={visible}>
-                                    <View style={{ alignItems: 'center' }}>
-                                        <View style={styles.header}>
-                                            <TouchableOpacity onPress={() => setVisible(false)}>
-                                                <Icon3
-                                                    name="close"
-                                                    style={{ height: 30, width: 30 }}
-                                                    size={25}
-                                                />
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                    <LottieView
-                                        style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
-                                        source={require("../assets/animations/check-mark.json")}
-                                        autoPlay
-                                        speed={0.8}
-                                        loop={false}
-
-                                    />
-                                    <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: 'black', fontWeight: 'bold' }}>
-                                        Thêm sản phẩm thành công
-                                    </Text>
-                                </ModalPoup>
-                            </View>
                         </View>
                         <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{Totaldate[route.params.id].name}</Text>
@@ -242,7 +211,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("MyOrder", { items: [Totaldate[route.params.id]] })
+                            navigation.navigate("MyOrder", { items: [Totaldate[route.params.id]] }) 
                         }}>
                         <View style={styles.button_end1}>
                             <Text style={{ color: 'white' }}>MUA NGAY</Text>
@@ -384,27 +353,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderColor: 'red',
         backgroundColor: 'red'
-    },
-    modalBackGround: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalContainer: {
-        width: '80%',
-        backgroundColor: 'white',
-        paddingHorizontal: 20,
-        paddingVertical: 30,
-        borderRadius: 20,
-        elevation: 20,
-    },
-    header: {
-        width: '100%',
-        height: 20,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-    },
-
+    }
 
 })

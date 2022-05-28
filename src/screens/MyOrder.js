@@ -14,10 +14,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MyOrder({ navigation, route }) {
     const [checked, setChecked] = useState("first");
-    console.log(route.params.items)
+    // console.log(route.params.items)
     const [num, setNum] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
-    var count = route.params.items.length;
+    const [name_dis, setName_dis] = useState("");
+    const [num_dis, setNum_dis] = useState(0);
+    const [choise_dis, setChoise_dis] = useState(-1);
+    const count = route.params.items.length;
+    const costShip = 50.000;
+    var cost = 0;
 
     const handlePlus = () => {
         setNum(num + 1);
@@ -27,6 +32,10 @@ export default function MyOrder({ navigation, route }) {
             setNum(num - 1);
         }
     }
+    for (var i = 0; i <= route.params.items.length - 1; i++) {
+        cost += parseInt(route.params.items[i].gia);
+    }
+    var total = cost + costShip - num_dis * costShip;
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <HeaderOrder navigation={navigation} />
@@ -35,7 +44,12 @@ export default function MyOrder({ navigation, route }) {
                     <View>
                         <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
                             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginRight: 150 }}>Thông tin giao hàng</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    console.log(name_dis)
+                                    console.log(num_dis)
+                                }}
+                            >
                                 <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
                                     <Text style={{ color: 'red', fontWeight: 'bold' }}>Thay đổi</Text>
                                 </View>
@@ -126,19 +140,19 @@ export default function MyOrder({ navigation, route }) {
                             )}
                         />
                     </View>
-                    <View style={{ marginTop: 10, marginBottom: 10, height: '15%' }}>
+                    <View style={{ marginTop: 20, marginBottom: 10, height: '15%' }}>
                         <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>
                             <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 16 }}>{count} Sản phẩm</Text>
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>0 đ</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{cost}.000 đ</Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10, marginTop: 10 }}>
                             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Phí vận chuyển</Text>
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>0 đ</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{costShip}.000 đ</Text>
                         </View>
-                        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: 10, marginTop: 10 }}>
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{namediscount}</Text>
-                        <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>{discount1}</Text>
-                    </View> */}
+                        <View style={num_dis == 0 ? styles.hideDis : styles.showDis}>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{name_dis}</Text>
+                            <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>-{num_dis * costShip}.000 đ</Text>
+                        </View>
                         <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 20 }}>
                             <Text style={{ color: 'black', fontSize: 15, fontWeight: 'bold' }}>Khuyễn mãi:  {discount.length}</Text>
                             <TouchableOpacity onPress={() => { setModalVisible(true) }}>
@@ -147,7 +161,7 @@ export default function MyOrder({ navigation, route }) {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ marginTop: 20 }}>
+                        <View style={{ marginTop: 30, marginBottom: 10 }}>
                             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Chọn hình thức thanh toán</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                                 <RadioButton
@@ -174,11 +188,18 @@ export default function MyOrder({ navigation, route }) {
                                 <Text style={{ color: 'black' }}>Ví MoMo</Text>
                             </View>
                         </View>
+                        <View style={{ marginTop: 20, marginBottom: 10, flexDirection: 'row', width: 350 }}>
+                            <Image
+                                source={require('../global/image/doc_rule.png')}
+                                style={{ height: "100%", width: "8%", resizeMode: "contain", marginRight: 10 }}
+                            />
+                            <Text style={{ color: 'black', fontSize: 15 }}>Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo {<Text style={{ color: 'blue' }}>Điều khoản Medili</Text>}</Text>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
             <Modal
-                animationType="fade"
+                animationType="slide"
                 transparent={true}
                 visible={modalVisible}
             >
@@ -212,10 +233,22 @@ export default function MyOrder({ navigation, route }) {
                                             </View>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    setModalVisible(false)
+                                                    if (choise_dis == item.id) {
+                                                        setChoise_dis(-1);
+                                                        setName_dis("");
+                                                        setNum_dis(0);
+                                                        setModalVisible(false);
+                                                    }
+                                                    else {
+                                                        setChoise_dis(item.id);
+                                                        setName_dis(item.name);
+                                                        setNum_dis(item.discount);
+                                                        setModalVisible(false);
+                                                    }
+
                                                 }}
                                                 style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 'auto', marginRight: 40 }}>
-                                                <Text style={{ color: 'red', fontWeight: 'bold' }}>Sử dụng</Text>
+                                                <Text style={{ color: 'red', fontWeight: 'bold' }}>{choise_dis == item.id ? "Bỏ chọn" : "Sử dụng"}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -233,17 +266,17 @@ export default function MyOrder({ navigation, route }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal >
             <View style={{ height: 50, flexDirection: 'row', justifyContent: 'flex-end' }}>
                 <View style={{ marginRight: 15 }}>
                     <Text style={{ color: 'black', fontSize: 15 }}>Tổng thanh toán</Text>
-                    <Text style={{ color: 'red', fontSize: 17, fontWeight: 'bold', alignSelf: 'center' }}>0đ</Text>
+                    <Text style={{ color: 'red', fontSize: 17, fontWeight: 'bold', alignSelf: 'center' }}>{total}.000 đ</Text>
                 </View>
                 <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 const styles = StyleSheet.create({
@@ -273,4 +306,17 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         elevation: 20,
     },
+    showDis: {
+        height: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginRight: 10,
+        marginTop: 10
+    },
+    hideDis: {
+        height: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginRight: 10,
+    }
 })

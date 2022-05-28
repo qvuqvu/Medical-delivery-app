@@ -28,24 +28,12 @@ export default function ProductCard({ navigation,
             })
             .then(() => {
                 console.log('User added!');
-                alert("added " + Totaldate[id].name + " success");
             });
     };
-    useEffect(() => {
-        firestore()
-            .collection('cart' + user.uid).onSnapshot((snapshot) => {
-                snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == Totaldate[id].id) {
-                        setCheck(1)
-                    }
-                });
-            });
-
-    }, [])
     const check = () => {
-        setCheck(0)
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                setCheck(0)
                 snapshot.docs.map((doc) => {
                     if (doc.data().items.id == Totaldate[id].id) {
                         setCheck(1)
