@@ -211,7 +211,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("MyShopping")
+                            navigation.navigate("MyOrder", { items: [Totaldate[route.params.id]] }) 
                         }}>
                         <View style={styles.button_end1}>
                             <Text style={{ color: 'white' }}>MUA NGAY</Text>
