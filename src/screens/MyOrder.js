@@ -24,7 +24,7 @@ export default function MyOrder({ navigation, route }) {
                         <Image
                             style={{ width: 22, height: 22, }}
                             source={require('../global/image/store.png')} />
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>Nhà Thuốc Ngọc Anh</Text>
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.nhathuoc}</Text>
                         <Icon3
                             name='chevron-right'
                             size={30}
