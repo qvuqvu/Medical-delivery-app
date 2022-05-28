@@ -19,7 +19,7 @@ export default function Categoties({ navigation }) {
     return (
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="Tìm Kiếm" />
-            <SearchComponent />
+            <SearchComponent navigation={navigation}/>
         </View>
     )
 }

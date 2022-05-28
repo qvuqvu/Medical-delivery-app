@@ -18,7 +18,6 @@ const SearchComponent = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [textInputFossued, setTextInputFossued] = useState(true)
     const textInput = useRef(0)
-
     const [data, setData] = useState([])
     const [search, setSearch] = useState("")
 
@@ -60,15 +59,6 @@ const SearchComponent = () => {
                         </View>
                         <View>
                             <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
-                        </View>
-                        <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
-                                <Icon1 name='shoppingcart' size={35} >
-                                </Icon1>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
-                                <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
