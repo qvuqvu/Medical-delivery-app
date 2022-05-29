@@ -47,7 +47,7 @@ const SearchComponent = () => {
                     navigation.push("ProductInfo", { id: item.id })
                 }}
             >
-                <View>
+                <View style={{ borderWidth: 0.8 }}>
                     <View style={[styles.imageView, { marginTop: 15 }]}>
                         <ImageBackground
                             style={styles.image}
@@ -217,8 +217,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
-        width: SCREEN_WIDTH * 0.4475,
-        height: SCREEN_WIDTH * 0.7,
+        marginHorizontal: 12,
+        width: SCREEN_WIDTH * 0.429,
+        height: SCREEN_WIDTH * 0.62,
         marginLeft: SCREEN_WIDTH * 0.035,
         marginBottom: SCREEN_WIDTH * 0.035
     },

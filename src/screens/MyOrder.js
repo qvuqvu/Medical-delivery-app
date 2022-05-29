@@ -10,9 +10,16 @@ import { TextInput } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 import { test } from '../global/Data';
 import { discount } from '../global/Data';
+import auth from "@react-native-firebase/auth"
 import { SafeAreaView } from 'react-native-safe-area-context';
+import firestore, { firebase } from '@react-native-firebase/firestore';
 
 export default function MyOrder({ navigation, route }) {
+    const [fullname, setfullname] = useState("")
+    const [phonenumber, setphonenumber] = useState("")
+    const [address, setaddress] = useState("");
+    const [date, setdate] = useState("")
+    const [sex, setsex] = useState("")
     const [checked, setChecked] = useState("first");
     // console.log(route.params.items)
     const [num, setNum] = useState(1);
@@ -23,6 +30,7 @@ export default function MyOrder({ navigation, route }) {
     const count = route.params.items.length;
     const costShip = 50.000;
     var cost = 0;
+    const user = auth().currentUser;
 
     const handlePlus = () => {
         setNum(num + 1);
@@ -36,6 +44,19 @@ export default function MyOrder({ navigation, route }) {
         cost += parseInt(route.params.items[i].gia);
     }
     var total = cost + costShip - num_dis * costShip;
+    useEffect(() => {
+        firestore()
+            .collection('User' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    setfullname(doc.data().full_name)
+                    setphonenumber(doc.data().phone_number)
+                    setdate(doc.data().datetime)
+                    setsex(doc.data().sex)
+                    setaddress(doc.data().address)
+                });
+            });
+    });
+
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <HeaderOrder navigation={navigation} />
@@ -56,12 +77,12 @@ export default function MyOrder({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>Vũ Viết Huy</Text>
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>{fullname}</Text>
                             <Text style={styles.textStyle}>|</Text>
-                            <Text style={styles.textStyle}>0987134912</Text>
+                            <Text style={styles.textStyle}>{phonenumber}</Text>
                         </View>
                         <View style={{ marginTop: 5 }}>
-                            <Text style={{ color: 'black' }}>36C/41 đường 16, Linh Trung, Thủ Đức, TP Hò Chí Minh, Việt Nam</Text>
+                            <Text style={{ color: 'black' }}>{address}</Text>
                             <TextInput
                                 placeholder='Thêm ghi chú. VD: tên tòa nhà, số tầng'
                             />
