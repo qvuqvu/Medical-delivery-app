@@ -7,6 +7,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
 import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
+import CountDown from 'react-native-countdown-component';
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
@@ -20,7 +21,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.headerText}>Danh mục</Text>
             </View>
 
-            {/* <View>
+            <View>
                 <FlatList
                     style={{ marginLeft: 10, marginTop: 3 }}
                     data={categoryData}
@@ -53,9 +54,21 @@ export default function HomeScreen({ navigation }) {
 
             <View style={styles.headerTextView}>
                 <Text style={styles.headerText}>Sản phẩm</Text>
-            </View> */}
+                <View style={{flexDirection:'row',marginTop:5}}>
+                    <Text style={{fontSize:16,marginRight:5,color:'black',fontWeight:'bold'}}>Sản phẩm thay đổi sau:</Text>
+                    <CountDown
+                    style={{marginTop:-5}}
+                    until={3600}
+                    size={14}
+                    digitStyle={{backgroundColor:'#66DF48'}}
+                    digitTxtStyle={{color:'white'}}
+                    timeToShow={['M','S']}
+                    timeLabels={{m:'Min',s:'Sec'}}
+                    />
+                </View>
+            </View>
 
-            {/* <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
                     <FlatList
                         style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
@@ -78,7 +91,7 @@ export default function HomeScreen({ navigation }) {
                             </View>)}
                     />
                 </View>
-            </ScrollView> */}
+            </ScrollView>
         </View>
     )
 }
