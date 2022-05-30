@@ -22,7 +22,7 @@ let cartReducer = (state = defaultState, action) => {
                     ],
                 }
             }
-            console.log(newState, "👉");
+            console.log(newState.selectedItems, "👉");
             return newState;
         }
         case 'DELETE_TO_CART': {
@@ -31,6 +31,32 @@ let cartReducer = (state = defaultState, action) => {
                 items: [],
             };
             console.log(newState, "👉");
+            return newState;
+        }
+        case 'UPDATE_TO_CART': {
+            let newState = { ...state };
+            const a = action.payload.SL;
+            console.log('UPDATE CART')
+            newState.selectedItems = {
+                items: [...newState.selectedItems.items.map(
+                    (item) => item.id === action.payload.id ? { ...item, SL: a }
+                        : item
+                )]
+            }
+            console.log(newState.selectedItems, "👉");
+            return newState;
+        }
+        case 'UPDATE1_TO_CART': {
+            let newState = { ...state };
+            const a = action.payload.SL;
+            console.log('UPDATE CART')
+            newState.selectedItems = {
+                items: [...newState.selectedItems.items.map(
+                    (item) => item.id === item.id ? { ...item, SL: a }
+                        : item
+                )]
+            }
+            console.log(newState.selectedItems, "👉");
             return newState;
         }
         default:

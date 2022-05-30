@@ -8,7 +8,27 @@ import { Badge } from '@rneui/base'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-export default function HeaderOrder({navigation}) {
+export default function HeaderOrder({ navigation, id }) {
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.cartReducer.selectedItems.items)
+    const selectItem = (item, checkboxValue, SL) =>
+        dispatch({
+            type: "UPDATE1_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+                SL: SL,
+            },
+        });
+    const setnull = (item, checkboxValue) => {
+        dispatch({
+            type: "DELETE_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
+    }
     return (
         <View style={styles.header}>
             <View style={{ marginLeft: 20 }}>
@@ -17,6 +37,12 @@ export default function HeaderOrder({navigation}) {
                     color={colors.cardbackground}
                     size={25}
                     onPress={() => {
+                        if (id == 2) {
+                            selectItem(items, false, 1)
+                        }
+                        else {
+                            setnull([], false)
+                        }
                         navigation.goBack()
                     }}
                 />

@@ -9,6 +9,8 @@ import { Totaldate } from '../global/Data';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import ModalPoup from '../global/ModalPoup';
 import LottieView from "lottie-react-native";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductCard({ navigation,
     ProductName,
@@ -48,6 +50,16 @@ export default function ProductCard({ navigation,
             setVisible(true)
         }
     }
+    const dispatch = useDispatch();
+
+    const selectItem = (item, checkboxValue) =>
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
     return (
         <TouchableWithoutFeedback
             onPress={() => {
@@ -104,8 +116,8 @@ export default function ProductCard({ navigation,
                             </Icon1>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => {
-                                navigation.navigate("MyOrder", { items: [Totaldate[id]] })
+                            onPress={() => {selectItem(Totaldate[id],true)
+                                navigation.navigate("MyOrder", { id:1 })
                             }}
                             style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
                             <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>

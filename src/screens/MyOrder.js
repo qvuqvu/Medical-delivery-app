@@ -13,6 +13,8 @@ import { discount } from '../global/Data';
 import auth from "@react-native-firebase/auth"
 import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore, { firebase } from '@react-native-firebase/firestore';
+import ProductOrder from '../components/ProductOrder';
+import { useSelector } from 'react-redux';
 
 export default function MyOrder({ navigation, route }) {
     const [fullname, setfullname] = useState("")
@@ -21,27 +23,20 @@ export default function MyOrder({ navigation, route }) {
     const [date, setdate] = useState("")
     const [sex, setsex] = useState("")
     const [checked, setChecked] = useState("first");
-    // console.log(route.params.items)
     const [num, setNum] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
     const [name_dis, setName_dis] = useState("");
     const [num_dis, setNum_dis] = useState(0);
     const [choise_dis, setChoise_dis] = useState(-1);
-    const count = route.params.items.length;
+    const items = useSelector((state) => state.cartReducer.selectedItems.items)
+    const count = items.length;
     const costShip = 50.000;
-    var cost = 0;
+    var cost = 0,s=0;
     const user = auth().currentUser;
 
-    const handlePlus = () => {
-        setNum(num + 1);
-    }
-    const handleMinus = () => {
-        if (num > 1) {
-            setNum(num - 1);
-        }
-    }
-    for (var i = 0; i <= route.params.items.length - 1; i++) {
-        cost += parseInt(route.params.items[i].gia);
+    for (var i = 0; i <= items.length - 1; i++) {
+        s = parseInt(items[i].gia);
+        cost+=s*items[i].SL
     }
     var total = cost + costShip - num_dis * costShip;
     useEffect(() => {
@@ -59,7 +54,7 @@ export default function MyOrder({ navigation, route }) {
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <HeaderOrder navigation={navigation} />
+            <HeaderOrder navigation={navigation} id={route.params.id} />
             <ScrollView>
                 <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                     <View>
@@ -90,73 +85,13 @@ export default function MyOrder({ navigation, route }) {
                     </View>
                     <View>
                         <FlatList
-                            data={route.params.items}
+                            data={items}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => (
                                 <View style={{ alignSelf: 'center', width: 380 }}>
-                                    <View style={{ backgroundColor: '#ebf3f4', height: 160, justifyContent: 'center', marginTop: 10 }}>
-                                        <View style={{ flexDirection: 'row', marginLeft: 8 }}>
-                                            <Image
-                                                style={{ width: 22, height: 22, }}
-                                                source={require('../global/image/store.png')} />
-                                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.nhathuoc}</Text>
-                                            <Icon3
-                                                name='chevron-right'
-                                                size={30}
-                                                color='black'
-                                                style={{ marginLeft: 10 }}
-                                            />
-                                            <Icon3
-                                                name='close'
-                                                size={22}
-                                                color='black'
-                                                style={{ marginLeft: 'auto', marginRight: 10, color: 'black' }}
-                                                onPress={() => {
-
-                                                }}
-                                            />
-                                        </View>
-                                        <View style={{ flexDirection: 'row', marginTop: 15 }}>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                                <Image
-                                                    style={{ width: 80, height: 80, resizeMode: "cover" }}
-                                                    source={{ uri: item.image }} />
-                                            </View>
-                                            <View style={{ marginLeft: 10 }}>
-                                                <View style={{ width: 240, height: 20 }}>
-                                                    <Text style={{ color: 'black', fontSize: 16 }}>{item.name}</Text>
-                                                </View>
-                                                <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.gia}</Text>
-                                                <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                                                    <TouchableOpacity
-                                                        onPress={() => { handleMinus() }}
-                                                    >
-                                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                                            <Icon4
-                                                                name='minus'
-                                                                size={20}
-                                                                color='black'
-                                                            />
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                    <View style={{ borderWidth: 1, borderColor: 'grey', width: 40, alignItems: 'center' }}>
-                                                        <Text style={{ color: 'black' }}>{num}</Text>
-                                                    </View>
-                                                    <TouchableOpacity
-                                                        onPress={() => { handlePlus() }}
-                                                    >
-                                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                                            <Icon4
-                                                                name='plus'
-                                                                size={20}
-                                                                color='black'
-                                                            />
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                </View>
-                                            </View>
-                                        </View>
-                                    </View>
+                                    <ProductOrder
+                                    item={item}
+                                    />
                                 </View>
                             )}
                         />

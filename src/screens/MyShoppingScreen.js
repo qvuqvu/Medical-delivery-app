@@ -70,8 +70,6 @@ export default function MyShoppingScreen({ navigation }) {
             .then(() => {
                 console.log('cart deleted!');
                 addd();
-                // getcheck(false)
-
             });
     }
 
