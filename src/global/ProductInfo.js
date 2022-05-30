@@ -12,6 +12,8 @@ import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
 import ModalPoup from './ModalPoup';
 import LottieView from "lottie-react-native";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
     const [visible, setVisible] = useState(false);
@@ -37,7 +39,6 @@ export default function ProductInfo({ navigation, route }) {
         db.collection('cart' + user.uid)
             .add({
                 items: Totaldate[route.params.id],
-                date: date + '-' + month + '-' + year,
             })
             .then(() => {
                 console.log('User added!');
@@ -73,6 +74,16 @@ export default function ProductInfo({ navigation, route }) {
             setVisible(true)
         }
     }
+    const dispatch = useDispatch();
+
+    const selectItem = (item, checkboxValue) =>
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
     // const renderItem = ({ item }) => {
     //         return (
     //             <TouchableWithoutFeedback>
@@ -233,7 +244,6 @@ export default function ProductInfo({ navigation, route }) {
                     <TouchableOpacity
                         onPress={() => {
                             check();
-                            // addCartToFireBase();
                         }}>
                         <View style={styles.button_end}>
                             <Text style={{ color: 'red' }}>THÊM VÀO GIỎ HÀNG</Text>
@@ -241,7 +251,8 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("MyOrder", { items: [Totaldate[route.params.id]] })
+                            selectItem(Totaldate[route.params.id],true)
+                            navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>
                             <Text style={{ color: 'white' }}>MUA NGAY</Text>

@@ -27,15 +27,15 @@ export default function ProductOrder({ item }) {
     }
     const dispatch = useDispatch();
 
-const selectItem = (item, checkboxValue,SL) =>
-    dispatch({
-        type: "UPDATE_TO_CART",
-        payload: {
-            ...item,
-            checkboxValue: checkboxValue,
-            SL:SL,
-        },
-    });
+    const selectItem = (item, checkboxValue, SL) =>
+        dispatch({
+            type: "UPDATE_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+                SL: SL,
+            },
+        });
     return (
         <View style={{ backgroundColor: '#ebf3f4', height: 160, justifyContent: 'center', marginTop: 10 }}>
             <View style={{ flexDirection: 'row', marginLeft: 8 }}>
@@ -72,9 +72,11 @@ const selectItem = (item, checkboxValue,SL) =>
                     <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.gia}</Text>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <TouchableOpacity
-                            onPress={() => { 
-                                handleMinus() 
-                                    selectItem(item,false,num-1)
+                            onPress={() => {
+                                handleMinus()
+                                if (num > 1) {
+                                    selectItem(item, false, num - 1)
+                                }
                             }}
                         >
                             <View style={{ borderWidth: 1, borderColor: 'grey' }}>
@@ -89,9 +91,9 @@ const selectItem = (item, checkboxValue,SL) =>
                             <Text style={{ color: 'black' }}>{num}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={() => { 
-                                handlePlus() 
-                                selectItem(item,false,num+1)
+                            onPress={() => {
+                                handlePlus()
+                                selectItem(item, false, num + 1)
                             }}
                         >
                             <View style={{ borderWidth: 1, borderColor: 'grey' }}>
