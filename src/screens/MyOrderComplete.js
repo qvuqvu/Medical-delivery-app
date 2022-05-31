@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native'
 import firestore, { firebase } from '@react-native-firebase/firestore';
+import HeaderSimple from '../components/HeaderSimple';
+import Icon3 from 'react-native-vector-icons/EvilIcons'
 import auth from "@react-native-firebase/auth"
 const listTab = [
     {
@@ -31,8 +33,9 @@ const data = [
     }
 ]
 
-export default function MyOrderComplete() {
+export default function MyOrderComplete({ navigation }) {
     const [check, getcheck] = useState(true)
+    const [gettest, settest] = useState(0)
     const [getdoc, setdoc] = useState({ "items": { "SL": "", "gia": "", "id": "", "image": "", "name": "", "nhathuoc": "" } })
     const user = auth().currentUser;
     const [status, setStatus] = useState('Đang xử lý')
@@ -46,21 +49,20 @@ export default function MyOrderComplete() {
             setDataOrder([...data.filter(item => item.status === status)])
         }
         setStatus(status)
-
+        settest(Math.random())
     }
     useEffect(() => {
         getcheck(false)
         data[0].item = []
         firestore()
-            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+            .collection('order' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
                     if (snapshot.size == 1) {
                         getcheck(true)
                         setdoc(doc.data())
                     }
                     else {
-                    data[0].item.push(doc.data())
-                    console.log("aa")
+                        data[0].item.push(doc.data())
                     }
                 });
             });
@@ -74,7 +76,6 @@ export default function MyOrderComplete() {
                     }
                     else {
                         data[1].item.push(doc.data())
-                        console.log("bb")
                     }
                 });
             });
@@ -88,19 +89,63 @@ export default function MyOrderComplete() {
                     }
                     else {
                         data[2].item.push(doc.data())
-                        console.log("cc")
                     }
                 });
             });
-    }, [dataOrder]);
+    }, [gettest]);
+    const Type = (item) => {
+        var c = item.items.gia.split("/")
+        return c[1]
+    }
     const ListItem = ({ item }) => {
         return (
-            <View style={styles.itemContainer}>
-                <Text>{item.items.name}</Text>
+            <View style={{ marginTop: 10, marginLeft: 20, marginBottom: 10 }}>
+                <View style={{ backgroundColor: '#ebf3f4', height: 155, justifyContent: 'center' }}>
+                    <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                        <Image
+                            style={{ width: 22, height: 22, }}
+                            source={require('../global/image/store.png')} />
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.items.nhathuoc}</Text>
+                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{status}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Image
+                                style={{ width: 80, height: 80, resizeMode: "cover" }}
+                                source={{ uri: item.items.image }} />
+                        </View>
+                        <View style={{ marginLeft: 10 }}>
+                            <View style={{ width: 263, height: 20, }}>
+                                <Text style={{ color: 'black', fontSize: 16 }}>{item.items.name}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>{Type(item)}</Text>
+                                <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3 }}>x{item.items.SL}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View>
+                    <View style={status == 'Đang xử lý' ? { marginBottom: 20, height: 40, } : { height: 0 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ marginLeft: 20, fontSize: 16 }}>{item.items.SL} sản phẩm</Text>
+                            <Text style={{ marginLeft: 'auto', marginRight: 20, color: 'black', fontSize: 17 }}>Thành tiền: {<Text style={{ color: 'red' }}>200k</Text>} </Text>
+                        </View>
+
+                    </View>
+                    <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+                        <View style={{ borderRadius: 5, width: 120, height: 50, backgroundColor: 'red', alignItems: 'center', justifyContent: 'center', marginLeft: 100 }}>
+                            <Text style={{ color: 'white' }}>Đã nhận hàng</Text>
+                        </View>
+                        <View style={{ borderRadius: 5, width: 120, height: 50, backgroundColor: 'red', alignItems: 'center', justifyContent: 'center', marginRight: 20, marginLeft: 'auto' }}>
+                            <Text style={{ color: 'white' }}>Huỷ</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
         )
     }
-    const ListItem1 = ( item ) => {
+    const ListItem1 = (item) => {
         return (
             <View >
                 <Text>{item.items.name}</Text>
@@ -109,6 +154,7 @@ export default function MyOrderComplete() {
     }
     return (
         <SafeAreaView style={styles.container}>
+            <HeaderSimple title="Đơn mua" navigation={navigation} />
             <View style={styles.listTab}>
                 {
                     listTab.map(e => (
@@ -125,19 +171,18 @@ export default function MyOrderComplete() {
                 (
                     ListItem1(getdoc)
                 )
-                : (<FlatList data={dataOrder[0].item}
-                    renderItem={({ item }) => <ListItem item={item} />}
-                    contentContainerStyle={{ paddingBottom: 100 }}
-                    showsVerticalScrollIndicator={false}
-                />)}
-
+                : (
+                    <FlatList data={dataOrder[0].item}
+                        renderItem={({ item }) => <ListItem item={item} />}
+                        showsVerticalScrollIndicator={false}
+                    />
+                )}
         </SafeAreaView >
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 10,
     },
     listTab: {
         alignSelf: 'center',

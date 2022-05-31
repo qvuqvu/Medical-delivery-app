@@ -15,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import ProductOrder from '../components/ProductOrder';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from "react-redux";
 export default function MyOrder({ navigation, route }) {
     const [fullname, setfullname] = useState("")
     const [phonenumber, setphonenumber] = useState("")
@@ -33,6 +33,35 @@ export default function MyOrder({ navigation, route }) {
     const costShip = 50.000;
     var cost = 0, s = 0;
     const user = auth().currentUser;
+
+    const addCartToFireBase = () => {
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+        const db = firebase.firestore();
+        items.map(item => db.collection('order' + user.uid)
+            .add({
+                items: item
+            })
+            .then(() => {
+                console.log('User added!');
+            })
+        )
+        setTimeout(() => {
+            setnull([], false)
+            navigation.navigate('MyOrderComplete')
+        }, 3000);
+    };
+    const dispatch = useDispatch();
+    const setnull = (item, checkboxValue) => {
+        dispatch({
+            type: "DELETE_TO_CART",
+            payload: {
+                ...item,
+                checkboxValue: checkboxValue,
+            },
+        });
+    }
 
     for (var i = 0; i <= items.length - 1; i++) {
         s = parseInt(items[i].gia);
@@ -55,7 +84,7 @@ export default function MyOrder({ navigation, route }) {
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <HeaderOrder navigation={navigation} id={route.params.id} />
-            <ScrollView style={{height:"100%"}}>
+            <ScrollView style={{ height: "100%" }}>
                 <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                     <View>
                         <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
@@ -201,7 +230,6 @@ export default function MyOrder({ navigation, route }) {
                                                         setNum_dis(item.discount);
                                                         setModalVisible(false);
                                                     }
-
                                                 }}
                                                 style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 'auto', marginRight: 40 }}>
                                                 <Text style={{ color: 'red', fontWeight: 'bold' }}>{choise_dis == item.id ? "Bỏ chọn" : "Sử dụng"}</Text>
@@ -230,9 +258,10 @@ export default function MyOrder({ navigation, route }) {
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        navigation.navigate('MyOrderComplete')
-                    }}>
-                    <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
+                        addCartToFireBase()
+                    }}
+                >
+                    <View style={{ backgroundColor: 'red', width: 130, height: 50, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
                     </View>
                 </TouchableOpacity>
