@@ -31,12 +31,12 @@ export default function MyOrder({ navigation, route }) {
     const items = useSelector((state) => state.cartReducer.selectedItems.items)
     const count = items.length;
     const costShip = 50.000;
-    var cost = 0,s=0;
+    var cost = 0, s = 0;
     const user = auth().currentUser;
 
     for (var i = 0; i <= items.length - 1; i++) {
         s = parseInt(items[i].gia);
-        cost+=s*items[i].SL
+        cost += s * items[i].SL
     }
     var total = cost + costShip - num_dis * costShip;
     useEffect(() => {
@@ -55,7 +55,7 @@ export default function MyOrder({ navigation, route }) {
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             <HeaderOrder navigation={navigation} id={route.params.id} />
-            <ScrollView>
+            <ScrollView style={{height:"100%"}}>
                 <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                     <View>
                         <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
@@ -90,7 +90,7 @@ export default function MyOrder({ navigation, route }) {
                             renderItem={({ item }) => (
                                 <View style={{ alignSelf: 'center', width: 380 }}>
                                     <ProductOrder
-                                    item={item}
+                                        item={item}
                                     />
                                 </View>
                             )}
@@ -228,9 +228,14 @@ export default function MyOrder({ navigation, route }) {
                     <Text style={{ color: 'black', fontSize: 15 }}>Tổng thanh toán</Text>
                     <Text style={{ color: 'red', fontSize: 17, fontWeight: 'bold', alignSelf: 'center' }}>{total}.000 đ</Text>
                 </View>
-                <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
-                </View>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('MyOrderComplete')
+                    }}>
+                    <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View >
     )

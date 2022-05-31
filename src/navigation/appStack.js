@@ -10,6 +10,7 @@ import ProductCard from '../components/ProductCard';
 import MyOrder from '../screens/MyOrder';
 import Discount from '../screens/Discount';
 import ChoiceVoucher from '../screens/ChoiceVoucher';
+import MyOrderComplete from '../screens/MyOrderComplete';
 
 
 const App = createNativeStackNavigator();
@@ -83,7 +84,12 @@ export function AppStack() {
                 options={{
                     headerShown: false,
                 }} />
-
+                 <App.Screen
+                name="MyOrderComplete"
+                component={MyOrderComplete}
+                options={{
+                    headerShown: false,
+                }} />
         </App.Navigator>
     )
 }
