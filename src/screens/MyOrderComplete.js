@@ -109,26 +109,6 @@ export default function MyOrderComplete({ navigation }) {
             </View>
         )
     }
-    const List1 = ({ item }) => {
-        return (
-            <View style={{ flexDirection: 'row', marginTop: 30 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Image
-                        style={{ width: 80, height: 80, resizeMode: "cover" }}
-                        source={{ uri: item.image }} />
-                </View>
-                <View style={{ marginLeft: 10 }}>
-                    <View style={{ width: 263, height: 20, }}>
-                        <Text style={{ color: 'black', fontSize: 16 }}>{item.name}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>{item.gia}</Text>
-                        <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3 }}>x{item.SL}</Text>
-                    </View>
-                </View>
-            </View>
-        )
-    }
     const ListItem = ({ item }) => {
         return (
             <View style={{ marginTop: 30, marginLeft: 20, marginBottom: 10 }}>
@@ -189,7 +169,7 @@ export default function MyOrderComplete({ navigation }) {
                         <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đang xử lý</Text>
                     </View>
                     <FlatList data={item.items}
-                        renderItem={({ item, index }) => <List1 item={item} />}
+                        renderItem={({ item, index }) => <List item={item} />}
                         showsVerticalScrollIndicator={false}
                     />
                 </View>

@@ -48,14 +48,14 @@ export default function MyOrder({ navigation, route }) {
                 address: address,
                 ship:costShip - num_dis * costShip,
                 total:total,
-                id:Math.random(),
+                id:Math.random()
             })
             .then(() => {
                 console.log('User added!');
                 setTimeout(() => {
                     setnull([], false)
                     navigation.navigate('MyOrderComplete')
-                }, 1500);
+                }, 1000);
             })
     };
     const dispatch = useDispatch();
