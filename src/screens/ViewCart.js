@@ -13,22 +13,40 @@ export default function ViewCart({ navigation }) {
     const total = items
         .map((item) => parseFloat(returnCost(item.gia)))
         .reduce((prev, curr) => prev + curr, 0);
+    const check = () => {
+        var j = 0
+        for (var i = 0; i <= items.length - 1; i++) {
+            if (items[0].nhathuoc == items[i].nhathuoc) {
+                j = 1
+            }
+            else {
+                j = 0
+            }
+        }
+        if (j == 1) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
     return (
-        <View style={{ flexDirection: 'row', height: 60, justifyContent: "space-between" }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 5 }}>
-                <RadioButton
-                    value="all"
-                />
-                <Text style={{ color: 'black', fontSize: 16 }}>Tất cả</Text>
-            </View>
+        <View style={{ flexDirection: 'row', height: 60, justifyContent: "flex-end" }}>
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ marginRight: 15, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ marginRight: 50, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tổng tiền</Text>
                     <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}>{total ? total + ".000 đ" : "0 đ"}</Text>
                 </View>
                 <TouchableOpacity
                     style={{ width: 120, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => { navigation.navigate("MyOrder", { id:2}) }}
+                    onPress={() => {
+                        if (check()) {
+                            navigation.navigate("MyOrder", { id: 2 })
+                        }
+                        else {
+                            alert('Vui long chon cung nha thuoc')
+                        }
+                    }}
                 >
                     <View>
                         <Text style={{ color: 'white', fontSize: 16 }}>Mua Hàng</Text>

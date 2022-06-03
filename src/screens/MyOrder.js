@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, Alert, Modal } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
-import Icon3 from 'react-native-vector-icons/EvilIcons'
-import Icon4 from 'react-native-vector-icons/AntDesign'
-import { colors, paremeter } from '../global/styles';
 import HeaderOrder from '../components/HeaderOrder';
 import { TextInput } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
-import { test } from '../global/Data';
 import { discount } from '../global/Data';
 import auth from "@react-native-firebase/auth"
-import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import ProductOrder from '../components/ProductOrder';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
+
 export default function MyOrder({ navigation, route }) {
     const [fullname, setfullname] = useState("")
     const [phonenumber, setphonenumber] = useState("")
@@ -34,23 +28,35 @@ export default function MyOrder({ navigation, route }) {
     var cost = 0, s = 0;
     const user = auth().currentUser;
 
+    for (var i = 0; i <= items.length - 1; i++) {
+        s = parseInt(items[i].gia);
+        cost += s * items[i].SL
+    }
+    var total = cost + costShip - num_dis * costShip;
     const addCartToFireBase = () => {
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         const db = firebase.firestore();
-        items.map(item => db.collection('order' + user.uid)
+        db.collection('order' + user.uid)
             .add({
-                items: item
+                nhathuocchung:items[0].nhathuoc,
+                date: date + '-' + month + '-' + year,
+                items: items,
+                name: fullname,
+                phone: phonenumber,
+                address: address,
+                ship:costShip - num_dis * costShip,
+                total:total,
+                id:Math.random(),
             })
             .then(() => {
                 console.log('User added!');
+                setTimeout(() => {
+                    setnull([], false)
+                    navigation.navigate('MyOrderComplete')
+                }, 1500);
             })
-        )
-        setTimeout(() => {
-            setnull([], false)
-            navigation.navigate('MyOrderComplete')
-        }, 3000);
     };
     const dispatch = useDispatch();
     const setnull = (item, checkboxValue) => {
@@ -62,12 +68,11 @@ export default function MyOrder({ navigation, route }) {
             },
         });
     }
-
-    for (var i = 0; i <= items.length - 1; i++) {
-        s = parseInt(items[i].gia);
-        cost += s * items[i].SL
-    }
-    var total = cost + costShip - num_dis * costShip;
+    firestore()
+        .collection('order' + user.uid).onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+            });
+        });
     useEffect(() => {
         firestore()
             .collection('User' + user.uid).onSnapshot((snapshot) => {
@@ -230,6 +235,7 @@ export default function MyOrder({ navigation, route }) {
                                                         setNum_dis(item.discount);
                                                         setModalVisible(false);
                                                     }
+
                                                 }}
                                                 style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 'auto', marginRight: 40 }}>
                                                 <Text style={{ color: 'red', fontWeight: 'bold' }}>{choise_dis == item.id ? "Bỏ chọn" : "Sử dụng"}</Text>
@@ -259,9 +265,8 @@ export default function MyOrder({ navigation, route }) {
                 <TouchableOpacity
                     onPress={() => {
                         addCartToFireBase()
-                    }}
-                >
-                    <View style={{ backgroundColor: 'red', width: 130, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    }}>
+                    <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
                     </View>
                 </TouchableOpacity>

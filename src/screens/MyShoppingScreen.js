@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { colors, paremeter } from '../global/styles';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import Icon3 from 'react-native-vector-icons/EvilIcons'
-import Icon4 from 'react-native-vector-icons/AntDesign'
 import HeaderSimple from '../components/HeaderSimple';
-import { TextInput } from 'react-native-gesture-handler';
-import { RadioButton } from 'react-native-paper';
-import { test } from '../global/Data';
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import ViewCart from './ViewCart';
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
     const user = auth().currentUser;
     const [getdoc, setdoc] = useState([]);
-    const [num, setNum] = useState(1);
     const [getdoc1, setdoc1] = useState(
         {
             items: [{ name: "", image: "", id: "0", gia: "" }],
@@ -115,7 +105,6 @@ export default function MyShoppingScreen({ navigation }) {
                                     style={{ marginLeft: 10 }}
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
-                                    // isChecked={isMedicalInCart(item.items, cartItems)}
                                     onPress={(checkboxValue) => selectItem(item.items, checkboxValue)}
                                 />
                                 <Image
@@ -127,33 +116,6 @@ export default function MyShoppingScreen({ navigation }) {
                                     <Text style={{ color: 'black', fontSize: 16 }}>{item.items.name}</Text>
                                 </View>
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
-                                <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                                    <TouchableOpacity
-
-                                    >
-                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                            <Icon4
-                                                name='minus'
-                                                size={20}
-                                                color='black'
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                    <View style={{ borderWidth: 1, borderColor: 'grey', width: 40, alignItems: 'center' }}>
-                                        <Text style={{ color: 'black' }}>{num}</Text>
-                                    </View>
-                                    <TouchableOpacity
-
-                                    >
-                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                            <Icon4
-                                                name='plus'
-                                                size={20}
-                                                color='black'
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
                             </View>
                         </View>
                     </View>
@@ -193,7 +155,6 @@ export default function MyShoppingScreen({ navigation }) {
                                     style={{ marginLeft: 10 }}
                                     iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
                                     fillColor="green"
-                                    // isChecked={isFoodInCart(food, cartItems)}
                                     onPress={(checkboxValue) => selectItem(item.items, checkboxValue)}
                                 />
 
@@ -206,33 +167,6 @@ export default function MyShoppingScreen({ navigation }) {
                                     <Text style={{ color: 'black', fontSize: 16 }}>{item.items.name}</Text>
                                 </View>
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
-                                <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                                    <TouchableOpacity
-
-                                    >
-                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                            <Icon4
-                                                name='minus'
-                                                size={20}
-                                                color='black'
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                    <View style={{ borderWidth: 1, borderColor: 'grey', width: 40, alignItems: 'center' }}>
-                                        <Text style={{ color: 'black' }}>{num}</Text>
-                                    </View>
-                                    <TouchableOpacity
-
-                                    >
-                                        <View style={{ borderWidth: 1, borderColor: 'grey' }}>
-                                            <Icon4
-                                                name='plus'
-                                                size={20}
-                                                color='black'
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
                             </View>
                         </View>
                     </View>

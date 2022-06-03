@@ -25,7 +25,7 @@ export default function MyAccountScreen({ navigation }) {
     const [mode, setmode] = useState('date');
     const [show, setShow] = useState(false);
     const user = auth().currentUser;
-    const [getdoc, setdoc] = useState("");
+    const [getorder,setorder]=useState(0);
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -45,7 +45,10 @@ export default function MyAccountScreen({ navigation }) {
         setShow(false);
         setdatetime(currentDate);
     };
-
+    firestore()
+        .collection('order' + user.uid).onSnapshot((snapshot) => {
+            setorder(snapshot.size)
+        });
     useEffect(() => {
         firestore()
             .collection('User' + user.uid).onSnapshot((snapshot) => {
@@ -117,13 +120,17 @@ export default function MyAccountScreen({ navigation }) {
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10, marginRight: 10 }}>
-                    <TouchableOpacity style={styles.viewItem}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('MyOrderComplete')
+                        }}
+                        style={styles.viewItem}>
                         <Image
                             source={require('../global/image/doc.png')}
                             style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5 }}>
-                            <Text style={{ color: 'black' }}>0</Text>
+                            <Text style={{ color: 'black' }}>{getorder}</Text>
                             <Text>Đơn đang xử lý</Text>
                         </View>
                     </TouchableOpacity>

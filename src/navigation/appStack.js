@@ -11,6 +11,7 @@ import MyOrder from '../screens/MyOrder';
 import Discount from '../screens/Discount';
 import ChoiceVoucher from '../screens/ChoiceVoucher';
 import MyOrderComplete from '../screens/MyOrderComplete';
+import MyLastOrder from '../screens/MyLastOrder';
 
 
 const App = createNativeStackNavigator();
@@ -84,9 +85,15 @@ export function AppStack() {
                 options={{
                     headerShown: false,
                 }} />
-                 <App.Screen
+            <App.Screen
                 name="MyOrderComplete"
                 component={MyOrderComplete}
+                options={{
+                    headerShown: false,
+                }} />
+            <App.Screen
+                name="MyLastOrder"
+                component={MyLastOrder}
                 options={{
                     headerShown: false,
                 }} />

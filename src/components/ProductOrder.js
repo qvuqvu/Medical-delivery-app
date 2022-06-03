@@ -49,15 +49,6 @@ export default function ProductOrder({ item }) {
                     color='black'
                     style={{ marginLeft: 10 }}
                 />
-                <Icon3
-                    name='close'
-                    size={22}
-                    color='black'
-                    style={{ marginLeft: 'auto', marginRight: 10, color: 'black' }}
-                    onPress={() => {
-
-                    }}
-                />
             </View>
             <View style={{ flexDirection: 'row', marginTop: 15 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
