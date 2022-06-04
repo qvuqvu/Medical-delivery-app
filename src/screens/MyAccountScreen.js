@@ -7,6 +7,7 @@ import { Avatar, Button } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import DatetimePicker from "@react-native-community/datetimepicker"
+import HomeHeader from '../components/HomeHeader';
 import { discount } from "../global/Data"
 
 
@@ -25,7 +26,7 @@ export default function MyAccountScreen({ navigation }) {
     const [mode, setmode] = useState('date');
     const [show, setShow] = useState(false);
     const user = auth().currentUser;
-    const [getorder,setorder]=useState(0);
+    const [getorder, setorder] = useState(0);
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -107,6 +108,7 @@ export default function MyAccountScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
+            <HomeHeader navigation={navigation} title="Profile" />
             <View style={{ backgroundColor: 'white' }}>
                 <View style={styles.avatarView}>
                     <Avatar
@@ -136,24 +138,26 @@ export default function MyAccountScreen({ navigation }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.viewItem}
-                        onPress={() => navigation.navigate('Discount')}
+                        onPress={() => navigation.navigate('MyLastOrder')}
                     >
                         <Image
-                            source={require('../global/image/discount.png')}
+                            source={require('../global/image/history_cart.png')}
                             style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5 }}>
                             <Text style={{ color: 'black' }}>{discount.length}</Text>
-                            <Text>Mã giảm giá</Text>
+                            <Text>Đơn đã mua</Text>
                         </View>
                     </TouchableOpacity>
 
                 </View>
             </View>
             <View style={{ backgroundColor: 'white', width: "100%", height: '45%', marginTop: 10 }}>
-                <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Thông tin cá nhân</Text>
-                <View style={{ alignItems: "center", marginTop: -30, marginLeft: 270 }}>
-                    <Button title='Cập nhật' onPress={createuser} />
+                <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
+                    <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', }}>Thông tin cá nhân</Text>
+                    <TouchableOpacity onPress={createuser}>
+                        <Text style={{ marginLeft: 200, fontSize: 15, fontWeight: 'bold', color: 'red' }}>Sửa</Text>
+                    </TouchableOpacity>
                 </View>
                 <Modal
                     animationType="slide"
@@ -271,7 +275,7 @@ export default function MyAccountScreen({ navigation }) {
             <View style={styles.address}>
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 5 }}>
                     <Text style={{ color: 'black', marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>Sổ địa chỉ</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Address") }}>
                         <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>Địa chỉ đã lưu</Text>
                     </TouchableOpacity>
                 </View>

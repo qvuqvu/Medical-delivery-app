@@ -40,15 +40,15 @@ export default function MyOrder({ navigation, route }) {
         const db = firebase.firestore();
         db.collection('order' + user.uid)
             .add({
-                nhathuocchung:items[0].nhathuoc,
+                nhathuocchung: items[0].nhathuoc,
                 date: date + '-' + month + '-' + year,
                 items: items,
                 name: fullname,
                 phone: phonenumber,
                 address: address,
-                ship:costShip - num_dis * costShip,
-                total:total,
-                id:Math.random()
+                ship: costShip - num_dis * costShip,
+                total: total,
+                id: Math.random()
             })
             .then(() => {
                 console.log('User added!');
@@ -263,10 +263,11 @@ export default function MyOrder({ navigation, route }) {
                     <Text style={{ color: 'red', fontSize: 17, fontWeight: 'bold', alignSelf: 'center' }}>{total}.000 đ</Text>
                 </View>
                 <TouchableOpacity
+                    style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}
                     onPress={() => {
                         addCartToFireBase()
                     }}>
-                    <View style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}>
+                    <View>
                         <Text style={{ color: 'white', fontSize: 17, fontWeight: 'bold' }}>Đặt hàng</Text>
                     </View>
                 </TouchableOpacity>

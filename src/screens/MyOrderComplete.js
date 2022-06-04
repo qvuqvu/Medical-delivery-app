@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native'
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import HeaderSimple from '../components/HeaderSimple';
+import Icon from 'react-native-vector-icons/Ionicons';
 import auth from "@react-native-firebase/auth"
-
+const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function MyOrderComplete({ navigation }) {
     const user = auth().currentUser;
+    const [isValue, setValue] = useState(false);
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
         {
@@ -30,9 +32,11 @@ export default function MyOrderComplete({ navigation }) {
                     if (snapshot.size == 1) {
                         getcheck(true)
                         setdoc1(doc.data())
+                        setValue(true)
                     }
                     else {
                         item.push(doc.data())
+                        setValue(true)
                     }
                 });
             });
@@ -91,51 +95,56 @@ export default function MyOrderComplete({ navigation }) {
     }
     const List = ({ item }) => {
         return (
-            <View style={{ flexDirection: 'row', marginTop: 15 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', marginTop: 15, backgroundColor: '#e1f8f8', height: 100, borderRadius: 10, width: SCREEN_WIDTH - 20, marginLeft: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
                     <Image
                         style={{ width: 80, height: 80, resizeMode: "cover" }}
                         source={{ uri: item.image }} />
                 </View>
-                <View style={{ marginLeft: 10 }}>
-                    <View style={{ width: 263, height: 20, }}>
-                        <Text style={{ color: 'black', fontSize: 16 }}>{item.name}</Text>
+                <View style={{ marginLeft: 10, marginTop: 10 }}>
+                    <View style={{ width: 265, height: 20, }}>
+                        <Text style={{ color: 'black', fontSize: 15 }}>{item.name}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>{item.gia}</Text>
-                        <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3 }}>x{item.SL}</Text>
                     </View>
                 </View>
+                <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3, marginRight: 10, alignSelf: 'center', color: 'black' }}>x{item.SL}</Text>
             </View>
         )
     }
     const ListItem = ({ item }) => {
         return (
-            <View style={{ marginTop: 30, marginLeft: 20, marginBottom: 10 }}>
-                <View style={{ backgroundColor: '#ebf3f4', justifyContent: 'center' }}>
-                    <View style={{ flexDirection: 'row', marginLeft: 8 }}>
-                        <Image
-                            style={{ width: 22, height: 22, }}
-                            source={require('../global/image/store.png')} />
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.nhathuocchung}</Text>
+            <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: 'white' }}>
+                <View style={{ justifyContent: 'center', }}>
+                    <View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 15 }}>
+                        <View style={{ flexDirection: 'row', borderBottomWidth: 1 }}>
+                            <Image
+                                style={{ width: 20, height: 20, }}
+                                source={require('../global/image/store.png')} />
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
+                        </View>
                         <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đang xử lý</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
                         showsVerticalScrollIndicator={false}
+                        style={{ marginBottom: 15 }}
                     />
                 </View>
                 <View>
-                    <View style={{ height: 40, marginTop: 50 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text>Ngày đặt: {item.date}</Text>
-                            <Text style={{ marginLeft: 'auto', marginRight: 20, color: 'black', fontSize: 17 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+                    <View style={{ marginBottom: 20, height: 40 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+                            <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
+                                <Text style={{ color: 'black', fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                                <Text style={{ color: 'black', fontSize: 16 }}>Ngày đặt: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                            </View>
+                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: 'black', fontSize: 16 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                         </View>
-
                     </View>
-                    <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end" }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
                         <TouchableOpacity
-                            style={{ borderRadius: 20, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
+                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
                             onPress={() => {
                                 addCartToFireBase(item)
                             }}>
@@ -144,7 +153,7 @@ export default function MyOrderComplete({ navigation }) {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ borderRadius: 20, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
+                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
                             onPress={() => {
                                 deleteCartToFireBase(item.id)
                             }}>
@@ -159,31 +168,36 @@ export default function MyOrderComplete({ navigation }) {
     }
     const ListItem1 = (item) => {
         return (
-            <View style={{ marginTop: 10, marginLeft: 20, marginBottom: 10 }}>
-                <View style={{ backgroundColor: '#ebf3f4', justifyContent: 'center' }}>
-                    <View style={{ flexDirection: 'row', marginLeft: 8, marginTop: 8 }}>
-                        <Image
-                            style={{ width: 25, height: 25, }}
-                            source={require('../global/image/store.png')} />
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginLeft: 10 }}>{item.nhathuocchung}</Text>
+            <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: 'white' }}>
+                <View style={{ justifyContent: 'center', }}>
+                    <View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 15 }}>
+                        <View style={{ flexDirection: 'row', borderBottomWidth: 1 }}>
+                            <Image
+                                style={{ width: 20, height: 20, }}
+                                source={require('../global/image/store.png')} />
+                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
+                        </View>
                         <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đang xử lý</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
                         showsVerticalScrollIndicator={false}
+                        style={{ marginBottom: 15 }}
                     />
                 </View>
                 <View>
                     <View style={{ marginBottom: 20, height: 40 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text>Ngày đặt: {item.date}</Text>
-                            <Text style={{ marginLeft: 'auto', marginRight: 20, color: 'black', fontSize: 17 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+                            <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
+                                <Text style={{ color: 'black', fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                                <Text style={{ color: 'black', fontSize: 16 }}>Ngày đặt: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                            </View>
+                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: 'black', fontSize: 16 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                         </View>
-
                     </View>
-                    <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end" }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
                         <TouchableOpacity
-                            style={{ borderRadius: 20, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
+                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
                             onPress={() => {
                                 addCartToFireBase(item)
                             }}>
@@ -192,7 +206,7 @@ export default function MyOrderComplete({ navigation }) {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ borderRadius: 20, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
+                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
                             onPress={() => {
                                 deleteCartToFireBase(item.id)
                             }}>
@@ -207,16 +221,24 @@ export default function MyOrderComplete({ navigation }) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <HeaderSimple title="Đơn mua" navigation={navigation} />
-            <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center' }}>
-                <Text>Sản phẩm đặt hàng thành công</Text>
-                <TouchableOpacity
-                    style={{ marginLeft: 10 }}
+            <HeaderSimple title="Đang xử lý" navigation={navigation} />
+            <View style={isValue == false ? { height: 0 } : { height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
+                <Icon
+                    name="reload"
+                    size={20}
+                    color="red"
                     onPress={() => {
                         addd()
-                    }}>
-                    <Text>Load</Text>
-                </TouchableOpacity>
+                    }}
+                    style={{ marginLeft: 'auto', marginRight: 20 }}
+                />
+            </View>
+            <View style={isValue == false ? { height: 100, justifyContent: 'center', alignItems: 'center', marginTop: 70 } : { height: 0 }}>
+                <Image
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain', }}
+                    source={require('../global/image/cart_order.png')} />
+                <Text style={{ color: 'red', fontSize: 17, marginTop: 20, fontWeight: 'bold' }}>Bạn không có đơn hàng nào đang xử lý</Text>
             </View>
             <View style={{ height: '100%' }}>
                 {check ?
