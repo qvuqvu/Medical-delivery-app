@@ -8,6 +8,7 @@ import BusinessConsoleScreen from '../screens/BusinessConsoleScreen';
 import 'react-native-gesture-handler';
 import DrawerContent from '../components/DrawerContent';
 import {colors} from '../global/styles'
+import News2 from '../screens/News2';
 
 const Drawer = createDrawerNavigator();
 
@@ -46,6 +47,13 @@ export default function DrawerNavigator() {
                         />
                     )
                 }}
+            />
+            <Drawer.Screen
+             name="News2"
+             component={News2}
+             options={{
+                    headerShown: false,
+             }}
             />
         </Drawer.Navigator>
     )
