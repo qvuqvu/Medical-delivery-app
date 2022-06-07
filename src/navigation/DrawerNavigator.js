@@ -48,13 +48,6 @@ export default function DrawerNavigator() {
                     )
                 }}
             />
-            <Drawer.Screen
-             name="News2"
-             component={News2}
-             options={{
-                    headerShown: false,
-             }}
-            />
         </Drawer.Navigator>
     )
 }

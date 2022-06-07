@@ -4,7 +4,7 @@ import {colors} from "react-native-elements"
 import Header from "../components/Header";
 import Icon from "react-native-vector-icons/Entypo"
 
-export default function News5() {
+export default function News5({navigation}) {
   return (
   <View>
       <ScrollView>

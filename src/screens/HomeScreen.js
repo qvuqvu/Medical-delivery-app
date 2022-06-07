@@ -34,12 +34,10 @@ export default function HomeScreen({ navigation }) {
                             onPress={() => { setIndexCheck(item.id) }}
                         >
                             <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
-
                                 <Image
                                     style={{ height: 75, width: 100 }}
                                     source={item.image}
                                 />
-
                                 <View style={styles.categoryTextView}>
                                     <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
                                         { ...styles.smallCardText }}>{item.name}</Text>
