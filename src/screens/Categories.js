@@ -19,13 +19,14 @@ export default function Categoties({ navigation }) {
     return (
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="Tìm Kiếm" />
-            <SearchComponent navigation={navigation}/>
+            <SearchComponent navigation={navigation} />
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
 
     text1: {

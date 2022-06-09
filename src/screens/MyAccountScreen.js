@@ -275,7 +275,7 @@ export default function MyAccountScreen({ navigation }) {
             <View style={styles.address}>
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 5 }}>
                     <Text style={{ color: 'black', marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>Sổ địa chỉ</Text>
-                    <TouchableOpacity onPress={() => { navigation.navigate("Address") }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Maps") }}>
                         <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>Địa chỉ đã lưu</Text>
                     </TouchableOpacity>
                 </View>

@@ -42,7 +42,6 @@ export default function ProductInfo({ navigation, route }) {
             })
             .then(() => {
                 console.log('User added!');
-                alert("added " + Totaldate[route.params.id].name + " success");
             });
     };
     useEffect(() => {
@@ -251,7 +250,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            selectItem(Totaldate[route.params.id],true)
+                            selectItem(Totaldate[route.params.id], true)
                             navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>

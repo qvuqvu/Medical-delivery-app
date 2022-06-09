@@ -25,6 +25,8 @@ target 'MedicalDeliveryAPP' do
 
   pod 'react-native-voice', :path => '../node_modules/@react-native-community/voice'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
   target 'MedicalDeliveryAPPTests' do
     inherit! :complete
     # Pods for testing

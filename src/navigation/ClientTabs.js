@@ -7,6 +7,7 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/MaterialIcons'
+import Icon5 from 'react-native-vector-icons/FontAwesome'
 import HomeScreen from '../screens/HomeScreen'
 import MyAccountScreen from '../screens/MyAccountScreen'
 import Categories from '../screens/Categories'
@@ -20,10 +21,10 @@ const ClientTabs = createBottomTabNavigator();
 export default function RootClientTabs() {
     const user = auth().currentUser;
     firestore()
-            .collection('cart' + user.uid).onSnapshot((snapshot) => {
-                snapshot.docs.map((doc) => {
-                });
+        .collection('cart' + user.uid).onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
             });
+        });
     return (
         <ClientTabs.Navigator
             initialRouteName='HomeScreen'
@@ -69,10 +70,10 @@ export default function RootClientTabs() {
                 component={MyFavoriteScreen}
                 options={
                     {
-                        tabBarLabel: "My Favorite",
+                        tabBarLabel: "News",
                         tabBarIcon: ({ color, size }) => (
-                            <Icon4
-                                name='favorite-border'
+                            <Icon5
+                                name='newspaper-o'
                                 color={color}
                                 size={size}
                             />
