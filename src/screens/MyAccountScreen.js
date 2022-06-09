@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressab
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
 import Icon1 from "react-native-vector-icons/FontAwesome"
+import Icon2 from "react-native-vector-icons/EvilIcons"
 import { Avatar, Button } from 'react-native-elements'
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import DatetimePicker from "@react-native-community/datetimepicker"
 import HomeHeader from '../components/HomeHeader';
+import ImagePicker from 'react-native-image-crop-picker';
+import { firebase } from '@react-native-firebase/firestore';
 import { discount } from "../global/Data"
 
 
@@ -28,6 +31,7 @@ export default function MyAccountScreen({ navigation }) {
     const user = auth().currentUser;
     const [getorder, setorder] = useState(0);
     const [getcomplete, setcomplete] = useState(0);
+    const [getnum, setnum] = useState(0);
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -66,7 +70,7 @@ export default function MyAccountScreen({ navigation }) {
                     setaddress(doc.data().address)
                 });
             });
-    });
+    }, [getnum]);
     const updateGmail = (doc) => {
         firestore()
             .collection('User' + user.uid)
@@ -111,18 +115,37 @@ export default function MyAccountScreen({ navigation }) {
         setsex1("");
         setphonenumber1("");
     }
+    async function getCurrentImage() {
+        ImagePicker.openPicker({
+            cropping: true
+        }).then(image => {
+            firebase.auth().currentUser.updateProfile({ photoURL: image.path });
+            setTimeout(() => {
+                setnum(Math.random())
+            }, 1000);
+        });
+    }
     return (
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="Profile" />
             <View style={{ backgroundColor: 'white' }}>
                 <View style={styles.avatarView}>
                     <Avatar
-                        size={90}
+                        size={100}
                         rounded
                         avatarStyle={styles.avatar}
                         source={{ uri: user.photoURL ? user.photoURL : "https://i.ytimg.com/vi/jH7e1fDcZnY/maxresdefault.jpg" }}
                     />
-                    <Text style={{ color: 'black', fontSize: 20, marginTop: 15 }}>
+                    <View style={{ marginLeft: 90, marginTop: -20 }}>
+                        <Icon2
+                            size={40}
+                            name='camera'
+                            onPress={() => {
+                                getCurrentImage()
+                            }}
+                        />
+                    </View>
+                    <Text style={{ color: 'black', fontSize: 20 }}>
                         {user.displayName ? user.displayName : fullname}
                     </Text>
                 </View>
