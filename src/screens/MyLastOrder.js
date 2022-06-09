@@ -36,7 +36,6 @@ export default function MyLastOrder({ navigation }) {
           }
         });
       });
-
   }, [getdoc]);
   const addd = (() => {
     setdoc(Math.random())
