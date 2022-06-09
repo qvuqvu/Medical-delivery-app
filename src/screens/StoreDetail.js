@@ -1,19 +1,20 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Modal, Dimensions, ImageBackground, TouchableWithoutFeedback, FlatList, Keyboard } from 'react-native'
 import HeaderSimple from '../components/HeaderSimple'
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { colors } from "../global/styles";
-import { filterData2 } from '../global/Data';
+import { filterData2, nhathuochamy, Totaldate, nhathuoclongchau, nhathuocminhchau, nhathuocngoclong, nhathuoclenguyen, nhathuocgreenpharma, nhathuocthuytrang } from '../global/Data';
 const SCREEN_WIDTH = Dimensions.get('window').width;
-export default function StoreDetail({ navigation }) {
+export default function StoreDetail({ navigation, route }) {
     const [textInputFossued, setTextInputFossued] = useState(false)
     const textInput = useRef(0)
     const [data, setData] = useState([])
+    const [data1, setdata1] = useState([])
     const [search, setSearch] = useState("")
     const handleSearch = (text) => {
         if (text) {
-            const newData = filterData2.filter(item => {
+            const newData = nhathuochamy.filter(item => {
                 const itemData = item.name ?
                     item.name.toUpperCase()
                     : ''.toUpperCase();
@@ -27,6 +28,29 @@ export default function StoreDetail({ navigation }) {
             setSearch("");
         }
     }
+    useEffect(() => {
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Hà My") {
+            setdata1(nhathuochamy)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Long Châu") {
+            setdata1(nhathuoclongchau)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Minh Châu") {
+            setdata1(nhathuocminhchau)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Ngọc Long") {
+            setdata1(nhathuocngoclong)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Lê Nguyên") {
+            setdata1(nhathuoclenguyen)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Green Pharma") {
+            setdata1(nhathuocgreenpharma)
+        }
+        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Thùy Trang") {
+            setdata1(nhathuocthuytrang)
+        }
+    })
     const renderItem = ({ item }) => {
         return (
             <TouchableWithoutFeedback
@@ -106,8 +130,8 @@ export default function StoreDetail({ navigation }) {
                             source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                     </View>
                     <View style={{ marginTop: 25, marginLeft: 20 }}>
-                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold' }}>Nhà Thuốc Ngọc Hằng</Text>
-                        <Text style={{ marginTop: 5 }}>iku iku</Text>
+                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
+                        <Text style={{ marginTop: 5 }}></Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
@@ -128,7 +152,7 @@ export default function StoreDetail({ navigation }) {
             <View>
                 <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, marginTop: 10 }}>Sản phẩm của shop</Text>
                 <FlatList
-                    data={data}
+                    data={data1}
                     keyExtractor={item => item.id}
                     renderItem={renderItem}
                     horizontal={false}
