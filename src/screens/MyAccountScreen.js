@@ -122,8 +122,10 @@ export default function MyAccountScreen({ navigation }) {
             firebase.auth().currentUser.updateProfile({ photoURL: image.path });
             setTimeout(() => {
                 setnum(Math.random())
-            }, 1000);
+            }, 1500);
+            setnum(Math.random())
         });
+        setnum(Math.random())
     }
     return (
         <View style={styles.container}>
