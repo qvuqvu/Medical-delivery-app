@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, Alert } from 'react-native';
 import Icon3 from 'react-native-vector-icons/EvilIcons'
+import Icon from 'react-native-vector-icons/Ionicons'
 import HeaderSimple from '../components/HeaderSimple';
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
@@ -183,13 +184,15 @@ export default function MyShoppingScreen({ navigation }) {
                     style={{ height: 30, width: "15%", resizeMode: "contain" }}
                 />
                 <Text style={{ color: 'black', fontSize: 15 }}>Vui lòng chọn sản phẩm bạn muốn mua!</Text>
-                <TouchableOpacity
-                    style={{ marginLeft: 10 }}
+                <Icon
+                    name="reload"
+                    size={20}
+                    color="red"
                     onPress={() => {
                         addd()
-                    }}>
-                    <Text>Load</Text>
-                </TouchableOpacity>
+                    }}
+                    style={{ marginLeft: 'auto', marginRight: 20 }}
+                />
             </View>
             <View style={{ height: '79.5%' }}>
                 {check ?
