@@ -27,6 +27,7 @@ export default function MyAccountScreen({ navigation }) {
     const [show, setShow] = useState(false);
     const user = auth().currentUser;
     const [getorder, setorder] = useState(0);
+    const [getcomplete, setcomplete] = useState(0);
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -49,6 +50,10 @@ export default function MyAccountScreen({ navigation }) {
     firestore()
         .collection('order' + user.uid).onSnapshot((snapshot) => {
             setorder(snapshot.size)
+        });
+    firestore()
+        .collection('lastorder' + user.uid).onSnapshot((snapshot) => {
+            setcomplete(snapshot.size)
         });
     useEffect(() => {
         firestore()
@@ -145,7 +150,7 @@ export default function MyAccountScreen({ navigation }) {
                             style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                         />
                         <View style={{ justifyContent: 'center', marginEnd: 5 }}>
-                            <Text style={{ color: 'black' }}>{discount.length}</Text>
+                            <Text style={{ color: 'black' }}>{getcomplete}</Text>
                             <Text>Đơn đã mua</Text>
                         </View>
                     </TouchableOpacity>
