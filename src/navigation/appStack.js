@@ -18,6 +18,7 @@ import News2 from '../screens/News2';
 import News3 from '../screens/News3';
 import News4 from '../screens/News4';
 import News5 from '../screens/News5';
+import DiscountScreen from '../screens/Discount';
 
 const App = createNativeStackNavigator();
 
