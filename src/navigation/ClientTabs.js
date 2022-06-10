@@ -86,7 +86,7 @@ export default function RootClientTabs() {
                 component={MyAccountScreen}
                 options={
                     {
-                        tabBarLabel: "My Account",
+                        tabBarLabel: "Profile",
                         tabBarIcon: ({ color, size }) => (
                             <Icon2
                                 name='person'
