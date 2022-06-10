@@ -14,7 +14,7 @@ GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
 });
 
-export default function DrawerContent(props) {
+export default function DrawerContent(props,navigation) {
 
     const { dispatchSignedIn } = useContext(SignInContext)
     const user = auth().currentUser;
@@ -48,15 +48,7 @@ export default function DrawerContent(props) {
         // return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
         console.log(date + '-' + month + '-' + year)
     }
-    const getCurrentImage = () => {
-        ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-          }).then(image => {
-            console.log(image);
-          });
-    }
+    
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -107,16 +99,6 @@ export default function DrawerContent(props) {
                     )}
                 />
                 <DrawerItem
-                    label="Promotions"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="tag-heart"
-                            color={color}
-                            size={size}
-                        />
-                    )}
-                />
-                <DrawerItem
                     label="Settings"
                     icon={({ color, size }) => (
                         <Icon1
@@ -129,20 +111,6 @@ export default function DrawerContent(props) {
                         />
                     )}
                 />
-                <DrawerItem
-                    label="Help"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="lifebuoy"
-                            color={color}
-                            size={size}
-                            onPress={() => {
-                                getCurrentImage();
-                            }}
-                        />
-                    )}
-                />
-
                 <View style={{ borderTopWidth: 1, borderTopColor: colors.grey5 }}>
                     <Text style={styles.preferences}>Preferences</Text>
 

@@ -14,43 +14,55 @@ export default function StoreDetail({ navigation, route }) {
     const [search, setSearch] = useState("")
     const handleSearch = (text) => {
         if (text) {
-            const newData = nhathuochamy.filter(item => {
+            const newData = data.filter(item => {
                 const itemData = item.name ?
                     item.name.toUpperCase()
                     : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
             });
-            setData(newData);
+            setdata1(newData);
             setSearch(text);
         } else {
-            setData([]);
             setSearch("");
         }
     }
     useEffect(() => {
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Hà My") {
             setdata1(nhathuochamy)
+            setData(nhathuochamy)    
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Long Châu") {
             setdata1(nhathuoclongchau)
+            setData(nhathuoclongchau)
+           
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Minh Châu") {
             setdata1(nhathuocminhchau)
+            setData(nhathuocminhchau)
+          
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Ngọc Long") {
             setdata1(nhathuocngoclong)
+            setData(nhathuocngoclong)
+           
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Lê Nguyên") {
             setdata1(nhathuoclenguyen)
+            setData(nhathuoclenguyen)
+            
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Green Pharma") {
             setdata1(nhathuocgreenpharma)
+            setData(nhathuocgreenpharma)
+           
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Thùy Trang") {
             setdata1(nhathuocthuytrang)
+            setData(nhathuocthuytrang)
+            
         }
-    })
+    },[])
     const renderItem = ({ item }) => {
         return (
             <TouchableWithoutFeedback
@@ -104,9 +116,6 @@ export default function StoreDetail({ navigation, route }) {
                         value={search}
                         onFocus={() => {
                             setTextInputFossued(true)
-                        }}
-                        onBlur={() => {
-                            setTextInputFossued(false)
                         }}
                         onChangeText={(text) => handleSearch(text)}
                     />
