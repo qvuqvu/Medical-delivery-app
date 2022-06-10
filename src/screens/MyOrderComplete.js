@@ -219,8 +219,8 @@ export default function MyOrderComplete({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <HeaderSimple title="Đang xử lý" navigation={navigation} />
-           
-                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
+            <View style={{ justifyContent: 'center', flexDirection: 'row', height: 40, alignItems: 'center', backgroundColor: 'white' }}>
+                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 10 }}>Cảm ơn bạn đã đặt thuốc!</Text>
                 <Icon
                     name="reload"
                     size={20}
@@ -230,7 +230,7 @@ export default function MyOrderComplete({ navigation }) {
                     }}
                     style={{ marginLeft: 'auto', marginRight: 20 }}
                 />
-            
+            </View>
             <View style={{ height: '100%' }}>
                 {check ?
                     (
