@@ -22,8 +22,9 @@ export default function Categories({ navigation }) {
     };
     return (
         <View style={styles.container}>
+
             <View>
-                <HomeHeader navigation={navigation} title="Medeli" />
+                <HomeHeader navigation={navigation} title="Tìm kiếm" />
                 <SearchComponent navigation={navigation} />
             </View>
 
@@ -59,6 +60,8 @@ export default function Categories({ navigation }) {
             </View>
         </View >
 
+
+   
     )
 
 }
