@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
                     data={categoryData}
                     showsHorizontalScrollIndicator={false}
                     horizontal={true}
-                    keyExtractor={(item, index) => index.id}
+                    keyExtractor={(item, index) => { return item.id }}
                     extraData={indexCheck}
                     renderItem={({ item, index }) => (
                         <Pressable
@@ -52,44 +52,42 @@ export default function HomeScreen({ navigation }) {
 
             <View style={styles.headerTextView}>
                 <Text style={styles.headerText}>Sản phẩm</Text>
-                <View style={{flexDirection:'row',marginTop:5}}>
-                    <Text style={{fontSize:16,marginRight:5,color:'black',fontWeight:'bold'}}>Sản phẩm thay đổi sau:</Text>
+                <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 16, marginRight: 5, color: 'black', fontWeight: 'bold' }}>Sản phẩm thay đổi sau:</Text>
                     <CountDown
-                    style={{marginTop:-5}}
-                    until={3600}
-                    size={14}
-                    digitStyle={{backgroundColor:'#66DF48'}}
-                    digitTxtStyle={{color:'white'}}
-                    timeToShow={['M','S']}
-                    timeLabels={{m:'Min',s:'Sec'}}
+                        style={{ marginTop: -5 }}
+                        until={3600}
+                        size={14}
+                        digitStyle={{ backgroundColor: '#66DF48' }}
+                        digitTxtStyle={{ color: 'white' }}
+                        timeToShow={['M', 'S']}
+                        timeLabels={{ m: 'Min', s: 'Sec' }}
                     />
                 </View>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View>
-                    <FlatList
-                        style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
-                        showsVerticalScrollIndicator={false}
-                        horizontal={false}
-                        numColumns={2}
-                        data={Totaldate}
-                        keyExtractor={item => item.id.toString}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                            <View >
-                                <ProductCard
-                                    navigation={navigation}
-                                    screenWidth={SCREEN_WIDTH * 0.40}
-                                    images={item.image}
-                                    ProductName={item.name}
-                                    Price={item.gia}
-                                    id={item.id}
-                                />
-                            </View>)}
-                    />
-                </View>
-            </ScrollView>
+            <View>
+                <FlatList
+                    style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
+                    showsVerticalScrollIndicator={false}
+                    horizontal={false}
+                    numColumns={2}
+                    data={Totaldate}
+                    keyExtractor={item => { return item.id }}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <View >
+                            <ProductCard
+                                navigation={navigation}
+                                screenWidth={SCREEN_WIDTH * 0.40}
+                                images={item.image}
+                                ProductName={item.name}
+                                Price={item.gia}
+                                id={item.id}
+                            />
+                        </View>)}
+                />
+            </View>
         </View>
     )
 }

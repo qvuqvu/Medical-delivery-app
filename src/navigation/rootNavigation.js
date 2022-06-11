@@ -10,6 +10,7 @@ const store = configureStore();
 export default function RootNavigator() {
     const { signedIn } = useContext(SignInContext)
     return (
+        
         <ReduxProvider store={store}>
             <NavigationContainer>
                 {signedIn.userToken === null ? <AuthStack /> : <AppStack />}

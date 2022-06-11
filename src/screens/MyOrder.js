@@ -118,18 +118,23 @@ export default function MyOrder({ navigation, route }) {
                         </View>
                     </View>
                     <View>
-                        <FlatList
-                            data={items}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item }) => (
-                                <View style={{ alignSelf: 'center', width: 380 }}>
-                                    <ProductOrder
-                                        item={item}
-                                    />
-                                </View>
-                            )}
-                        />
+                        {items.map((item, index) =>
+                            <View key={index}>
+                                <ProductOrder item={item} />
+                            </View>
+                        )}
                     </View>
+                    {/* <FlatList
+                        data={items}
+                        keyExtractor={item => { return item.id }}
+                        renderItem={({ item }) => (
+                            <View style={{ alignSelf: 'center', width: 380 }}>
+                                <ProductOrder
+                                    item={item}
+                                />
+                            </View>
+                        )}
+                    /> */}
                     <View style={{ marginTop: 20, marginBottom: 10, height: '15%' }}>
                         <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>
                             <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 16 }}>{count} Sản phẩm</Text>
