@@ -47,7 +47,7 @@ export default function DrawerNavigator() {
             component={DiscountScreen}
             options={{
                 headerShown: false,
-                title: 'Promotions',
+                title: 'Mã giảm giá',
                 drawerIcon:({ color, size }) => (
                     <Icon2
                         name="tag-heart"
@@ -58,7 +58,7 @@ export default function DrawerNavigator() {
             }}
             />
             <Drawer.Screen
-            name='Help'
+            name='Trợ giúp'
             component={Help}
             options={{
                 headerShown:false,

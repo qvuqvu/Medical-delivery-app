@@ -77,7 +77,7 @@ const SearchComponent = () => {
                         <Icon name="search"
                             style={styles.searchIcon}
                         />
-                        <Text style={{ fontSize: 15, marginLeft: 10 }}>What are you looking for ?</Text>
+                        <Text style={{ fontSize: 15, marginLeft: 10 }}>Tìm kiếm thuốc và dụng cụ y tế ?</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <Modal
