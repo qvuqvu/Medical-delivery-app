@@ -49,7 +49,7 @@ export default function RootClientTabs() {
                 }
             />
             <ClientTabs.Screen
-                name='Categories'
+                name='Search'
                 component={Categories}
                 options={
                     {
