@@ -37,7 +37,7 @@ export default function RootClientTabs() {
                 component={HomeScreen}
                 options={
                     {
-                        tabBarLabel: "Home",
+                        tabBarLabel: "Màn hình chính",
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='home'
@@ -53,7 +53,7 @@ export default function RootClientTabs() {
                 component={Categories}
                 options={
                     {
-                        tabBarLabel: "Search",
+                        tabBarLabel: "Tìm kiếm",
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='search'
@@ -69,7 +69,7 @@ export default function RootClientTabs() {
                 component={MyFavoriteScreen}
                 options={
                     {
-                        tabBarLabel: "My Favorite",
+                        tabBarLabel: "Yêu thích",
                         tabBarIcon: ({ color, size }) => (
                             <Icon4
                                 name='favorite-border'
@@ -85,7 +85,7 @@ export default function RootClientTabs() {
                 component={MyAccountScreen}
                 options={
                     {
-                        tabBarLabel: "My Account",
+                        tabBarLabel: "Tài khoản",
                         tabBarIcon: ({ color, size }) => (
                             <Icon2
                                 name='person'

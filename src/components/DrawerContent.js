@@ -8,7 +8,7 @@ import { colors } from '../global/styles'
 import { SignInContext } from '../contexts/authContext';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import ImagePicker from 'react-native-image-crop-picker';
+import firestore from "@react-native-firebase/firestore"
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -17,8 +17,17 @@ GoogleSignin.configure({
 export default function DrawerContent(props) {
 
     const { dispatchSignedIn } = useContext(SignInContext)
+    const [getorder, setorder] = useState(0);
+    const [getstatus, setstatus] = useState(0);
     const user = auth().currentUser;
-
+    firestore()
+        .collection('order' + user.uid).onSnapshot((snapshot) => {
+            setorder(snapshot.size)
+        });
+    firestore()
+        .collection('cart' + user.uid).onSnapshot((snapshot) => {
+            setstatus(snapshot.size)
+        });
     async function signOut() {
         try {
             auth()
@@ -36,26 +45,6 @@ export default function DrawerContent(props) {
                 error.message
             )
         }
-    }
-    const getCurrentDate = () => {
-
-        var date = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
-
-        //Alert.alert(date + '-' + month + '-' + year);
-        // You can turn it in to your desired format
-        // return date + '-' + month + '-' + year;//format: dd-mm-yyyy;
-        console.log(date + '-' + month + '-' + year)
-    }
-    const getCurrentImage = () => {
-        ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-          }).then(image => {
-            console.log(image);
-          });
     }
     return (
         <View style={styles.container}>
@@ -79,15 +68,15 @@ export default function DrawerContent(props) {
                     <View style={{ flexDirection: 'row', justifyContent: "space-evenly", paddingBottom: 5 }}>
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>1</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>My Favorites</Text>
+                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getorder}</Text>
+                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>Đơn đang xử lý</Text>
                             </View>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>0</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>My Cart</Text>
+                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getstatus}</Text>
+                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>Giỏ hàng</Text>
                             </View>
                         </View>
                     </View>
@@ -95,53 +84,6 @@ export default function DrawerContent(props) {
 
 
                 <DrawerItemList {...props} />
-
-                <DrawerItem
-                    label="Payment"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="credit-card-outline"
-                            color={color}
-                            size={size}
-                        />
-                    )}
-                />
-                <DrawerItem
-                    label="Promotions"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="tag-heart"
-                            color={color}
-                            size={size}
-                        />
-                    )}
-                />
-                <DrawerItem
-                    label="Settings"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="cog-outline"
-                            color={color}
-                            size={size}
-                            onPress={() => {
-                                getCurrentDate();
-                            }}
-                        />
-                    )}
-                />
-                <DrawerItem
-                    label="Help"
-                    icon={({ color, size }) => (
-                        <Icon1
-                            name="lifebuoy"
-                            color={color}
-                            size={size}
-                            onPress={() => {
-                                getCurrentImage();
-                            }}
-                        />
-                    )}
-                />
 
                 <View style={{ borderTopWidth: 1, borderTopColor: colors.grey5 }}>
                     <Text style={styles.preferences}>Preferences</Text>
@@ -159,21 +101,21 @@ export default function DrawerContent(props) {
 
             </DrawerContentScrollView>
 
-            <TouchableOpacity onPress={() => { signOut() }}>
+            <TouchableOpacity
+                onPress={() => { signOut() }}>
                 <DrawerItem
-                    label="Sign Out"
+                    label="Đăng xuất"
                     icon={({ color, size }) => (
                         <Icon
                             type="material-community"
                             name="logout-variant"
                             color={color}
-                            size={size}
+                            size={40}
                             onPress={() => { signOut() }}
                         />
                     )}
                 />
             </TouchableOpacity>
-
         </View>
     )
 }

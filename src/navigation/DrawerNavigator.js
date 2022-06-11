@@ -22,7 +22,7 @@ export default function DrawerNavigator() {
                 component={RootClientTabs}
                 options={{
                     headerShown: false,
-                    title: 'Client',
+                    title: 'Màn hình chính',
                     drawerIcon: ({ focussed, size }) => (
                         <Icon
                             name="home"
@@ -32,22 +32,7 @@ export default function DrawerNavigator() {
                     )
                 }}
             />
-
-            <Drawer.Screen
-                name="Business ConsoleScreen"
-                component={BusinessConsoleScreen}
-                options={{
-                    headerShown: false,
-                    title: 'Business console',
-                    drawerIcon: ({ focussed, size }) => (
-                        <Icon1
-                            name="business"
-                            color={focussed ? '#7cc' : colors.grey2}
-                            size={size}
-                        />
-                    )
-                }}
-            />
+            
         </Drawer.Navigator>
     )
 }
