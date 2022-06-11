@@ -81,7 +81,7 @@ export default function MyAccountScreen({ navigation }) {
             setsex1(sex)
             setaddress1(address)
         }
-    });
+    },[setnum]);
     const updateGmail = (doc) => {
         firestore()
             .collection('User' + user.uid)
