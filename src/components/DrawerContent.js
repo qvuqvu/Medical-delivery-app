@@ -86,7 +86,7 @@ export default function DrawerContent(props) {
                 <DrawerItemList {...props} />
 
                 <View style={{ borderTopWidth: 1, borderTopColor: colors.grey5 }}>
-                    <Text style={styles.preferences}>Preferences</Text>
+                    <Text style={styles.preferences}>Yêu thích</Text>
 
                     <View style={styles.switchText}>
                         <Text style={styles.darkthemeText}>Dark Theme</Text>
