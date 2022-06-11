@@ -20,9 +20,7 @@ export default function ProductInfo({ navigation, route }) {
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
     const [isOpen, setIsOpen] = useState(false)
-    const cost = Totaldate[route.params.id].gia.split(' ')
     const endLine = "\n"
-    const [show, setShow] = useState(8)
     const handleOpen = () => {
         if (isOpen) {
             setIsOpen(false)
@@ -32,9 +30,6 @@ export default function ProductInfo({ navigation, route }) {
         }
     }
     const addCartToFireBase = () => {
-        var date = new Date().getDate();
-        var month = new Date().getMonth() + 1;
-        var year = new Date().getFullYear();
         const db = firebase.firestore();
         db.collection('cart' + user.uid)
             .add({
@@ -84,41 +79,9 @@ export default function ProductInfo({ navigation, route }) {
                 checkboxValue: checkboxValue,
             },
         });
-    // const renderItem = ({ item }) => {
-    //         return (
-    //             <TouchableWithoutFeedback>
-    //                 <View>
-    //                     <View style={[styles.imageView, { marginTop: 15 }]}>
-    //                         <TouchableOpacity onPress={() => navigation.navigate("ProductInfo", { id: item.id })}>
-    //                             <ImageBackground
-    //                                 style={styles.image}
-    //                                 source={{ uri: item.image }}
-    //                             >
-    //                             </ImageBackground>
-    //                             <View>
-    //                                 <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
-    //                             </View>
-    //                         </TouchableOpacity>
-    //                         <View>
-    //                             <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
-    //                         </View>
-    //                         <View style={{ flexDirection: "row" }}>
-    //                             <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
-    //                                 <Icon3 name='shoppingcart' size={35} >
-    //                                 </Icon3>
-    //                             </TouchableOpacity>
-    //                             <TouchableOpacity style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
-    //                                 <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
-    //                             </TouchableOpacity>
-    //                         </View>
-    //                     </View>
-    //                 </View>
-    //             </TouchableWithoutFeedback>
-    //         )
-    //     }
     return (
         <View style={styles.container}>
-            <HeaderProject navigation={navigation} title="Product" />
+            <HeaderProject navigation={navigation} title="Thông tin sản phẩm" />
             <View style={{ flex: 1, marginTop: 10, backgroundColor: 'white' }}>
                 <ScrollView>
                     <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
@@ -228,17 +191,6 @@ export default function ProductInfo({ navigation, route }) {
                             </Text>
                         </View>
                     </View>
-                    {/* <View style={{ marginTop: 10 }}>
-                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold', marginLeft: 10 }}>Sản phẩm cùng nhà thuốc</Text>
-                        <FlatList
-                            data={filterData2}
-                            keyExtractor={item => item.id}
-                            renderItem={renderItem}
-                            horizontal={false}
-                            showsverticalScrollIndicator={false}
-                            numColumns={2}
-                        />
-                    </View> */}
                 </ScrollView>
                 <View style={{ flexDirection: 'row', height: 60, justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.2, borderTopLeftRadius: 10, borderTopRightRadius: 10, }}>
                     <TouchableOpacity

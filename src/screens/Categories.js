@@ -77,7 +77,7 @@ export default function Categories({ navigation }) {
                     numColumns={2}
                     data={data}
                     extraData={data}
-                    keyExtractor={item => item.id.toString}
+                    keyExtractor={item => { return item.id }}
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <View >

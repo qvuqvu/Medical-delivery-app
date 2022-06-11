@@ -22,7 +22,6 @@ export default function HomeScreen({ navigation }) {
                 <HomeHeader navigation={navigation} title="MEDILI" />
             </View>
             
-            <ScrollView>
                 <View>
                     <Swiper activeDot={<View style={{ backgroundColor: colors.buttons, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
                         <View style={{ height: 113, width: 348 }}>
@@ -57,7 +56,7 @@ export default function HomeScreen({ navigation }) {
                         data={categoryData}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
-                        keyExtractor={(item, index) => index.id}
+                        keyExtractor={item => { return item.id }}
                         extraData={indexCheck}
                         renderItem={({ item, index }) => (
                             <Pressable
@@ -104,7 +103,7 @@ export default function HomeScreen({ navigation }) {
                         horizontal={false}
                         numColumns={2}
                         data={Totaldate}
-                        keyExtractor={item => item.id.toString}
+                        keyExtractor={item => { return item.id }}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
                             <View >
@@ -119,7 +118,6 @@ export default function HomeScreen({ navigation }) {
                             </View>)}
                     />
                 </View>
-            </ScrollView>
         </View>
 
     )
