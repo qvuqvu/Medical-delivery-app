@@ -6,10 +6,10 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { colors } from "../global/styles"
-
+import ProductCard from '../components/ProductCard';
 import HomeHeader from '../components/HomeHeader';
 import { ScrollView } from 'react-native-gesture-handler'
-import { filterData2 } from '../global/Data';
+import { Thietbiyte, thuoc, thucphamchucnang, covid } from '../global/Data';
 import SearchComponent from '../components/SearchComponent';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -17,9 +17,14 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function Categories({ navigation }) {
     const [selected, setSelected] = useState(null)
-    const handleSelected = (value) => {
+    const [data, setData] = useState([])
+
+    const handleSelected = (value, data) => {
         setSelected(value);
+        setData(data)
     };
+
+
     return (
         <View style={styles.container}>
 
@@ -28,49 +33,80 @@ export default function Categories({ navigation }) {
                 <SearchComponent navigation={navigation} />
             </View>
 
-            <View style={{ marginTop: 100, marginLeft: 10 }}>
+            <View style={{ marginTop: 80, marginLeft: 10, marginBottom: 20 }}>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <CategoriesCard
                         image={require('../global/image/categories/category__thuockhongkedon.png')}
                         title={'Thuốc không kê đơn'}
                         onPress={handleSelected}
                         value={selected}
+                        data={thuoc}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__covid19.png')}
                         title={'COVID-19'}
                         onPress={handleSelected}
                         value={selected}
+                        data={covid}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thucphamchucnang.png')}
                         title={'Thực phẩm chức năng'}
                         onPress={handleSelected}
                         value={selected}
+                        data={thucphamchucnang}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thietbiyte.png')}
                         title={'Thiết bị y tế'}
                         onPress={handleSelected}
                         value={selected}
+                        data={Thietbiyte}
                     />
 
 
                 </ScrollView>
             </View>
+
+
+            <View>
+                <FlatList
+                    style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
+                    showsVerticalScrollIndicator={false}
+                    horizontal={false}
+                    numColumns={2}
+                    data={data}
+                    extraData={data}
+                    keyExtractor={item => item.id.toString}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <View >
+                            <ProductCard
+                                navigation={navigation}
+                                screenWidth={SCREEN_WIDTH * 0.40}
+                                images={item.image}
+                                ProductName={item.name}
+                                Price={item.gia}
+                                id={item.id}
+                            />
+                        </View>)}
+                />
+
+
+            </View>
         </View >
 
 
-   
+
     )
 
 }
 
-function CategoriesCard({ image, title, onPress, value }) {
+function CategoriesCard({ image, title, onPress, value, data }) {
     return (
         <TouchableOpacity
             style={[styles.frame, { borderColor: value === title ? 'green' : 'red' }]}
-            onPress={() => onPress(title)}>
+            onPress={() => onPress(title, data)}>
             <View style={[value === title ? { ...styles.smallCardSelected } : { ...styles.smallCard }]}>
                 <Image
                     style={{ height: 75, width: 100 }}
