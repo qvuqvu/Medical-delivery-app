@@ -61,7 +61,6 @@ export default function MyAccountScreen({ navigation }) {
                     setaddress(doc.data().address)
                 });
             });
-<<<<<<< HEAD
         if (modalVisible == false && count == 0) {
             count = 1;
             setfullname1(fullname)
@@ -71,9 +70,6 @@ export default function MyAccountScreen({ navigation }) {
             setaddress1(address)
         }
     },[setnum]);
-=======
-    });
->>>>>>> 832319f8c5a9d361db8d94ffadafa2fefc639119
     const updateGmail = (doc) => {
         firestore()
             .collection('User' + user.uid)
