@@ -11,7 +11,7 @@ export default function MyOrderComplete({ navigation }) {
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
         {
-            items: [{ "SL": "", "gia": "", "id": "", "image": "", "name": "", "nhathuoc": "" }],
+            items: [{ "SL": "", "gia": "", "id": "", "image": null, "name": "", "nhathuoc": "" }],
             date: ""
         });
     const item = [];
@@ -32,11 +32,9 @@ export default function MyOrderComplete({ navigation }) {
                     if (snapshot.size == 1) {
                         getcheck(true)
                         setdoc1(doc.data())
-                        setValue(true)
                     }
                     else {
                         item.push(doc.data())
-                        setValue(true)
                     }
                 });
             });
@@ -222,7 +220,7 @@ export default function MyOrderComplete({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <HeaderSimple title="Đang xử lý" navigation={navigation} />
-            <View style={isValue == false ? { height: 0 } : { height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
                 <Icon
                     name="reload"
@@ -233,12 +231,6 @@ export default function MyOrderComplete({ navigation }) {
                     }}
                     style={{ marginLeft: 'auto', marginRight: 20 }}
                 />
-            </View>
-            <View style={isValue == false ? { height: 100, justifyContent: 'center', alignItems: 'center', marginTop: 70 } : { height: 0 }}>
-                <Image
-                    style={{ width: '100%', height: '100%', resizeMode: 'contain', }}
-                    source={require('../global/image/cart_order.png')} />
-                <Text style={{ color: 'red', fontSize: 17, marginTop: 20, fontWeight: 'bold' }}>Bạn không có đơn hàng nào đang xử lý</Text>
             </View>
             <View style={{ height: '100%' }}>
                 {check ?
