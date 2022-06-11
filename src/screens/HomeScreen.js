@@ -21,36 +21,36 @@ export default function HomeScreen({ navigation }) {
             <View>
                 <HomeHeader navigation={navigation} title="MEDILI" />
             </View>
-            
-                <View>
-                    <Swiper activeDot={<View style={{ backgroundColor: colors.buttons, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
-                        <View style={{ height: 113, width: 348 }}>
-                            <Image
-                                source={{ uri: "https://i.imgur.com/VCG7OE0.png" }}
-                                style={{ height: "100%", width: "100%" }}
-                            />
-                        </View>
-                        <View style={{ height: 113, width: 348 }}>
-                            <Image
-                                source={{ uri: "https://i.imgur.com/mAyMAsm.png" }}
-                                style={{ height: "100%", width: "100%" }}
-                            />
-                        </View>
-                        <View style={{ height: 125, width: 350 }}>
-                            <Image
-                                source={{ uri: "https://i.imgur.com/UX0GzXZ.png" }}
-                                style={{ height: "100%", width: "100%" }}
-                            />
-                        </View>
 
-                    </Swiper>
-                </View>
+            <View style={{height:'30%'}}>
+                <Swiper activeDot={<View style={{ backgroundColor: colors.buttons, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
+                    <View style={{ height: 113, width: 348 }}>
+                        <Image
+                            source={{ uri: "https://i.imgur.com/VCG7OE0.png" }}
+                            style={{ height: "100%", width: "100%" }}
+                        />
+                    </View>
+                    <View style={{ height: 113, width: 348 }}>
+                        <Image
+                            source={{ uri: "https://i.imgur.com/mAyMAsm.png" }}
+                            style={{ height: "100%", width: "100%" }}
+                        />
+                    </View>
+                    <View style={{ height: 125, width: 350 }}>
+                        <Image
+                            source={{ uri: "https://i.imgur.com/UX0GzXZ.png" }}
+                            style={{ height: "100%", width: "100%" }}
+                        />
+                    </View>
 
-                <View style={styles.headerTextView}>
+                </Swiper>
+            </View>
+
+            {/* <View style={styles.headerTextView}>
                     <Text style={styles.headerText}>Danh mục</Text>
-                </View>
+                </View> */}
 
-                <View>
+            {/* <View>
                     <FlatList
                         style={{ marginLeft: 10, marginTop: 3 }}
                         data={categoryData}
@@ -76,48 +76,48 @@ export default function HomeScreen({ navigation }) {
                         )}
 
                     />
-                </View>
+                </View> */}
 
 
-                <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}>Sản phẩm</Text>
-                    <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                        <Text style={{ fontSize: 16, marginRight: 5, color: 'black', fontWeight: 'bold' }}>Sản phẩm thay đổi sau:</Text>
-                        <CountDown
-                            style={{ marginTop: -5 }}
-                            until={3600}
-                            size={14}
-                            digitStyle={{ backgroundColor: '#66DF48' }}
-                            digitTxtStyle={{ color: 'white' }}
-                            timeToShow={['M', 'S']}
-                            timeLabels={{ m: 'Min', s: 'Sec' }}
-                        />
-                    </View>
-                </View>
-
-
-                <View>
-                    <FlatList
-                        style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
-                        showsVerticalScrollIndicator={false}
-                        horizontal={false}
-                        numColumns={2}
-                        data={Totaldate}
-                        keyExtractor={item => { return item.id }}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                            <View >
-                                <ProductCard
-                                    navigation={navigation}
-                                    screenWidth={SCREEN_WIDTH * 0.40}
-                                    images={item.image}
-                                    ProductName={item.name}
-                                    Price={item.gia}
-                                    id={item.id}
-                                />
-                            </View>)}
+            <View style={styles.headerTextView}>
+                {/* <Text style={styles.headerText}>Sản phẩm</Text> */}
+                <View style={{ flexDirection: 'row'}}>
+                    <Text style={styles.headerText}>Sản phẩm thay đổi sau:</Text>
+                    <CountDown
+                        style={{ marginTop: -5 }}
+                        until={3600}
+                        size={14}
+                        digitStyle={{ backgroundColor: '#66DF48' }}
+                        digitTxtStyle={{ color: 'white' }}
+                        timeToShow={['M', 'S']}
+                        timeLabels={{ m: 'Min', s: 'Sec' }}
                     />
                 </View>
+            </View>
+
+
+            <View>
+                <FlatList
+                    style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
+                    showsVerticalScrollIndicator={false}
+                    horizontal={false}
+                    numColumns={2}
+                    data={Totaldate}
+                    keyExtractor={item => { return item.id }}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <View >
+                            <ProductCard
+                                navigation={navigation}
+                                screenWidth={SCREEN_WIDTH * 0.40}
+                                images={item.image}
+                                ProductName={item.name}
+                                Price={item.gia}
+                                id={item.id}
+                            />
+                        </View>)}
+                />
+            </View>
         </View>
 
     )
