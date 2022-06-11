@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity, Image, Modal, TouchableWithoutFeedback, FlatList, Keyboard, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, Pressable, TextInput, Dimensions, TouchableOpacity, Image, Modal, TouchableWithoutFeedback, FlatList, Keyboard, ImageBackground } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
@@ -14,14 +14,74 @@ import SearchComponent from '../components/SearchComponent';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default function Categoties({ navigation }) {
 
+export default function Categories({ navigation }) {
+    const [selected, setSelected] = useState(null)
+    const handleSelected = (value) => {
+        setSelected(value);
+    };
     return (
         <View style={styles.container}>
-            <HomeHeader navigation={navigation} title="Tìm Kiếm" />
-            <SearchComponent navigation={navigation} />
-        </View>
+
+            <View>
+                <HomeHeader navigation={navigation} title="Tìm kiếm" />
+                <SearchComponent navigation={navigation} />
+            </View>
+
+            <View style={{ marginTop: 100, marginLeft: 10 }}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    <CategoriesCard
+                        image={require('../global/image/categories/category__thuockhongkedon.png')}
+                        title={'Thuốc không kê đơn'}
+                        onPress={handleSelected}
+                        value={selected}
+                    />
+                    <CategoriesCard
+                        image={require('../global/image/categories/category__covid19.png')}
+                        title={'COVID-19'}
+                        onPress={handleSelected}
+                        value={selected}
+                    />
+                    <CategoriesCard
+                        image={require('../global/image/categories/category__thucphamchucnang.png')}
+                        title={'Thực phẩm chức năng'}
+                        onPress={handleSelected}
+                        value={selected}
+                    />
+                    <CategoriesCard
+                        image={require('../global/image/categories/category__thietbiyte.png')}
+                        title={'Thiết bị y tế'}
+                        onPress={handleSelected}
+                        value={selected}
+                    />
+
+
+                </ScrollView>
+            </View>
+        </View >
+
+
+   
     )
+
+}
+
+function CategoriesCard({ image, title, onPress, value }) {
+    return (
+        <TouchableOpacity
+            style={[styles.frame, { borderColor: value === title ? 'green' : 'red' }]}
+            onPress={() => onPress(title)}>
+            <View style={[value === title ? { ...styles.smallCardSelected } : { ...styles.smallCard }]}>
+                <Image
+                    style={{ height: 75, width: 100 }}
+                    source={image}
+                />
+                <View>
+                    <Text style={[value === title ? { ...styles.smallCardTextSelected } : { ...styles.smallCardText }]}>{title}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
 }
 const styles = StyleSheet.create({
     container: {
@@ -115,6 +175,42 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: 'rgba(52, 52, 52,0.3)'
+    },
+
+    smallCardSelected: {
+        borderRadius: 20,
+        backgroundColor: colors.buttons,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 5,
+        width: 150,
+        margin: 10,
+        height: 120
+    },
+
+    smallCard: {
+        borderRadius: 20,
+        backgroundColor: colors.grey5,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 5,
+        width: 150,
+        margin: 10,
+        height: 120,
+
+
+    },
+
+    smallCardText: {
+        fontSize: 13,
+        fontWeight: "bold",
+        color: colors.grey2,
+    },
+
+    smallCardTextSelected: {
+        fontSize: 13,
+        fontWeight: "bold",
+        color: colors.cardbackground,
     },
 
 })

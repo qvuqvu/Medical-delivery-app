@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { colors } from '../global/styles'
@@ -7,7 +7,6 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/MaterialIcons'
-import Icon5 from 'react-native-vector-icons/FontAwesome'
 import HomeScreen from '../screens/HomeScreen'
 import MyAccountScreen from '../screens/MyAccountScreen'
 import Categories from '../screens/Categories'
@@ -21,10 +20,10 @@ const ClientTabs = createBottomTabNavigator();
 export default function RootClientTabs() {
     const user = auth().currentUser;
     firestore()
-        .collection('cart' + user.uid).onSnapshot((snapshot) => {
-            snapshot.docs.map((doc) => {
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                });
             });
-        });
     return (
         <ClientTabs.Navigator
             initialRouteName='HomeScreen'
@@ -50,7 +49,7 @@ export default function RootClientTabs() {
                 }
             />
             <ClientTabs.Screen
-                name='Categories'
+                name='Search'
                 component={Categories}
                 options={
                     {
@@ -70,10 +69,10 @@ export default function RootClientTabs() {
                 component={MyFavoriteScreen}
                 options={
                     {
-                        tabBarLabel: "News",
+                        tabBarLabel: "My Favorite",
                         tabBarIcon: ({ color, size }) => (
-                            <Icon5
-                                name='newspaper-o'
+                            <Icon4
+                                name='favorite-border'
                                 color={color}
                                 size={size}
                             />
@@ -86,7 +85,7 @@ export default function RootClientTabs() {
                 component={MyAccountScreen}
                 options={
                     {
-                        tabBarLabel: "Profile",
+                        tabBarLabel: "My Account",
                         tabBarIcon: ({ color, size }) => (
                             <Icon2
                                 name='person'

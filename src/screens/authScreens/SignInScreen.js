@@ -6,7 +6,7 @@ import Icon1 from "react-native-vector-icons/FontAwesome"
 import Header from "../../components/Header";
 import * as Animatable from "react-native-animatable"
 import { Formik } from "formik";
-import auth, { firebase } from "@react-native-firebase/auth"
+import auth,{firebase} from "@react-native-firebase/auth"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInContext } from '../../contexts/authContext';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
@@ -93,15 +93,15 @@ export default function SignInScreen({ navigation }) {
         }
     }
     async function forgotPassword(Email) {
-        if (Email) {
-            firebase.auth().sendPasswordResetEmail(Email)
-                .then(function (user) {
-                    alert('Please check your email...')
-                }).catch(function (e) {
-                    console.log(e)
-                })
+        if(Email){
+        firebase.auth().sendPasswordResetEmail(Email)
+            .then(function (user) {
+                alert('Please check your email...')
+            }).catch(function (e) {
+                console.log(e)
+            })
         }
-        else {
+        else{
             return;
         }
     }
@@ -126,16 +126,11 @@ export default function SignInScreen({ navigation }) {
                 {(props) =>
                     <View>
                         <View style={{ marginTop: 20 }}>
-                            <View style={styles.textinput2}>
-                                <Icon
-                                    name="email"
-                                    color={colors.grey3}
-                                    type="material"
-                                />
+                            <View>
                                 <TextInput
+                                    style={styles.textinput1}
                                     placeholder="Email"
                                     ref={textinput1}
-                                    style={{ width: "90%" }}
                                     onChangeText={props.handleChange('email')}
                                     value={props.values.email}
                                     autoCapitalize='none'
@@ -152,7 +147,7 @@ export default function SignInScreen({ navigation }) {
                                 </Animatable.View>
                                 <TextInput
                                     autoCapitalize="none"
-                                    style={{ width: "76%" }}
+                                    style={{ width: "80%" }}
                                     placeholder="Password"
                                     ref={textinput2}
                                     onFocus={() => {
@@ -169,8 +164,9 @@ export default function SignInScreen({ navigation }) {
                                 <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
                                     <Icon
                                         name={getVisible ? "visibility" : "visibility-off"}
-                                        iconStyle={{ color: colors.grey3, marginRight: 10 }}
+                                        iconStyle={{ color: colors.grey3 }}
                                         type="material"
+                                        style={{ marginRight: 10 }}
                                         onPress={() => {
                                             setVisible(!getVisible)
                                         }}
@@ -179,7 +175,7 @@ export default function SignInScreen({ navigation }) {
                             </View>
                         </View>
 
-                        <View style={{ marginHorizontal: 20, marginTop: 10 }}>
+                        <View style={{ marginHorizontal: 20, marginTop: 30 }}>
                             <Button
                                 title="Đăng nhập"
                                 buttonStyle={styles.styledButton}
@@ -243,12 +239,12 @@ export default function SignInScreen({ navigation }) {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} >
-                            <Icon1
-                                size={20}
-                                name="close"
-                                style={{ marginLeft: 265, marginTop: -20 }}
-                            />
+                        <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible)}} >
+                        <Icon1
+                        size={20}
+                        name="close"
+                        style={{marginLeft:265,marginTop:-20}}
+                        />
                         </TouchableOpacity>
                         <Text style={styles.modalText}>Quên mật khẩu</Text>
                         <Text style={styles.modalText1}>Nhập email của bạn. Chúng tôi sẽ gửi đường link để đặt lại mật khẩu.</Text>
@@ -264,13 +260,13 @@ export default function SignInScreen({ navigation }) {
                         </View>
                         <Button
                             title="Gửi Email"
-                            buttonStyle={{ alignContent: "center", borderRadius: 15, height: 45, width: 250, backgroundColor: colors.blue, marginLeft: 8 }}
+                            buttonStyle={{alignContent:"center",borderRadius:15,height:45,width:250,backgroundColor:colors.blue,marginLeft:8}}
                             titleStyle={styles.buttonTitle}
                             onPress={() => {
                                 forgotPassword(getemail)
                                 setModalVisible(!modalVisible)
                             }}
-                        />
+                       />
                     </View>
                 </View>
             </Modal>
@@ -292,12 +288,10 @@ const styles = StyleSheet.create({
         borderColor: "#86939e",
         marginHorizontal: 20,
         borderRadius: 12,
-        marginBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
+        marginBottom: 20
     },
     textinput3: {
-        width: 320,
+        width:320,
         borderWidth: 1,
         borderColor: "#86939e",
         marginHorizontal: 20,
@@ -314,8 +308,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignContent: "center",
         alignItems: "center",
-        paddingLeft: 15,
-        marginBottom: 17
+        paddingLeft: 15
     },
     SocialIcon: {
         borderRadius: 12,
@@ -381,8 +374,8 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     button: {
-        width: 320,
-        height: 50,
+        width:320,
+        height:50,
         borderRadius: 20,
         padding: 10,
         elevation: 2
@@ -394,9 +387,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#2196F3",
     },
     textStyle: {
-        fontSize: 20,
-        justifyContent: "center",
-        alignItems: "center",
+        fontSize:20,
+        justifyContent:"center",
+        alignItems:"center",
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
@@ -411,7 +404,7 @@ const styles = StyleSheet.create({
     modalText1: {
         color: "black",
         fontSize: 15,
-        marginTop: -5,
+        marginTop:-5,
         marginBottom: 15,
         textAlign: "center"
     },

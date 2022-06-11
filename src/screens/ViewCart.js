@@ -63,7 +63,7 @@ export default function ViewCart({ navigation }) {
 
                         />
                         <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: 'black', fontWeight: 'bold' }}>
-                            {total == 0 ? "Không có sản phẩm nào được chọn mua." : "Chúng tôi chỉ hỗ trợ đặt hàng theo từng nhà thuốc."}
+                            {total == 0 ? "Không có sản phẩm nào trong giỏ hàng" : "Chúng tôi chỉ hỗ trợ đặt hàng theo từng nhà thuốc."}
                         </Text>
                     </ModalPoup>
                 </View>

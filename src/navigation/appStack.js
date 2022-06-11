@@ -12,13 +12,11 @@ import Discount from '../screens/Discount';
 import ChoiceVoucher from '../screens/ChoiceVoucher';
 import MyOrderComplete from '../screens/MyOrderComplete';
 import MyLastOrder from '../screens/MyLastOrder';
-import Maps from '../screens/Maps';
 import News1 from "../screens/News1"
 import News2 from '../screens/News2';
 import News3 from '../screens/News3';
 import News4 from '../screens/News4';
 import News5 from '../screens/News5';
-import DiscountScreen from '../screens/Discount';
 
 const App = createNativeStackNavigator();
 
@@ -104,46 +102,39 @@ export function AppStack() {
                     headerShown: false,
                 }} />
             <App.Screen
-                name="News1"
-                component={News1}
-                options={{
-                    headerShown: false,
-                }}
+            name="News1"
+            component={News1}
+            options={{
+                headerShown: false,
+            }}
             />
             <App.Screen
-                name="News2"
-                component={News2}
-                options={{
-                    headerShown: false,
-                }}
+            name="News2"
+            component={News2}
+            options={{
+                headerShown: false,
+            }}
             />
             <App.Screen
-                name="News3"
-                component={News3}
-                options={{
-                    headerShown: false,
-                }}
+            name="News3"
+            component={News3}
+            options={{
+                headerShown: false,
+            }}
             />
             <App.Screen
-                name="News4"
-                component={News4}
-                options={{
-                    headerShown: false,
-                }}
+            name="News4"
+            component={News4}
+            options={{
+                headerShown: false,
+            }}
             />
             <App.Screen
-                name="News5"
-                component={News5}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            <App.Screen
-                name="Maps"
-                component={Maps}
-                options={{
-                    headerShown: false,
-                }}
+            name="News5"
+            component={News5}
+            options={{
+                headerShown: false,
+            }}
             />
         </App.Navigator>
     )

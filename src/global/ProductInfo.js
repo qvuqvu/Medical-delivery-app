@@ -42,6 +42,7 @@ export default function ProductInfo({ navigation, route }) {
             })
             .then(() => {
                 console.log('User added!');
+                alert("added " + Totaldate[route.params.id].name + " success");
             });
     };
     useEffect(() => {
@@ -169,7 +170,7 @@ export default function ProductInfo({ navigation, route }) {
                                 <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
                             </View>
-                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail",Totaldate[route.params.id]) }}>
+                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail") }}>
                                 <View style={{ marginTop: 25, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
                                     <Text style={{ color: 'red' }}>Xem Shop</Text>
                                 </View>
@@ -199,7 +200,31 @@ export default function ProductInfo({ navigation, route }) {
                         </View>
                         <View style={isOpen == true ? styles.moreDetail_close : styles.moreDetail_open}>
                             <Text style={{ marginLeft: 10, color: 'black', fontSize: 15 }}>
-                                {Totaldate[route.params.id].mota}
+                                Lyric: {endLine}
+                                "Chào cơn mưa{endLine}
+                                Làm sao cứ kéo ta quay lại{endLine}
+                                Những rung động con tim{endLine}
+                                Lần đầu hai ta gặp gỡ{endLine}
+                                Chào hàng cây{endLine}
+                                Làm sao cố níu tay nhau lại{endLine}
+                                Để thấy nồng nàn{endLine}
+                                Đang về trên đôi mắt em{endLine}
+                                Chợt nhìn đôi bàn tay em run nắm lấy bờ vai, rất lâu{endLine}
+                                Cuối thu với anh là ngày khiến hai hàng mi rối bời{endLine}
+                                Vì ngày ấy gặp nhau không ai dám nói một câu, chào nhau{endLine}
+                                Cứ đắm đuối{endLine}
+                                Cứ thế hát bài hát chia xa{endLine}
+                                Mùa thu rơi vào em, vào trong giấc mơ hôm qua{endLine}
+                                Mùa thu ôm mình em, chạy xa vòng tay vội vã{endLine}
+                                Lời em nói ngày xưa đâu đây{endLine}
+                                Vẫn âm thầm chìm vào trong mây{endLine}
+                                Đến bao giờ, dặn lòng anh không mong nhớ{endLine}
+                                Mùa thu rơi vào em, vào trong chiếc hôn ngây thơ{endLine}
+                                Mùa thu không cần anh, vì em giờ đây còn mãi hững hờ{endLine}
+                                Ngày mai kia nếu có phút giây vô tình thấy nhau sẽ nói câu gì...{endLine}
+                                Hay ta chỉ nhìn{endLine}
+                                Lặng lẽ{endLine}
+                                Đi qua"{endLine}
                             </Text>
                         </View>
                     </View>
@@ -226,7 +251,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            selectItem(Totaldate[route.params.id], true)
+                            selectItem(Totaldate[route.params.id],true)
                             navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>
