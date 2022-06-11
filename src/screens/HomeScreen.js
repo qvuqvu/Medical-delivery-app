@@ -8,6 +8,7 @@ import HomeHeader from '../components/HomeHeader';
 import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 import CountDown from 'react-native-countdown-component';
+import Swiper from 'react-native-swiper'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
@@ -16,81 +17,114 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <HomeHeader navigation={navigation} title="MEDILI" />
-            <View style={styles.headerTextView}>
-                <Text style={styles.headerText}>Danh mục</Text>
-            </View>
 
             <View>
-                <FlatList
-                    style={{ marginLeft: 10, marginTop: 3 }}
-                    data={categoryData}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    keyExtractor={(item, index) => { return item.id }}
-                    extraData={indexCheck}
-                    renderItem={({ item, index }) => (
-                        <Pressable
-                            onPress={() => { setIndexCheck(item.id) }}
-                        >
-                            <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
-                                <Image
-                                    style={{ height: 75, width: 100 }}
-                                    source={item.image}
-                                />
-                                <View style={styles.categoryTextView}>
-                                    <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
-                                        { ...styles.smallCardText }}>{item.name}</Text>
-                                </View>
-                            </View>
-                        </Pressable>
-                    )}
-
-                />
+                <HomeHeader navigation={navigation} title="MEDILI" />
             </View>
+            
+            <ScrollView>
+                <View>
+                    <Swiper activeDot={<View style={{ backgroundColor: colors.buttons, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
+                        <View style={{ height: 113, width: 348 }}>
+                            <Image
+                                source={{ uri: "https://i.imgur.com/VCG7OE0.png" }}
+                                style={{ height: "100%", width: "100%" }}
+                            />
+                        </View>
+                        <View style={{ height: 113, width: 348 }}>
+                            <Image
+                                source={{ uri: "https://i.imgur.com/mAyMAsm.png" }}
+                                style={{ height: "100%", width: "100%" }}
+                            />
+                        </View>
+                        <View style={{ height: 125, width: 350 }}>
+                            <Image
+                                source={{ uri: "https://i.imgur.com/UX0GzXZ.png" }}
+                                style={{ height: "100%", width: "100%" }}
+                            />
+                        </View>
 
+                    </Swiper>
+                </View>
 
-            <View style={styles.headerTextView}>
-                <Text style={styles.headerText}>Sản phẩm</Text>
-                <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 16, marginRight: 5, color: 'black', fontWeight: 'bold' }}>Sản phẩm thay đổi sau:</Text>
-                    <CountDown
-                        style={{ marginTop: -5 }}
-                        until={3600}
-                        size={14}
-                        digitStyle={{ backgroundColor: '#66DF48' }}
-                        digitTxtStyle={{ color: 'white' }}
-                        timeToShow={['M', 'S']}
-                        timeLabels={{ m: 'Min', s: 'Sec' }}
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>Danh mục</Text>
+                </View>
+
+                <View>
+                    <FlatList
+                        style={{ marginLeft: 10, marginTop: 3 }}
+                        data={categoryData}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        keyExtractor={(item, index) => index.id}
+                        extraData={indexCheck}
+                        renderItem={({ item, index }) => (
+                            <Pressable
+                                onPress={() => { setIndexCheck(item.id) }}
+                            >
+                                <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
+                                    <Image
+                                        style={{ height: 75, width: 100 }}
+                                        source={item.image}
+                                    />
+                                    <View style={styles.categoryTextView}>
+                                        <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
+                                            { ...styles.smallCardText }}>{item.name}</Text>
+                                    </View>
+                                </View>
+                            </Pressable>
+                        )}
+
                     />
                 </View>
-            </View>
 
-            <View>
-                <FlatList
-                    style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
-                    showsVerticalScrollIndicator={false}
-                    horizontal={false}
-                    numColumns={2}
-                    data={Totaldate}
-                    keyExtractor={item => { return item.id }}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <View >
-                            <ProductCard
-                                navigation={navigation}
-                                screenWidth={SCREEN_WIDTH * 0.40}
-                                images={item.image}
-                                ProductName={item.name}
-                                Price={item.gia}
-                                id={item.id}
-                            />
-                        </View>)}
-                />
-            </View>
+
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>Sản phẩm</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                        <Text style={{ fontSize: 16, marginRight: 5, color: 'black', fontWeight: 'bold' }}>Sản phẩm thay đổi sau:</Text>
+                        <CountDown
+                            style={{ marginTop: -5 }}
+                            until={3600}
+                            size={14}
+                            digitStyle={{ backgroundColor: '#66DF48' }}
+                            digitTxtStyle={{ color: 'white' }}
+                            timeToShow={['M', 'S']}
+                            timeLabels={{ m: 'Min', s: 'Sec' }}
+                        />
+                    </View>
+                </View>
+
+
+                <View>
+                    <FlatList
+                        style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
+                        showsVerticalScrollIndicator={false}
+                        horizontal={false}
+                        numColumns={2}
+                        data={Totaldate}
+                        keyExtractor={item => item.id.toString}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <View >
+                                <ProductCard
+                                    navigation={navigation}
+                                    screenWidth={SCREEN_WIDTH * 0.40}
+                                    images={item.image}
+                                    ProductName={item.name}
+                                    Price={item.gia}
+                                    id={item.id}
+                                />
+                            </View>)}
+                    />
+                </View>
+            </ScrollView>
         </View>
+
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -140,7 +174,7 @@ const styles = StyleSheet.create({
     },
     headerTextView: {
         marginLeft: 20,
-        marginTop: 10,
+        marginTop: 3,
         marginBottom: 8,
         paddingVertical: 3,
     },
@@ -153,8 +187,6 @@ const styles = StyleSheet.create({
         width: 150,
         margin: 10,
         height: 120,
-
-
     },
     smallCardSelected: {
         borderRadius: 20,
