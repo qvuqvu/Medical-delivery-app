@@ -140,7 +140,7 @@ export default function MyAccountScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <HomeHeader navigation={navigation} title="Profile" />
+            <HomeHeader navigation={navigation} title="Tài khoản" />
             <ScrollView>
                 <View style={{ backgroundColor: 'white' }}>
                     <View style={styles.avatarView}>
