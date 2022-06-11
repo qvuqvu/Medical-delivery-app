@@ -118,8 +118,11 @@ export default function MyOrder({ navigation, route }) {
                         </View>
                     </View>
                     <View>
-                        {items.map((item) => <ProductOrder
-                        item={item} />)}
+                        {items.map((item, index) =>
+                            <View key={index}>
+                                <ProductOrder item={item} />
+                            </View>
+                        )}
                     </View>
                     {/* <FlatList
                         data={items}
