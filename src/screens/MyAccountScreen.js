@@ -292,7 +292,7 @@ export default function MyAccountScreen({ navigation }) {
                                 </View>
                                 <Button
                                     title="Lưu thông tin"
-                                    buttonStyle={{ alignContent: "center", borderRadius: 20, height: 45, width: 250, backgroundColor: colors.blue, marginLeft: 8 }}
+                                    buttonStyle={{ alignContent: "center", borderRadius: 20, height: 45, width: 250, backgroundColor: 'blue', marginLeft: 8 }}
                                     titleStyle={styles.buttonTitle}
                                     onPress={update}
                                 />

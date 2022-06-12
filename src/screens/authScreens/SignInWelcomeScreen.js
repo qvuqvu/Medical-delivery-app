@@ -24,9 +24,9 @@ export default function SignInWelcomeScreen({ navigation }) {
         })
     }, [])
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1,backgroundColor:'white' }}>
             <View style={{}}>
-                <Text style={{alignSelf:"center",fontSize:26,textAlign:"center",fontWeight:"bold",marginTop:30,color:colors.welcome}}>ĐẶT THUỐC HÔM NAY, SỨC KHỎE NGÀY MAI</Text>
+                <Text style={{ alignSelf: "center", fontSize: 26, textAlign: "center", fontWeight: "bold", marginTop: 30, color: colors.welcome }}>ĐẶT THUỐC HÔM NAY, SỨC KHỎE NGÀY MAI</Text>
             </View>
             <View style={{ flex: 8, justifyContent: "center", marginTop: 30 }}>
                 <Swiper autoplay={true} style={{ marginTop: 5 }}>
@@ -56,13 +56,13 @@ export default function SignInWelcomeScreen({ navigation }) {
                     </View>
                 </Swiper>
             </View>
-            <View style={{marginTop:10}}>
+            <View style={{ marginTop: 10 }}>
                 <Text style={{ marginLeft: 30, marginTop: 20, fontWeight: "bold", color: colors.welcome, fontSize: 32 }}>Chào mừng!</Text>
-                <Text style={{ marginLeft: 30, fontSize: 20,color:colors.black }}>Tạo tài khoản hoặc đăng nhập để đặt thuốc ngay trên</Text>
+                <Text style={{ marginLeft: 30, fontSize: 20, color: colors.black }}>Tạo tài khoản hoặc đăng nhập để đặt thuốc ngay trên</Text>
                 <Text style={{ marginLeft: 174, marginTop: -27, fontSize: 20, fontWeight: "bold", color: colors.black }}>MedSOS</Text>
             </View>
-            <View style={{ flex: 4, marginBottom: 20, marginTop: 10,justifyContent:"flex-end" }}>
-                <View style={{ marginHorizontal: 20,marginLeft:12 }}>
+            <View style={{ flex: 4, marginBottom: 20, marginTop: 10, justifyContent: "flex-end" }}>
+                <View style={{ marginHorizontal: 20, marginLeft: 12 }}>
                     <Button
                         title="Đăng nhập"
                         buttonStyle={parameters.styledButton}
@@ -73,7 +73,7 @@ export default function SignInWelcomeScreen({ navigation }) {
 
                     />
                 </View>
-                <View style={{ marginHorizontal: 20, marginTop: 15,marginLeft:12 }}>
+                <View style={{ marginHorizontal: 20, marginTop: 15, marginLeft: 12 }}>
                     <Button
                         title="Đăng ký"
                         buttonStyle={styles.createButton}
