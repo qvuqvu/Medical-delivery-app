@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions, Alert, Modal, Animated } from 'react-native';
+import { useTheme } from 'react-native-paper'
+import { colors } from './styles';
 const ModalPoup = ({ visible, children }) => {
+    const { colors } = useTheme()
     const [showModal, setShowModal] = React.useState(visible);
     const scaleValue = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
@@ -27,7 +30,14 @@ const ModalPoup = ({ visible, children }) => {
         <Modal transparent visible={showModal}>
             <View style={styles.modalBackGround}>
                 <Animated.View
-                    style={[styles.modalContainer, { transform: [{ scale: scaleValue }] }]}>
+                    style={[{
+                        width: '80%',
+                        backgroundColor: colors.background,
+                        paddingHorizontal: 20,
+                        paddingVertical: 30,
+                        borderRadius: 20,
+                        elevation: 20,
+                    }, { transform: [{ scale: scaleValue }] }]}>
                     {children}
                 </Animated.View>
             </View>
@@ -43,7 +53,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
-        backgroundColor: 'white',
+        backgroundColor: colors.backgroundColor,
         paddingHorizontal: 20,
         paddingVertical: 30,
         borderRadius: 20,

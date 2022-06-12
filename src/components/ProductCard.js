@@ -11,6 +11,7 @@ import ModalPoup from '../global/ModalPoup';
 import LottieView from "lottie-react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useTheme } from 'react-native-paper';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductCard({ navigation,
     ProductName,
@@ -19,6 +20,7 @@ export default function ProductCard({ navigation,
     screenWidth,
     id
 }) {
+    const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
@@ -66,18 +68,18 @@ export default function ProductCard({ navigation,
                 navigation.push("ProductInfo", { id: id })
             }}
         >
-            <View style={styles.cardView}>
-                <View style={[styles.imageView, { marginTop: 15 }, { width: screenWidth }]}>
+            <View style={[styles.cardView, { backgroundColor: colors.background }]}>
+                <View style={[styles.imageView, { marginTop: 20 }, { width: screenWidth }]}>
                     <ImageBackground
                         style={styles.image}
                         source={{ uri: images }}
                     >
                     </ImageBackground>
                     <View>
-                        <Text style={{ color: colors.grey1, textAlign: 'center' }}>{ProductName}</Text>
+                        <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{ProductName}</Text>
                     </View>
                     <View>
-                        <Text style={[{ color: colors.price, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
+                        <Text style={[{ color: colors.text, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
                     </View>
                     <View style={{ flexDirection: "row", marginBottom: 15 }}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -87,7 +89,7 @@ export default function ProductCard({ navigation,
                                         <TouchableOpacity onPress={() => setVisible(false)}>
                                             <Icon1
                                                 name="close"
-                                                style={{ height: 30, width: 30 }}
+                                                style={{ height: 30, width: 30, color: colors.text }}
                                                 size={25}
                                             />
                                         </TouchableOpacity>
@@ -101,26 +103,28 @@ export default function ProductCard({ navigation,
                                     loop={false}
 
                                 />
-                                <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: 'black', fontWeight: 'bold' }}>
+                                <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: colors.text, fontWeight: 'bold' }}>
                                     Thêm sản phẩm thành công
                                 </Text>
                             </ModalPoup>
                         </View>
-                        <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
+                        <TouchableOpacity style={{ borderWidth: 0.7, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.text }}>
                             <Icon1
                                 onPress={() => {
                                     check()
                                 }}
                                 name='shoppingcart'
+                                style={{ color: colors.text, justifyContent: 'center' }}
                                 size={35} >
                             </Icon1>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => {selectItem(Totaldate[id],true)
-                                navigation.navigate("MyOrder", { id:1 })
+                            onPress={() => {
+                                selectItem(Totaldate[id], true)
+                                navigation.navigate("MyOrder", { id: 1 })
                             }}
-                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.blue }} >
-                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.blue }}>MUA NGAY</Text>
+                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.text }} >
+                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.text }}>MUA NGAY</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -132,9 +136,6 @@ export default function ProductCard({ navigation,
 }
 
 const styles = StyleSheet.create({
-
-
-
     cardView: {
         padding: 5,
         marginBottom: 10,
@@ -143,12 +144,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderColor: colors.buttons,
         borderWidth: 1,
-        backgroundColor: colors.cardbackground,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-
-
-
     },
 
     imageView: {
@@ -158,13 +155,14 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH * 0.3,
         height: SCREEN_WIDTH * 0.7,
         marginLeft: SCREEN_WIDTH * 0.035,
-        marginBottom: SCREEN_WIDTH * 0.035
+        marginBottom: SCREEN_WIDTH * 0.035,
     },
 
     image: {
         height: SCREEN_WIDTH * 0.35,
         width: SCREEN_WIDTH * 0.35,
         borderRadius: 10,
+        marginRight: 15
     },
 
     shadow: {

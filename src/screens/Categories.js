@@ -11,11 +11,12 @@ import HomeHeader from '../components/HomeHeader';
 import { ScrollView } from 'react-native-gesture-handler'
 import { Thietbiyte, thuoc, thucphamchucnang, covid } from '../global/Data';
 import SearchComponent from '../components/SearchComponent';
-
+import { useTheme } from 'react-native-paper';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 
 export default function Categories({ navigation }) {
+    const { colors } = useTheme();
     const [selected, setSelected] = useState(null)
     const [data, setData] = useState([])
 
@@ -122,11 +123,11 @@ function CategoriesCard({ image, title, onPress, value, data }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: colors.backgroundColor,
     },
 
     text1: {
-        color: colors.grey3,
+        color: colors.text,
         fontSize: 16
     },
 

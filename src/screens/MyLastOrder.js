@@ -4,8 +4,10 @@ import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
 import HeaderSimple from '../components/HeaderSimple'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '@react-navigation/native';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function MyLastOrder({ navigation }) {
+  const { colors } = useTheme();
   const user = auth().currentUser;
   const [isValue, setValue] = useState(false);
   const [getdoc, setdoc] = useState([]);
@@ -44,7 +46,7 @@ export default function MyLastOrder({ navigation }) {
   const List = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => { navigation.push("ProductInfo", { id: item.id }) }}>
-        <View style={{ flexDirection: 'row', marginTop: 15, backgroundColor: '#e1f8f8', height: 100, borderRadius: 10, width: SCREEN_WIDTH - 20, marginLeft: 10 }}>
+        <View style={{ flexDirection: 'row', marginTop: 15, backgroundColor: colors.boxes, height: 100, borderRadius: 10, width: SCREEN_WIDTH - 20, marginLeft: 10 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
             <Image
               style={{ width: 80, height: 80, resizeMode: "cover" }}
@@ -52,27 +54,27 @@ export default function MyLastOrder({ navigation }) {
           </View>
           <View style={{ marginLeft: 10, marginTop: 10 }}>
             <View style={{ width: 265, height: 20, }}>
-              <Text style={{ color: 'black', fontSize: 15 }}>{item.name}</Text>
+              <Text style={{ color: colors.text, fontSize: 15 }}>{item.name}</Text>
             </View>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>{item.gia}</Text>
             </View>
           </View>
-          <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3, marginRight: 10, alignSelf: 'center', color: 'black' }}>x{item.SL}</Text>
+          <Text style={{ marginLeft: 'auto', fontWeight: 'bold', fontSize: 14, marginTop: 3, marginRight: 10, alignSelf: 'center', color: colors.text }}>x{item.SL}</Text>
         </View>
       </TouchableOpacity>
     )
   }
   const ListItem = ({ item }) => {
     return (
-      <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: 'white' }}>
+      <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: colors.backgroundColor }}>
         <View style={{ justifyContent: 'center', }}>
           <View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 15 }}>
-            <View style={{ flexDirection: 'row', borderBottomWidth: 1 }}>
+            <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderColor: colors.text }}>
               <Image
                 style={{ width: 20, height: 20, }}
                 source={require('../global/image/store.png')} />
-              <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
+              <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
             </View>
             <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đã giao</Text>
           </View>
@@ -84,12 +86,12 @@ export default function MyLastOrder({ navigation }) {
         </View>
         <View>
           <View style={{ marginBottom: 20, height: 40 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, borderBottomWidth: 0.5 }}>
               <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
-                <Text style={{ color: 'black', fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                <Text style={{ color: 'black', fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
               </View>
-              <Text style={{ marginLeft: 'auto', marginRight: 15, color: 'black', fontSize: 16 }}>Tổng tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+              <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Tổng tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
             </View>
           </View>
         </View>
@@ -98,14 +100,14 @@ export default function MyLastOrder({ navigation }) {
   }
   const ListItem1 = (item) => {
     return (
-      <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: 'white' }}>
+      <View style={{ marginTop: 10, marginBottom: 10, backgroundColor: colors.backgroundColor }}>
         <View style={{ justifyContent: 'center', }}>
           <View style={{ flexDirection: 'row', marginTop: 8, marginLeft: 15 }}>
-            <View style={{ flexDirection: 'row', borderBottomWidth: 1 }}>
+            <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: colors.text }}>
               <Image
                 style={{ width: 20, height: 20, }}
                 source={require('../global/image/store.png')} />
-              <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
+              <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
             </View>
             <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đã giao</Text>
           </View>
@@ -117,12 +119,12 @@ export default function MyLastOrder({ navigation }) {
         </View>
         <View>
           <View style={{ marginBottom: 20, height: 40 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, }}>
               <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
-                <Text style={{ color: 'black', fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                <Text style={{ color: 'black', fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
               </View>
-              <Text style={{ marginLeft: 'auto', marginRight: 15, color: 'black', fontSize: 16 }}>Tổng tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+              <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Tổng tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
             </View>
           </View>
         </View>

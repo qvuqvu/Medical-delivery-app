@@ -1,20 +1,66 @@
-import React, { useContext } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import React, { useContext, useEffect } from 'react'
+import {
+    NavigationContainer,
+    DefaultTheme as NavigationDefaultTheme,
+    DarkTheme as NavigationDarkTheme
+} from '@react-navigation/native';
+import {
+    Provider as PaperProvider,
+    DefaultTheme as PaperDefaultTheme,
+    DarkTheme as PaperDarkTheme
+} from 'react-native-paper';
 import AuthStack from './authStack'
 import { AppStack } from './appStack'
 import { SignInContext } from '../contexts/authContext'
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from '../../redux/store'
-
+import firebase from '@react-native-firebase/app';
+import firestore from "@react-native-firebase/firestore"
+import auth from '@react-native-firebase/auth';
 const store = configureStore();
 export default function RootNavigator() {
+    const [isDarkTheme, setIsDarkTheme] = React.useState("");
+    const user = auth().currentUser;
+    useEffect(() => {
+        firestore()
+            .collection('DarkMode').onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    setIsDarkTheme(doc.data().isDarkMode)
+                });
+            });
+    });
+    const CustomDefaultTheme = {
+        ...NavigationDefaultTheme,
+        ...PaperDefaultTheme,
+        colors: {
+            ...NavigationDefaultTheme.colors,
+            ...PaperDefaultTheme.colors,
+            background: '#ffffff',
+            text: '#000000',
+            boxes: '#ebf3f4',
+        }
+    }
+
+    const CustomDarkTheme = {
+        ...NavigationDarkTheme,
+        ...PaperDarkTheme,
+        colors: {
+            ...NavigationDarkTheme.colors,
+            ...PaperDarkTheme.colors,
+            background: '#222222',
+            text: '#ffffff',
+            boxes: '#35373d',
+        }
+    }
     const { signedIn } = useContext(SignInContext)
+    const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
     return (
-        
-        <ReduxProvider store={store}>
-            <NavigationContainer>
-                {signedIn.userToken === null ? <AuthStack /> : <AppStack />}
-            </NavigationContainer>
-        </ReduxProvider>
+        <PaperProvider theme={theme}>
+            <ReduxProvider store={store}>
+                <NavigationContainer theme={theme}>
+                    {signedIn.userToken === null ? <AuthStack /> : <AppStack />}
+                </NavigationContainer>
+            </ReduxProvider>
+        </PaperProvider>
     )
 }

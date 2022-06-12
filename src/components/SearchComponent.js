@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Icon1 from 'react-native-vector-icons/AntDesign'
-import { colors } from "../global/styles"
 
+import { useTheme } from 'react-native-paper';
 import Header from './Header'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Totaldate } from '../global/Data';
@@ -14,6 +14,7 @@ import { Totaldate } from '../global/Data';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const SearchComponent = () => {
+    const { colors } = useTheme();
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [textInputFossued, setTextInputFossued] = useState(true)
@@ -47,18 +48,20 @@ const SearchComponent = () => {
                     navigation.push("ProductInfo", { id: item.id })
                 }}
             >
-                <View style={{ borderWidth: 0.8 }}>
-                    <View style={[styles.imageView, { marginTop: 15 }]}>
-                        <ImageBackground
-                            style={styles.image}
-                            source={{ uri: item.image }}
-                        >
-                        </ImageBackground>
-                        <View>
-                            <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
-                        </View>
-                        <View>
-                            <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+                <View style={{ backgroundColor: colors.background }}>
+                    <View style={{ borderWidth: 0.8, }}>
+                        <View style={[styles.imageView, { marginTop: 15 }]}>
+                            <ImageBackground
+                                style={styles.image}
+                                source={{ uri: item.image }}
+                            >
+                            </ImageBackground>
+                            <View>
+                                <Text style={{ color: colors.text, marginTop: 10, textAlign: 'center' }}>{item.name}</Text>
+                            </View>
+                            <View>
+                                <Text style={[{ color: 'red', textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -75,9 +78,14 @@ const SearchComponent = () => {
                 >
                     <View style={styles.SearchArea}>
                         <Icon name="search"
-                            style={styles.searchIcon}
+                            style={{
+                                fontSize: 24,
+                                padding: 5,
+                                marginLeft: 10,
+                                color: colors.text
+                            }}
                         />
-                        <Text style={{ fontSize: 15, marginLeft: 10 }}>Tìm kiếm thuốc và dụng cụ y tế ?</Text>
+                        <Text style={{ fontSize: 15, marginLeft: 10, color: colors.text }}>Tìm kiếm thuốc và dụng cụ y tế ?</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <Modal
@@ -85,7 +93,7 @@ const SearchComponent = () => {
                     transparent={false}
                     visible={modalVisible}
                 >
-                    <View style={styles.modal}>
+                    <View style={{ flex: 1, backgroundColor: colors.background }}>
                         <View style={styles.view1}>
                             <View style={styles.TextInput}>
                                 <Animatable.View
@@ -98,13 +106,17 @@ const SearchComponent = () => {
                                                 setModalVisible(false)
                                             setTextInputFossued(true)
                                         }}
-                                        style={styles.icon2}
+                                        style={{
+                                            fontSize: 24,
+                                            padding: 5,
+                                            color: colors.text,
+                                        }}
                                         type="material"
                                         iconStyle={{ marginRight: 5 }}
                                     />
                                 </Animatable.View>
                                 <TextInput
-                                    style={{ width: "80%" }}
+                                    style={{ width: "80%", color: colors.text }}
                                     placeholder=""
                                     autoFocus={true}
                                     ref={textInput}
@@ -124,7 +136,7 @@ const SearchComponent = () => {
                                         name={textInputFossued ? "close" : null}
                                         iconStyle={{ color: colors.grey3 }}
                                         type="material"
-                                        style={{ marginRight: 10, fontSize: 20 }}
+                                        style={{ marginRight: 10, fontSize: 20, color: colors.text }}
                                         onPress={() => {
                                             textInput.current.clear()
                                             setTextInputFossued(false)
@@ -153,11 +165,10 @@ const SearchComponent = () => {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
 
     text1: {
-        color: colors.grey3,
         fontSize: 16
     },
 
@@ -181,7 +192,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: colors.grey4,
         flexDirection: "row",
         alignItems: "center",
     },
@@ -189,7 +199,6 @@ const styles = StyleSheet.create({
     searchIcon: {
         fontSize: 24,
         padding: 5,
-        color: colors.grey2,
         marginLeft: 10
     },
 
@@ -208,10 +217,9 @@ const styles = StyleSheet.create({
     icon2: {
         fontSize: 24,
         padding: 5,
-        color: colors.grey2,
     },
     modal: {
-        flex: 1
+        flex: 1,
     },
     imageView: {
         borderRadius: 10,
@@ -221,7 +229,7 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH * 0.429,
         height: SCREEN_WIDTH * 0.62,
         marginLeft: SCREEN_WIDTH * 0.035,
-        marginBottom: SCREEN_WIDTH * 0.035
+        marginBottom: SCREEN_WIDTH * 0.035,
     },
 
     image: {
@@ -232,7 +240,6 @@ const styles = StyleSheet.create({
 
     listHeader: {
         fontSize: 16,
-        color: colors.grey2,
         paddingBottom: 10,
         marginLeft: 12
 

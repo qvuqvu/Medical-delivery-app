@@ -14,8 +14,10 @@ import ModalPoup from './ModalPoup';
 import LottieView from "lottie-react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useTheme } from 'react-native-paper';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
+    const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
     const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
@@ -37,7 +39,6 @@ export default function ProductInfo({ navigation, route }) {
             })
             .then(() => {
                 console.log('User added!');
-                alert("added " + Totaldate[route.params.id].name + " success");
             });
     };
     useEffect(() => {
@@ -82,7 +83,7 @@ export default function ProductInfo({ navigation, route }) {
     return (
         <View style={styles.container}>
             <HeaderProject navigation={navigation} title="Thông tin sản phẩm" />
-            <View style={{ flex: 1, marginTop: 10, backgroundColor: 'white' }}>
+            <View style={{ flex: 1, marginTop: 10, backgroundColor: colors.background }}>
                 <ScrollView>
                     <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
                         <View style={{ borderWidth: 0.6, borderColor: 'blue', width: 360, height: 300, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
@@ -96,7 +97,7 @@ export default function ProductInfo({ navigation, route }) {
                                             <TouchableOpacity onPress={() => setVisible(false)}>
                                                 <Icon1
                                                     name="close"
-                                                    style={{ height: 30, width: 30 }}
+                                                    style={{ height: 30, width: 30, color: colors.text }}
                                                     size={25}
                                                 />
                                             </TouchableOpacity>
@@ -110,19 +111,19 @@ export default function ProductInfo({ navigation, route }) {
                                         loop={false}
 
                                     />
-                                    <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: 'black', fontWeight: 'bold' }}>
+                                    <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: colors.text, fontWeight: 'bold' }}>
                                         Thêm sản phẩm thành công
                                     </Text>
                                 </ModalPoup>
                             </View>
                         </View>
                         <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: 'black' }}>{Totaldate[route.params.id].name}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.text }}>{Totaldate[route.params.id].name}</Text>
                         </View>
-                        <Text style={{ fontSize: 15, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
                         <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{Totaldate[route.params.id].gia}</Text>
                     </View>
-                    <View style={{ height: 150, backgroundColor: '#d2f4f9' }}>
+                    <View style={{ height: 150, backgroundColor: colors.boxes }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                             <View style={{ borderWidth: 0.7, borderColor: colors.grey4, borderRadius: 45, marginTop: 20, marginLeft: 10, width: 50, height: 50, alignItems: 'center', justifyContent: 'center' }}>
                                 <Image
@@ -130,7 +131,7 @@ export default function ProductInfo({ navigation, route }) {
                                     source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                             </View>
                             <View style={{ marginTop: 20, marginLeft: 15 }}>
-                                <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
+                                <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
                             </View>
                             <TouchableOpacity onPress={() => { navigation.push("StoreDetail") }}>
@@ -141,22 +142,22 @@ export default function ProductInfo({ navigation, route }) {
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16 }}>Đánh Giá</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>Đánh Giá</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>4.9</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16 }}>Sản Phẩm</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>Sản Phẩm</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>13</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16 }}>Khoảng Cách</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>Khoảng Cách</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
                             </View>
                         </View>
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                            <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Thông tin sản phẩm</Text>
+                            <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Thông tin sản phẩm</Text>
                             <TouchableOpacity onPress={handleOpen}>
                                 <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold', marginLeft: 150 }}>{isOpen == false ? "Xem thêm" : "Thu Gọn"}</Text>
                             </TouchableOpacity>
@@ -203,7 +204,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            selectItem(Totaldate[route.params.id],true)
+                            selectItem(Totaldate[route.params.id], true)
                             navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>
@@ -219,7 +220,7 @@ export default function ProductInfo({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: colors.backgroundColor,
     },
     deliveryButton: {
         paddingHorizontal: 20,

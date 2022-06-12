@@ -8,7 +8,9 @@ import { colors } from '../global/styles'
 import { SignInContext } from '../contexts/authContext';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
+import { useTheme } from 'react-native-paper'
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -20,6 +22,36 @@ export default function DrawerContent(props) {
     const [getorder, setorder] = useState(0);
     const [getstatus, setstatus] = useState(0);
     const user = auth().currentUser;
+    const [DarkMode, setDarkMode] = useState("")
+    const paperTheme = useTheme()
+    firestore()
+        .collection('DarkMode').onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+                setDarkMode(doc.data().isDarkMode)
+            });
+        });
+    const update1 = (doc) => {
+        firestore()
+            .collection('DarkMode')
+            .doc(doc)
+            .update({
+                isDarkMode: !DarkMode
+            })
+            .then(() => {
+                console.log("Update Success");
+                console.log(DarkMode);
+            });
+    }
+    const update = () => {
+        firestore()
+            .collection('DarkMode')
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    update1(documentSnapshot.id)
+                });
+            });
+    }
     firestore()
         .collection('order' + user.uid).onSnapshot((snapshot) => {
             setorder(snapshot.size)
@@ -92,8 +124,10 @@ export default function DrawerContent(props) {
                         <Text style={styles.darkthemeText}>Dark Theme</Text>
                         <View style={{ paddingRight: 10 }}>
                             <Switch
-                                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                                thumbColor="#f4f3f4"
+                                value={DarkMode}
+                                onValueChange={() => {
+                                    update();
+                                }}
                             />
                         </View>
                     </View>

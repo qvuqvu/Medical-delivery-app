@@ -12,9 +12,11 @@ import HomeHeader from '../components/HomeHeader';
 import ImagePicker from 'react-native-image-crop-picker';
 import { firebase } from '@react-native-firebase/firestore';
 import { discount } from "../global/Data"
+import { useTheme } from 'react-native-paper';
 
 
 export default function MyAccountScreen({ navigation }) {
+    const { colors } = useTheme();
     const [fullname, setfullname] = useState("")
     const [phonenumber, setphonenumber] = useState("")
     const [address, setaddress] = useState("");
@@ -53,6 +55,7 @@ export default function MyAccountScreen({ navigation }) {
         const currentDate = selectedDate || date;
         setShow(false);
         setdatetime(currentDate);
+        setdate1(currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getFullYear());
     };
     firestore()
         .collection('order' + user.uid).onSnapshot((snapshot) => {
@@ -142,7 +145,7 @@ export default function MyAccountScreen({ navigation }) {
         <View style={styles.container}>
             <HomeHeader navigation={navigation} title="Tài khoản" />
             <ScrollView>
-                <View style={{ backgroundColor: 'white' }}>
+                <View style={{ backgroundColor: colors.backgroundColor }}>
                     <View style={styles.avatarView}>
                         <Avatar
                             size={100}
@@ -157,9 +160,10 @@ export default function MyAccountScreen({ navigation }) {
                                 onPress={() => {
                                     getCurrentImage()
                                 }}
+                                style={{ color: colors.text }}
                             />
                         </View>
-                        <Text style={{ color: 'black', fontSize: 20 }}>
+                        <Text style={{ color: colors.text, fontSize: 20 }}>
                             {user.displayName ? user.displayName : fullname}
                         </Text>
                     </View>
@@ -174,8 +178,8 @@ export default function MyAccountScreen({ navigation }) {
                                 style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
-                                <Text style={{ color: 'black' }}>{getorder}</Text>
-                                <Text>Đơn đang xử lý</Text>
+                                <Text style={{ color: colors.text }}>{getorder}</Text>
+                                <Text style={{ color: colors.text }}>Đơn đang xử lý</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -187,16 +191,16 @@ export default function MyAccountScreen({ navigation }) {
                                 style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
-                                <Text style={{ color: 'black' }}>{getcomplete}</Text>
-                                <Text>Đơn đã mua</Text>
+                                <Text style={{ color: colors.text }}>{getcomplete}</Text>
+                                <Text style={{ color: colors.text }}>Đơn đã mua</Text>
                             </View>
                         </TouchableOpacity>
 
                     </View>
                 </View>
-                <View style={{ backgroundColor: 'white', width: "100%", height: '45%', marginTop: 10 }}>
+                <View style={{ backgroundColor: colors.backgroundColor, width: "100%", height: '45%', marginTop: 10 }}>
                     <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
-                        <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold', }}>Thông tin cá nhân</Text>
+                        <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', }}>Thông tin cá nhân</Text>
                         <TouchableOpacity onPress={createuser}>
                             <Text style={{ marginLeft: 200, fontSize: 15, fontWeight: 'bold', color: 'red' }}>Sửa</Text>
                         </TouchableOpacity>
@@ -303,8 +307,8 @@ export default function MyAccountScreen({ navigation }) {
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
 
-                                <Text>Tên người dùng</Text>
-                                <Text style={{ color: 'black', marginTop: 5 }}>{fullname}</Text>
+                                <Text style={{ color: colors.text }}>Tên người dùng</Text>
+                                <Text style={{ color: colors.text, marginTop: 5 }}>{fullname}</Text>
                             </View>
                         </View>
                     </View>
@@ -315,8 +319,8 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text>Số điện thoại</Text>
-                                <Text style={{ color: 'black', marginTop: 5 }} >{phonenumber}</Text>
+                                <Text style={{ color: colors.text }}>Số điện thoại</Text>
+                                <Text style={{ color: colors.text, marginTop: 5 }} >{phonenumber}</Text>
                             </View>
                         </View>
                     </View>
@@ -327,8 +331,8 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text>Ngày sinh</Text>
-                                <Text style={{ color: 'black', marginTop: 5 }} >{date}</Text>
+                                <Text style={{ color: colors.text }}>Ngày sinh</Text>
+                                <Text style={{ color: colors.text, marginTop: 5 }} >{date}</Text>
                             </View>
                         </View>
                     </View>
@@ -339,15 +343,15 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text>Giới tính</Text>
-                                <Text style={{ color: 'black', marginTop: 5 }} >{sex}</Text>
+                                <Text style={{ color: colors.text }}>Giới tính</Text>
+                                <Text style={{ color: colors.text, marginTop: 5 }} >{sex}</Text>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={styles.address}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 5 }}>
-                        <Text style={{ color: 'black', marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>Sổ địa chỉ</Text>
+                        <Text style={{ color: colors.text, marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>Sổ địa chỉ</Text>
                         <TouchableOpacity onPress={() => { navigation.navigate("Maps") }}>
                             <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>Địa chỉ đã lưu</Text>
                         </TouchableOpacity>
@@ -355,10 +359,10 @@ export default function MyAccountScreen({ navigation }) {
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
                         <Image
                             source={require('../global/image/location.png')}
-                            style={{ height: 30, width: "10%", resizeMode: 'contain', marginLeft: 5, marginTop: 10 }}
+                            style={{ color: colors.text, height: 30, width: "10%", resizeMode: 'contain', marginLeft: 5, marginTop: 10 }}
                         />
                         <View style={{ width: "85%", marginLeft: 5 }}>
-                            <Text style={{ fontSize: 16, color: 'black' }}>{address}</Text>
+                            <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
                             <TouchableOpacity style={{ marginTop: 5 }}>
                                 <Text style={{ fontSize: 15, color: 'blue' }}>Mặc định</Text>
                             </TouchableOpacity>
@@ -382,19 +386,18 @@ const styles = StyleSheet.create({
         height: "65%",
         marginLeft: 10,
         resizeMode: "contain",
-        marginTop: 10
+        marginTop: 10,
     },
     viewItem: {
-        backgroundColor: 'white',
+        backgroundColor: colors.backgroundColor,
         height: 48,
-        width: '45%',
+        width: '46%',
         borderRadius: 5,
         paddingHorizontal: 16,
         shadowRadius: 2,
-        elevation: 2,
-        shadowOpacity: 0.4,
         marginLeft: 10,
-        flexDirection: "row"
+        flexDirection: "row",
+        borderWidth: 1,
     },
     viewInfo: {
         flexDirection: 'row',
@@ -402,7 +405,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     address: {
-        backgroundColor: 'white',
+        backgroundColor: colors.backgroundColor,
         marginTop: 10,
         width: '100%',
         height: 170,

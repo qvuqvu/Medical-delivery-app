@@ -9,10 +9,10 @@ import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 import CountDown from 'react-native-countdown-component';
 import Swiper from 'react-native-swiper'
-
+import { useTheme } from 'react-native-paper';
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
-
+    const { colors } = useTheme();
     const [indexCheck, setIndexCheck] = useState("0")
 
     return (
@@ -22,8 +22,8 @@ export default function HomeScreen({ navigation }) {
                 <HomeHeader navigation={navigation} title="MEDILI" />
             </View>
 
-            <View style={{height:'30%'}}>
-                <Swiper activeDot={<View style={{ backgroundColor: colors.buttons, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
+            <View style={{ height: '30%' }}>
+                <Swiper activeDot={<View style={{ backgroundColor: colors.text, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
                     <View style={{ height: 113, width: 348 }}>
                         <Image
                             source={{ uri: "https://i.imgur.com/VCG7OE0.png" }}
@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation }) {
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
-                    <View style={{ height: 125, width: 350 }}>
+                    <View style={{ height: 113, width: 348 }}>
                         <Image
                             source={{ uri: "https://i.imgur.com/UX0GzXZ.png" }}
                             style={{ height: "100%", width: "100%" }}
@@ -81,21 +81,20 @@ export default function HomeScreen({ navigation }) {
 
             <View style={styles.headerTextView}>
                 {/* <Text style={styles.headerText}>Sản phẩm</Text> */}
-                <View style={{ flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.headerText}>Sản phẩm thay đổi sau:</Text>
                     <CountDown
-                        style={{ marginTop: -5 }}
+                        style={{ marginTop: -5, marginLeft: 20 }}
                         until={3600}
                         size={14}
                         digitStyle={{ backgroundColor: '#66DF48' }}
-                        digitTxtStyle={{ color: 'white' }}
+                        digitTxtStyle={{ color: colors.text }}
                         timeToShow={['M', 'S']}
                         timeLabels={{ m: 'Min', s: 'Sec' }}
+                        timeLabelStyle={{ color: colors.text }}
                     />
                 </View>
             </View>
-
-
             <View>
                 <FlatList
                     style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
@@ -127,7 +126,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: colors.backgroundColor
     },
     deliveryButton: {
         paddingHorizontal: 20,

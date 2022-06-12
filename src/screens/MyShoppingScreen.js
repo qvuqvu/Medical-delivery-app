@@ -8,9 +8,11 @@ import firestore, { firebase } from '@react-native-firebase/firestore';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import ViewCart from './ViewCart';
 import { useDispatch } from "react-redux";
+import { useTheme } from 'react-native-paper';
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
+    const { colors } = useTheme();
     const user = auth().currentUser;
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
@@ -78,23 +80,23 @@ export default function MyShoppingScreen({ navigation }) {
         return (
             <ScrollView>
                 <View style={{ alignSelf: 'center', width: 380 }}>
-                    <View style={{ backgroundColor: '#ebf3f4', height: 160, justifyContent: 'center', marginTop: 10 }}>
+                    <View style={{ backgroundColor: colors.boxes, height: 160, justifyContent: 'center', marginTop: 10 }}>
                         <View style={{ flexDirection: 'row', marginLeft: 8 }}>
                             <Image
                                 style={{ width: 22, height: 22, }}
                                 source={require('../global/image/store.png')} />
-                            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.items.nhathuoc}</Text>
+                            <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginLeft: 10 }}>{item.items.nhathuoc}</Text>
                             <Icon3
                                 name='chevron-right'
                                 size={30}
-                                color='black'
+                                color={colors.text}
                                 style={{ marginLeft: 10 }}
                             />
                             <Icon3
                                 name='close'
                                 size={22}
-                                color='black'
-                                style={{ marginLeft: 'auto', marginRight: 10, color: 'black' }}
+                                color={colors.text}
+                                style={{ marginLeft: 'auto', marginRight: 10 }}
                                 onPress={() => {
                                     deleteCartToFireBase(item.items.id)
                                 }}
@@ -114,7 +116,7 @@ export default function MyShoppingScreen({ navigation }) {
                             </View>
                             <View style={{ marginLeft: 10 }}>
                                 <View style={{ width: 240, height: 20 }}>
-                                    <Text style={{ color: 'black', fontSize: 16 }}>{item.items.name}</Text>
+                                    <Text style={{ color: colors.text, fontSize: 16 }}>{item.items.name}</Text>
                                 </View>
                                 <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold', marginTop: 10 }}>{item.items.gia}</Text>
                             </View>
@@ -128,7 +130,7 @@ export default function MyShoppingScreen({ navigation }) {
         return (
             <ScrollView>
                 <View style={{ alignSelf: 'center', width: 380 }}>
-                    <View style={{ backgroundColor: '#ebf3f4', height: 160, justifyContent: 'center', marginTop: 10 }}>
+                    <View style={{ backgroundColor: colors.boxes, height: 160, justifyContent: 'center', marginTop: 10 }}>
                         <View style={{ flexDirection: 'row', marginLeft: 8 }}>
                             <Image
                                 style={{ width: 22, height: 22, }}
@@ -176,6 +178,7 @@ export default function MyShoppingScreen({ navigation }) {
         )
     }
     return (
+
         <View style={styles.container}>
             <HeaderSimple navigation={navigation} title="Giỏ Hàng" />
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center' }}>
@@ -213,7 +216,6 @@ export default function MyShoppingScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
     },
     textStyle: {
         color: 'black',
