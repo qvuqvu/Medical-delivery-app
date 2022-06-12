@@ -10,6 +10,7 @@ import auth, { firebase } from "@react-native-firebase/auth"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInContext } from '../../contexts/authContext';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import LottieView from "lottie-react-native";
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -19,7 +20,7 @@ export default function SignInScreen({ navigation }) {
     const { dispatchSignedIn } = useContext(SignInContext)
 
     const [textinput2Fossued, setTextInput2Fossued] = useState(false)
-
+    const [loading, setLoading] = useState(false);
     const textinput1 = useRef(1)
     const textinput2 = useRef(2)
     const [getemail, setemail] = useState("")
@@ -29,11 +30,14 @@ export default function SignInScreen({ navigation }) {
 
     async function signIn(data) {
         try {
+            setLoading(true)
             const { password, email } = data
             const user = await auth().signInWithEmailAndPassword(email, password)
             if (user) {
-                // console.log(user)
-                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                setTimeout(() => {
+                    setLoading(false);
+                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                }, 2500);
             }
         }
         catch (error) {
@@ -46,14 +50,17 @@ export default function SignInScreen({ navigation }) {
 
     async function onGoogleButtonPress() {
         try {
+            setLoading(true)
             const { idToken } = await GoogleSignin.signIn();
             // Create a Google credential with the token
             const googleCredential = auth.GoogleAuthProvider.credential(idToken);
             // Sign-in the user with the credential
             const user = await auth().signInWithCredential(googleCredential);
             if (user) {
-                // console.log(user)
-                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                setTimeout(() => {
+                    setLoading(false);
+                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                }, 2500);
             }
         }
         catch (error) {
@@ -66,6 +73,7 @@ export default function SignInScreen({ navigation }) {
 
     async function onFacebookButtonPress() {
         try {
+            setLoading(true)
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
             if (result.isCancelled) {
@@ -81,8 +89,10 @@ export default function SignInScreen({ navigation }) {
             // Sign-in the user with the credential
             const user = await auth().signInWithCredential(facebookCredential);
             if (user) {
-                // console.log(user);
-                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                setTimeout(() => {
+                    setLoading(false);
+                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+                }, 2500);
             }
         }
         catch (error) {
@@ -106,175 +116,199 @@ export default function SignInScreen({ navigation }) {
         }
     }
     return (
-        <View style={styles.container}>
+        <>
+            <View style={styles.container}>
 
-            <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
-            <View style={{ marginLeft: 20, marginTop: 10 }}>
-                <Text style={title}>Đăng nhập </Text>
-            </View>
-            <View style={{ alignItems: "center", marginTop: 10 }}>
-                <Text style={styles.text1}>
-                    Đăng nhập tài khoản của bạn
-                </Text>
-            </View>
-            <Formik
-                initialValues={{ email: '', password: '' }}
-                onSubmit={(values) => {
-                    signIn(values)
-                }}
-            >
-                {(props) =>
-                    <View>
-                        <View style={{ marginTop: 20 }}>
-                            <View style={styles.textinput2}>
-                                <Icon
-                                    name="email"
-                                    color={colors.grey3}
-                                    type="material"
-                                />
-                                <TextInput
-                                    placeholder="Email"
-                                    ref={textinput1}
-                                    style={{ width: "90%" }}
-                                    onChangeText={props.handleChange('email')}
-                                    value={props.values.email}
-                                    autoCapitalize='none'
-                                />
-                            </View>
-                            <View style={styles.textinput2}>
-                                <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
-                                    <Icon
-                                        name="lock"
-                                        iconStyle={{ color: colors.grey3 }}
-                                        type="material"
-                                        style={{}}
-                                    />
-                                </Animatable.View>
-                                <TextInput
-                                    autoCapitalize="none"
-                                    style={{ width: "76%" }}
-                                    placeholder="Password"
-                                    ref={textinput2}
-                                    onFocus={() => {
-                                        setTextInput2Fossued(false)
-                                    }}
-
-                                    onBlur={() => {
-                                        setTextInput2Fossued(true)
-                                    }}
-                                    onChangeText={props.handleChange('password')}
-                                    value={props.values.password}
-                                    secureTextEntry={getVisible ? false : true}
-                                />
-                                <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
-                                    <Icon
-                                        name={getVisible ? "visibility" : "visibility-off"}
-                                        iconStyle={{ color: colors.grey3, marginRight: 10 }}
-                                        type="material"
-                                        onPress={() => {
-                                            setVisible(!getVisible)
-                                        }}
-                                    />
-                                </Animatable.View>
-                            </View>
-                        </View>
-
-                        <View style={{ marginHorizontal: 20, marginTop: 10 }}>
-                            <Button
-                                title="Đăng nhập"
-                                buttonStyle={styles.styledButton}
-                                titleStyle={styles.buttonTitle}
-                                onPress={props.handleSubmit}
-                            />
-                        </View>
-                    </View>
-                }
-            </Formik>
-
-
-            <View style={{ alignItems: "center", marginTop: 15 }}>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Quên mật khẩu ?</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={{ alignItems: "center", marginTop: 20, marginBottom: 20 }}>
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>OR</Text>
-            </View>
-
-            <View style={{ marginHorizontal: 10, marginTop: -2 }}>
-                <SocialIcon
-                    title="Đăng nhập với Facebook"
-                    button
-                    type="facebook"
-                    style={styles.SocialIcon}
-                    onPress={() => { onFacebookButtonPress() }}
-                />
-            </View>
-            <View style={{ marginHorizontal: 10, marginTop: 0 }}>
-                <SocialIcon
-                    title="Đăng nhập với Google"
-                    button
-                    type="google"
-                    style={styles.SocialIcon}
-                    onPress={() => { onGoogleButtonPress() }}
-                />
-            </View>
-
-            <View style={{ marginTop: 20, marginLeft: 20 }}>
-                <Text style={{ ...styles.text1 }} > Chưa có tài khoản ? </Text>
-            </View>
-
-            <View style={{ alignItems: "flex-end", marginHorizontal: 20 }}>
-                <Button
-                    title="Đăng ký"
-                    buttonStyle={styles.createButton}
-                    titleStyle={styles.createButtonTittle}
-                    onPress={() => { navigation.navigate("SignUpScreen") }}
-                />
-            </View>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} >
-                            <Icon1
-                                size={20}
-                                name="close"
-                                style={{ marginLeft: 265, marginTop: -20 }}
-                            />
-                        </TouchableOpacity>
-                        <Text style={styles.modalText}>Quên mật khẩu</Text>
-                        <Text style={styles.modalText1}>Nhập email của bạn. Chúng tôi sẽ gửi đường link để đặt lại mật khẩu.</Text>
-                        <View>
-                            <TextInput
-                                style={styles.textinput3}
-                                placeholder="example@gmail.com  "
-                                ref={textinput1}
-                                autoCapitalize='none'
-                                onChangeText={setemail}
-                                value={getemail}
-                            />
-                        </View>
-                        <Button
-                            title="Gửi Email"
-                            buttonStyle={{ alignContent: "center", borderRadius: 15, height: 45, width: 250, backgroundColor: colors.blue, marginLeft: 8 }}
-                            titleStyle={styles.buttonTitle}
-                            onPress={() => {
-                                forgotPassword(getemail)
-                                setModalVisible(!modalVisible)
-                            }}
-                        />
-                    </View>
+                <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
+                <View style={{ marginLeft: 20, marginTop: 10 }}>
+                    <Text style={title}>Đăng nhập </Text>
                 </View>
-            </Modal>
-        </View>
+                <View style={{ alignItems: "center", marginTop: 10 }}>
+                    <Text style={styles.text1}>
+                        Đăng nhập tài khoản của bạn
+                    </Text>
+                </View>
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={(values) => {
+                        signIn(values)
+                    }}
+                >
+                    {(props) =>
+                        <View>
+                            <View style={{ marginTop: 20 }}>
+                                <View style={styles.textinput2}>
+                                    <Icon
+                                        name="email"
+                                        color={colors.grey3}
+                                        type="material"
+                                    />
+                                    <TextInput
+                                        placeholder="Email"
+                                        ref={textinput1}
+                                        style={{ width: "90%" }}
+                                        onChangeText={props.handleChange('email')}
+                                        value={props.values.email}
+                                        autoCapitalize='none'
+                                    />
+                                </View>
+                                <View style={styles.textinput2}>
+                                    <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
+                                        <Icon
+                                            name="lock"
+                                            iconStyle={{ color: colors.grey3 }}
+                                            type="material"
+                                            style={{}}
+                                        />
+                                    </Animatable.View>
+                                    <TextInput
+                                        autoCapitalize="none"
+                                        style={{ width: "76%" }}
+                                        placeholder="Password"
+                                        ref={textinput2}
+                                        onFocus={() => {
+                                            setTextInput2Fossued(false)
+                                        }}
+
+                                        onBlur={() => {
+                                            setTextInput2Fossued(true)
+                                        }}
+                                        onChangeText={props.handleChange('password')}
+                                        value={props.values.password}
+                                        secureTextEntry={getVisible ? false : true}
+                                    />
+                                    <Animatable.View animation={textinput2Fossued ? "" : "fadeInLeft"} duration={400} >
+                                        <Icon
+                                            name={getVisible ? "visibility" : "visibility-off"}
+                                            iconStyle={{ color: colors.grey3, marginRight: 10 }}
+                                            type="material"
+                                            onPress={() => {
+                                                setVisible(!getVisible)
+                                            }}
+                                        />
+                                    </Animatable.View>
+                                </View>
+                            </View>
+
+                            <View style={{ marginHorizontal: 20, marginTop: 10 }}>
+                                <Button
+                                    title="Đăng nhập"
+                                    buttonStyle={styles.styledButton}
+                                    titleStyle={styles.buttonTitle}
+                                    onPress={props.handleSubmit}
+                                />
+                            </View>
+                        </View>
+                    }
+                </Formik>
+
+
+                <View style={{ alignItems: "center", marginTop: 15 }}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                        <Text style={{ ...styles.text1, textDecorationLine: "underline" }} > Quên mật khẩu ?</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ alignItems: "center", marginTop: 20, marginBottom: 20 }}>
+                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>OR</Text>
+                </View>
+
+                <View style={{ marginHorizontal: 10, marginTop: -2 }}>
+                    <SocialIcon
+                        title="Đăng nhập với Facebook"
+                        button
+                        type="facebook"
+                        style={styles.SocialIcon}
+                        onPress={() => { onFacebookButtonPress() }}
+                    />
+                </View>
+                <View style={{ marginHorizontal: 10, marginTop: 0 }}>
+                    <SocialIcon
+                        title="Đăng nhập với Google"
+                        button
+                        type="google"
+                        style={styles.SocialIcon}
+                        onPress={() => { onGoogleButtonPress() }}
+                    />
+                </View>
+
+                <View style={{ marginTop: 20, marginLeft: 20 }}>
+                    <Text style={{ ...styles.text1 }} > Chưa có tài khoản ? </Text>
+                </View>
+
+                <View style={{ alignItems: "flex-end", marginHorizontal: 20 }}>
+                    <Button
+                        title="Đăng ký"
+                        buttonStyle={styles.createButton}
+                        titleStyle={styles.createButtonTittle}
+                        onPress={() => { navigation.navigate("SignUpScreen") }}
+                    />
+                </View>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} >
+                                <Icon1
+                                    size={20}
+                                    name="close"
+                                    style={{ marginLeft: 265, marginTop: -20 }}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.modalText}>Quên mật khẩu</Text>
+                            <Text style={styles.modalText1}>Nhập email của bạn. Chúng tôi sẽ gửi đường link để đặt lại mật khẩu.</Text>
+                            <View>
+                                <TextInput
+                                    style={styles.textinput3}
+                                    placeholder="example@gmail.com  "
+                                    ref={textinput1}
+                                    autoCapitalize='none'
+                                    onChangeText={setemail}
+                                    value={getemail}
+                                />
+                            </View>
+                            <Button
+                                title="Gửi Email"
+                                buttonStyle={{ alignContent: "center", borderRadius: 15, height: 45, width: 250, backgroundColor: colors.blue, marginLeft: 8 }}
+                                titleStyle={styles.buttonTitle}
+                                onPress={() => {
+                                    forgotPassword(getemail)
+                                    setModalVisible(!modalVisible)
+                                }}
+                            />
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+            {loading ? (
+                <View
+                    style={{
+                        backgroundColor: "black",
+                        position: "absolute",
+                        opacity: 0.6,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                        width: "100%",
+                    }}
+                >
+                    <LottieView
+                        style={{ height: 200 }}
+                        source={require("../../assets/animations/98288-loading.json")}
+                        autoPlay
+                        speed={3}
+                    />
+                </View>
+            ) : (
+                <></>
+            )}
+        </>
     )
 }
 
