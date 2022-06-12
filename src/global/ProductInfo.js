@@ -134,8 +134,8 @@ export default function ProductInfo({ navigation, route }) {
                                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
                             </View>
-                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail",Totaldate[route.params.id])}}>
-                                <View style={{ marginTop: 25, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail", Totaldate[route.params.id]) }}>
+                                <View style={{ marginTop: 20, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
                                     <Text style={{ color: 'red' }}>Xem Shop</Text>
                                 </View>
                             </TouchableOpacity>
@@ -163,7 +163,7 @@ export default function ProductInfo({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                         <View style={isOpen == true ? styles.moreDetail_close : styles.moreDetail_open}>
-                            <Text style={{ marginLeft: 10, color: 'black', fontSize: 15 }}>
+                            <Text style={{ marginLeft: 10, color: colors.text, fontSize: 15, }}>
                                 {Totaldate[route.params.id].mota}
                             </Text>
                         </View>
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     moreDetail_open:
     {
         height: 100,
-        marginTop: 5
+        marginTop: 5,
     },
     button_end: {
         borderWidth: 1,

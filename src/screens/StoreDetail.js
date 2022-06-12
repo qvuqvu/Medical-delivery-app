@@ -1,12 +1,14 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Modal, Dimensions, ImageBackground, TouchableWithoutFeedback, FlatList, Keyboard } from 'react-native'
 import HeaderSimple from '../components/HeaderSimple'
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icon1 from 'react-native-vector-icons/AntDesign'
-import { colors } from "../global/styles";
+import { useTheme } from "react-native-paper";
+import ProductCard from '../components/ProductCard';
 import { filterData2, nhathuochamy, Totaldate, nhathuoclongchau, nhathuocminhchau, nhathuocngoclong, nhathuoclenguyen, nhathuocgreenpharma, nhathuocthuytrang } from '../global/Data';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function StoreDetail({ navigation, route }) {
+    const { colors } = useTheme();
     const [textInputFossued, setTextInputFossued] = useState(false)
     const textInput = useRef(0)
     const [data, setData] = useState([])
@@ -23,7 +25,7 @@ export default function StoreDetail({ navigation, route }) {
             });
             setdata1(newData);
             setSearch(text);
-        } 
+        }
         else {
             setSearch("");
         }
@@ -31,7 +33,7 @@ export default function StoreDetail({ navigation, route }) {
     useEffect(() => {
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Hà My") {
             setdata1(nhathuochamy)
-            setData(nhathuochamy)    
+            setData(nhathuochamy)
         }
         if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Long Châu") {
             setdata1(nhathuoclongchau)
@@ -63,7 +65,7 @@ export default function StoreDetail({ navigation, route }) {
             setData(nhathuocthuytrang)
 
         }
-    },[])
+    }, [])
 
     const renderItem = ({ item }) => {
         return (
@@ -82,10 +84,10 @@ export default function StoreDetail({ navigation, route }) {
                         >
                         </ImageBackground>
                         <View>
-                            <Text style={{ color: colors.grey1, textAlign: 'center' }}>{item.name}</Text>
+                            <Text style={{ color: colors.text, textAlign: 'center', marginTop: 10 }}>{item.name}</Text>
                         </View>
                         <View>
-                            <Text style={[{ color: colors.grey1, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+                            <Text style={[{ color: 'red', textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
                         </View>
                         <View style={{ flexDirection: "row" }}>
                             <TouchableOpacity style={{ borderWidth: 0.5, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.grey2 }}>
@@ -104,16 +106,17 @@ export default function StoreDetail({ navigation, route }) {
     return (
         <View style={{ flex: 1 }}>
             <HeaderSimple title="Nhà Thuốc" navigation={navigation} />
-            <View style={{ height: 220, backgroundColor: '#d2f4f9', marginLeft: 10 }}>
-                <View style={{ flexDirection: 'row', borderWidth: 0.6, width: 330, marginTop: 10, height: 40, backgroundColor: 'white', alignSelf: 'center' }}>
+            <View style={{ height: 220, backgroundColor: colors.boxes }}>
+                <View style={{ flexDirection: 'row', borderWidth: 0.6, width: 330, marginTop: 10, height: 40, backgroundColor: colors.background, alignSelf: 'center' }}>
                     <Icon
                         name="search"
                         size={20}
-                        style={{ color: 'black', marginLeft: 10, marginTop: 8 }}
+                        style={{ color: colors.text, marginLeft: 10, marginTop: 8 }}
                     />
                     <TextInput
                         placeholder="Tìm kiếm "
-                        style={{ marginLeft: 10, width: 260 }}
+                        placeholderTextColor={colors.text}
+                        style={{ marginLeft: 10, width: 260, color: colors.text }}
                         ref={textInput}
                         value={search}
                         onFocus={() => {
@@ -123,9 +126,9 @@ export default function StoreDetail({ navigation, route }) {
                     />
                     <Icon1
                         name={textInputFossued ? "close" : null}
-                        iconStyle={{ color: colors.grey3 }}
+                        iconStyle={{ color: colors.text }}
                         type="material"
-                        style={{ fontSize: 20, marginTop: 7 }}
+                        style={{ fontSize: 20, marginTop: 7,color:colors.text }}
                         onPress={() => {
                             textInput.current.clear()
                             setData([])
@@ -135,37 +138,47 @@ export default function StoreDetail({ navigation, route }) {
                     />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ borderWidth: 0.7, borderColor: colors.grey4, borderRadius: 45, marginTop: 20, marginLeft: 10, width: 70, height: 70, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ borderWidth: 0.7, borderColor: colors.text, borderRadius: 45, marginTop: 20, marginLeft: 10, width: 70, height: 70, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             style={{ width: 50, height: 50, resizeMode: "cover", marginBottom: 5 }}
                             source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                     </View>
-                    <View style={{ marginTop: 25, marginLeft: 20 }}>
-                        <Text style={{ color: 'black', fontSize: 19, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
+                    <View style={{ marginTop: 35, alignSelf: 'center', marginLeft: 40 }}>
+                        <Text style={{ color: colors.text, fontSize: 19, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
                         <Text style={{ marginTop: 5 }}></Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ fontSize: 16 }}>Đánh Giá</Text>
+                        <Text style={{ fontSize: 16, color: colors.text }}>Đánh Giá</Text>
                         <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>4.9</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ fontSize: 16 }}>Sản Phẩm</Text>
+                        <Text style={{ fontSize: 16, color: colors.text }}>Sản Phẩm</Text>
                         <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>13</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ fontSize: 16 }}>Khoảng Cách</Text>
+                        <Text style={{ fontSize: 16, color: colors.text }}>Khoảng Cách</Text>
                         <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
                     </View>
                 </View>
             </View>
             <View>
-                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 17, marginLeft: 10, marginTop: 10 }}>Sản phẩm của shop</Text>
+                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginBottom: 20, marginLeft: 10, marginTop: 20 }}>Sản phẩm của shop</Text>
                 <FlatList
                     data={data1}
                     keyExtractor={item => item.id}
-                    renderItem={renderItem}
+                    renderItem={({ item }) => (
+                        <View >
+                            <ProductCard
+                                navigation={navigation}
+                                screenWidth={SCREEN_WIDTH * 0.40}
+                                images={item.image}
+                                ProductName={item.name}
+                                Price={item.gia}
+                                id={item.id}
+                            />
+                        </View>)}
                     horizontal={false}
                     showsverticalScrollIndicator={true}
                     numColumns={2}
@@ -181,7 +194,6 @@ const styles = StyleSheet.create({
     },
 
     text1: {
-        color: colors.grey3,
         fontSize: 16
     },
 
@@ -205,7 +217,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: colors.grey4,
         flexDirection: "row",
         alignItems: "center",
     },
@@ -213,7 +224,6 @@ const styles = StyleSheet.create({
     searchIcon: {
         fontSize: 24,
         padding: 5,
-        color: colors.grey2,
         marginLeft: 10
     },
 
@@ -232,7 +242,6 @@ const styles = StyleSheet.create({
     icon2: {
         fontSize: 24,
         padding: 5,
-        color: colors.grey2,
     },
     imageView: {
         borderRadius: 10,
@@ -252,7 +261,6 @@ const styles = StyleSheet.create({
 
     listHeader: {
         fontSize: 16,
-        color: colors.grey2,
         paddingBottom: 10,
         marginLeft: 12
 

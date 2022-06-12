@@ -281,7 +281,7 @@ export default function SignInScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     text1: {
         color: colors.grey2,
