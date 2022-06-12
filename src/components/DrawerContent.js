@@ -23,6 +23,7 @@ export default function DrawerContent(props) {
     const [getstatus, setstatus] = useState(0);
     const user = auth().currentUser;
     const [DarkMode, setDarkMode] = useState("")
+    const [fullname, setfullname] = useState("")
     const paperTheme = useTheme()
     firestore()
         .collection('DarkMode').onSnapshot((snapshot) => {
@@ -30,6 +31,14 @@ export default function DrawerContent(props) {
                 setDarkMode(doc.data().isDarkMode)
             });
         });
+    useEffect(()=>{
+        firestore()
+            .collection('User' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    setfullname(doc.data().full_name)
+                });
+            });
+    },[])
     const update1 = (doc) => {
         firestore()
             .collection('DarkMode')
@@ -91,7 +100,7 @@ export default function DrawerContent(props) {
                         />
 
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}>{user.displayName ? user.displayName : "Không tên"}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}> {user.displayName ? user.displayName : fullname}</Text>
                             <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email ? user.email : ""}</Text>
                         </View>
 
