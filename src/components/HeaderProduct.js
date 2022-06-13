@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors, parameters } from '../global/styles'
-// import IconBadge from 'react-native-icon-badge'
+import { Badge } from 'react-native-elements'
+import auth from '@react-native-firebase/auth';
+import firestore from "@react-native-firebase/firestore"
 import Icon1 from 'react-native-vector-icons/AntDesign'
-import { Badge } from '@rneui/base'
 
 export default function HeaderProject({ navigation, title }) {
-    var BadgeCount = 1;
+    const [BadgeCount, getBadgeCount] = useState(0)
+    const user = auth().currentUser;
+    useEffect(() => {
+        firestore()
+            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                getBadgeCount(snapshot.size)
+            });
+    });
     return (
         <View style={styles.header}>
             <View style={{ marginLeft: 20 }}>
@@ -28,17 +36,22 @@ export default function HeaderProject({ navigation, title }) {
             </View>
 
 
-            <View style={{ marginEnd: 10 }}>
-                <Icon1
-                    onPress={() => { navigation.navigate('MyShopping') }}
-                    name='shoppingcart'
-                    color={colors.cardbackground}
-                    size={35}>
-
-                </Icon1>
-
+            <View style={{ marginEnd: 10, flexDirection: 'row' }}>
+                <View>
+                    <Icon1
+                        onPress={() => { navigation.navigate('MyShopping') }}
+                        name='shoppingcart'
+                        color={colors.cardbackground}
+                        size={35}>
+                    </Icon1>
+                </View>
+                <Badge
+                    status="error"
+                    value={BadgeCount}
+                    containerStyle={{ right: 10}}
+                />
             </View>
-        </View>
+        </View >
     )
 }
 

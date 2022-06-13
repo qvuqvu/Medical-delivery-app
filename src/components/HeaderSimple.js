@@ -2,15 +2,11 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors, parameters } from '../global/styles'
-// import IconBadge from 'react-native-icon-badge'
-import Icon1 from 'react-native-vector-icons/AntDesign'
-import { Badge } from '@rneui/base'
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 export default function HeaderProject({ navigation, title }) {
     const dispatch = useDispatch();
-    const setnull = (item,checkboxValue) => {
+    const setnull = (item, checkboxValue) => {
         dispatch({
             type: "DELETE_TO_CART",
             payload: {
@@ -19,7 +15,6 @@ export default function HeaderProject({ navigation, title }) {
             },
         });
     }
-    var BadgeCount = 1;
     return (
         <View style={styles.header}>
             <View style={{ marginLeft: 20 }}>
@@ -28,18 +23,26 @@ export default function HeaderProject({ navigation, title }) {
                     color={colors.cardbackground}
                     size={25}
                     onPress={() => {
-                        setnull([],false)
+                        setnull([], false)
                         navigation.goBack()
                     }}
                 />
             </View>
-
-            <View>
+            <View style={{marginLeft:25}}>
                 <Text style={styles.headerText}>
                     {title}
                 </Text>
             </View>
-            <View>
+            <View style={{marginRight:20}}>
+                <Icon
+                    name='home'
+                    color={colors.cardbackground}
+                    size={30}
+                    onPress={() => {
+                        setnull([], false)
+                        navigation.navigate('HomeScreen')
+                    }}
+                />
             </View>
         </View>
     )

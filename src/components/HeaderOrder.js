@@ -48,13 +48,23 @@ export default function HeaderOrder({ navigation, id }) {
                 />
             </View>
 
-            <View>
+            <View style={{marginLeft:25}}>
                 <Text style={styles.headerText}>
                     Thanh toán
                 </Text>
             </View>
-            <View>
+            <View style={{marginRight:20}}>
+                <Icon
+                    name='home'
+                    color={colors.cardbackground}
+                    size={30}
+                    onPress={() => {
+                        setnull([], false)
+                        navigation.navigate('HomeScreen')
+                    }}
+                />
             </View>
+
         </View>
     )
 }

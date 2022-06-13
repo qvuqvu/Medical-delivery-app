@@ -39,9 +39,9 @@ export default function ViewCart({ navigation }) {
     return (
         <View style={{ flexDirection: 'row', height: 60, justifyContent: "flex-end", borderTopWidth: 0.5, borderTopColor: "blue" }}>
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ marginRight: 50, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Tổng tiền</Text>
-                    <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 17 }}>{total ? total + ".000 đ" : "0 đ"}</Text>
+                <View style={{  justifyContent: 'center',flexDirection:'row',alignItems:"center",marginRight:80,marginTop:10 }}>
+                    <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>Tổng tiền:</Text>
+                    <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 20 }}>{total ? total + ".000 đ" : "0 đ"}</Text>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ModalPoup visible={visible}>
@@ -83,7 +83,7 @@ export default function ViewCart({ navigation }) {
                     }}
                 >
                     <View>
-                        <Text style={{ color: 'white', fontSize: 16 }}>Mua Hàng</Text>
+                        <Text style={{ color: 'white', fontSize: 20 }}>Mua Hàng</Text>
                     </View>
                 </TouchableOpacity>
             </View>

@@ -5,11 +5,12 @@ import HeaderSimple from '../components/HeaderSimple';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from "@react-native-firebase/auth"
 import { useTheme } from '@react-navigation/native';
+import LottieView from "lottie-react-native";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function MyOrderComplete({ navigation }) {
     const { colors } = useTheme();
     const user = auth().currentUser;
-    const [isValue, setValue] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
         {
@@ -70,6 +71,7 @@ export default function MyOrderComplete({ navigation }) {
             });
     }
     const addCartToFireBase = (item) => {
+        setLoading(true)
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
@@ -87,8 +89,8 @@ export default function MyOrderComplete({ navigation }) {
             })
             .then(() => {
                 deleteCartToFireBase(item.id);
-                console.log('User added!');
                 setTimeout(() => {
+                    setLoading(false);
                     navigation.navigate('MyLastOrder')
                 }, 1000);
             })
@@ -220,34 +222,58 @@ export default function MyOrderComplete({ navigation }) {
         )
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <HeaderSimple title="Đang xử lý" navigation={navigation} />
-            <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
-                <Icon
-                    name="reload"
-                    size={20}
-                    color="red"
-                    onPress={() => {
-                        addd()
-                    }}
-                    style={{ marginLeft: 'auto', marginRight: 20 }}
-                />
-            </View>
-            <ScrollView>
-                <View style={{ height: '100%' }}>
-                    {check ?
-                        (
-                            ListItem1(getdoc1)
-                        )
-                        : (<FlatList data={item}
-                            renderItem={({ item, index }) => <ListItem item={item} />}
-                            contentContainerStyle={{ paddingBottom: 100 }}
-                            showsVerticalScrollIndicator={false}
-                        />)}
+        <>
+            <SafeAreaView style={styles.container}>
+                <HeaderSimple title="Đang xử lý" navigation={navigation} />
+                <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
+                    <Icon
+                        name="reload"
+                        size={20}
+                        color="red"
+                        onPress={() => {
+                            addd()
+                        }}
+                        style={{ marginLeft: 'auto', marginRight: 20 }}
+                    />
                 </View>
-            </ScrollView>
-        </SafeAreaView >
+                <ScrollView>
+                    <View style={{ height: '100%' }}>
+                        {check ?
+                            (
+                                ListItem1(getdoc1)
+                            )
+                            : (<FlatList data={item}
+                                renderItem={({ item, index }) => <ListItem item={item} />}
+                                contentContainerStyle={{ paddingBottom: 100 }}
+                                showsVerticalScrollIndicator={false}
+                            />)}
+                    </View>
+                </ScrollView>
+            </SafeAreaView >
+            {loading ? (
+                <View
+                    style={{
+                        backgroundColor: "black",
+                        position: "absolute",
+                        opacity: 0.6,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                        width: "100%",
+                    }}
+                >
+                    <LottieView
+                        style={{ height: 200 }}
+                        source={require("../assets/animations/102058-order-completed.json")}
+                        autoPlay
+                        speed={3}
+                    />
+                </View>
+            ) : (
+                <></>
+            )}
+        </>
     )
 }
 const styles = StyleSheet.create({
