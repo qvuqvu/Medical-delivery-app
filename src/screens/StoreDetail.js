@@ -128,7 +128,7 @@ export default function StoreDetail({ navigation, route }) {
                         name={textInputFossued ? "close" : null}
                         iconStyle={{ color: colors.text }}
                         type="material"
-                        style={{ fontSize: 20, marginTop: 7,color:colors.text }}
+                        style={{ fontSize: 20, marginTop: 7, color: colors.text }}
                         onPress={() => {
                             textInput.current.clear()
                             setData([])
