@@ -22,12 +22,17 @@ export default function RootNavigator() {
     const [isDarkTheme, setIsDarkTheme] = React.useState("");
     const user = auth().currentUser;
     useEffect(() => {
-        firestore()
-            .collection('DarkMode').onSnapshot((snapshot) => {
-                snapshot.docs.map((doc) => {
-                    setIsDarkTheme(doc.data().isDarkMode)
+        if (auth().currentUser != null) {
+            firestore()
+                .collection('User' + user.uid).onSnapshot((snapshot) => {
+                    snapshot.docs.map((doc) => {
+                        setIsDarkTheme(doc.data().isDarkMode)
+                    });
                 });
-            });
+        }
+        else {
+            setIsDarkTheme(false)
+        }
     });
     const CustomDefaultTheme = {
         ...NavigationDefaultTheme,
@@ -38,6 +43,8 @@ export default function RootNavigator() {
             background: '#ffffff',
             text: '#000000',
             boxes: '#ebf3f4',
+            money: 'red',
+            buttonx: '#38c3f4',
         }
     }
 
@@ -50,6 +57,8 @@ export default function RootNavigator() {
             background: '#222222',
             text: '#ffffff',
             boxes: '#35373d',
+            money: 'ffffff',
+            buttonx: 'ffffff',
         }
     }
     const { signedIn } = useContext(SignInContext)

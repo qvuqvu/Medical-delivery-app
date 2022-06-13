@@ -26,22 +26,22 @@ export default function DrawerContent(props) {
     const [fullname, setfullname] = useState("")
     const paperTheme = useTheme()
     firestore()
-        .collection('DarkMode').onSnapshot((snapshot) => {
+        .collection('User' + user.uid).onSnapshot((snapshot) => {
             snapshot.docs.map((doc) => {
                 setDarkMode(doc.data().isDarkMode)
             });
         });
-    useEffect(()=>{
+    useEffect(() => {
         firestore()
             .collection('User' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
                     setfullname(doc.data().full_name)
                 });
             });
-    },[])
+    }, [])
     const update1 = (doc) => {
         firestore()
-            .collection('DarkMode')
+            .collection('User' + user.uid)
             .doc(doc)
             .update({
                 isDarkMode: !DarkMode
@@ -53,7 +53,7 @@ export default function DrawerContent(props) {
     }
     const update = () => {
         firestore()
-            .collection('DarkMode')
+            .collection('User' + user.uid)
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(documentSnapshot => {
