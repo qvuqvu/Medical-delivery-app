@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={{ height: '30%' }}>
-                <Swiper activeDot={<View style={{ backgroundColor: colors.text, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
+                <Swiper activeDot={<View style={{ backgroundColor: colors.primary, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3, }} />} autoplay={true} style={{ alignContent: "center", marginLeft: 25, justifyContent: "center", marginTop: 40, height: 168 }}>
                     <View style={{ height: 113, width: 348 }}>
                         <Image
                             source={{ uri: "https://i.imgur.com/VCG7OE0.png" }}
@@ -87,8 +87,8 @@ export default function HomeScreen({ navigation }) {
                         style={{ marginTop: -5, marginLeft: 20 }}
                         until={3600}
                         size={14}
-                        digitStyle={{ backgroundColor: '#66DF48' }}
-                        digitTxtStyle={{ color: colors.text }}
+                        digitStyle={{ backgroundColor: colors.primary }}
+                        digitTxtStyle={{ color: colors.text1}}
                         timeToShow={['M', 'S']}
                         timeLabels={{ m: 'Min', s: 'Sec' }}
                         timeLabelStyle={{ color: colors.text }}
@@ -126,7 +126,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.backgroundColor
+        backgroundColor: colors.backgroundColor 
     },
     deliveryButton: {
         paddingHorizontal: 20,

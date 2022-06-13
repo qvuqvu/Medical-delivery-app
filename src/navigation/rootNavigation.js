@@ -36,8 +36,14 @@ export default function RootNavigator() {
             ...NavigationDefaultTheme.colors,
             ...PaperDefaultTheme.colors,
             background: '#ffffff',
+            primary: '#6BC8FF',
+            secondary:'#36a0ef',
+            tertiary:'#5E6977',
+            accent:'#FF5A5A',
             text: '#000000',
+            text1: '#ffffff',
             boxes: '#ebf3f4',
+
         }
     }
 

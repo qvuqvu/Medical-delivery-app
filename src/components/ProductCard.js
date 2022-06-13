@@ -79,7 +79,7 @@ export default function ProductCard({ navigation,
                         <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{ProductName}</Text>
                     </View>
                     <View>
-                        <Text style={[{ color: colors.text, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
+                        <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
                     </View>
                     <View style={{ flexDirection: "row", marginBottom: 15 }}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -108,13 +108,13 @@ export default function ProductCard({ navigation,
                                 </Text>
                             </ModalPoup>
                         </View>
-                        <TouchableOpacity style={{ borderWidth: 0.7, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.text }}>
+                        <TouchableOpacity style={{ borderWidth: 0.7, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.tertiary }}>
                             <Icon1
                                 onPress={() => {
                                     check()
                                 }}
                                 name='shoppingcart'
-                                style={{ color: colors.text, justifyContent: 'center' }}
+                                style={{ color: colors.tertiary, justifyContent: 'center' }}
                                 size={35} >
                             </Icon1>
                         </TouchableOpacity>
@@ -123,8 +123,8 @@ export default function ProductCard({ navigation,
                                 selectItem(Totaldate[id], true)
                                 navigation.navigate("MyOrder", { id: 1 })
                             }}
-                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.text }} >
-                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.text }}>MUA NGAY</Text>
+                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.secondary }} >
+                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.secondary }}>MUA NGAY</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
