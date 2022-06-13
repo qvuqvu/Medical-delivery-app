@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation }) {
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
-                    <View style={{ height: 113, width: 348 }}>
+                    <View style={{ height: 120, width: 348 }}>
                         <Image
                             source={{ uri: "https://i.imgur.com/UX0GzXZ.png" }}
                             style={{ height: "100%", width: "100%" }}
