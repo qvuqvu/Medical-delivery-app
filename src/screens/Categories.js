@@ -20,6 +20,11 @@ export default function Categories({ navigation }) {
     const [selected, setSelected] = useState(null)
     const [data, setData] = useState([])
 
+    useEffect(()=>{
+        setData(thuoc)
+    },[]
+    )
+
     const handleSelected = (value, data) => {
         setSelected(value);
         setData(data)
