@@ -42,9 +42,9 @@ export default function RootNavigator() {
             ...PaperDefaultTheme.colors,
             background: '#ffffff',
             primary: '#6BC8FF',
-            secondary:'#36a0ef',
-            tertiary:'#5E6977',
-            accent:'#FF5A5A',
+            secondary: '#36a0ef',
+            tertiary: '#5E6977',
+            accent: '#FF5A5A',
             text: '#000000',
             text1: '#ffffff',
             boxes: '#ebf3f4',
@@ -65,8 +65,8 @@ export default function RootNavigator() {
             boxes: '#35373d',
             money: 'ffffff',
             buttonx: 'ffffff',
-            secondary:'#ffffff',
-            tertiary:'#ffffff',
+            secondary: '#ffffff',
+            tertiary: '#ffffff',
         }
     }
     const { signedIn } = useContext(SignInContext)

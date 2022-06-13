@@ -90,7 +90,7 @@ export default function DrawerContent(props) {
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
-                <View style={{ backgroundColor: colors.buttons }}>
+                <View style={{ backgroundColor: colors.buttons, marginTop: -3 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.buttons, paddingLeft: 20, paddingVertical: 10 }}>
                         <Avatar
                             size={75}
