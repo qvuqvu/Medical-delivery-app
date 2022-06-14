@@ -16,8 +16,9 @@ import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
 import { useSelector } from 'react-redux';
+import { Picker } from '@react-native-picker/picker';
 export default function MyAccountScreen({ navigation }) {
-
+    const [selectedValue, setSelectedValue] = useState("");
     const { t, i18n } = useTranslation();
     const a = useSelector((state) => state.cartReducer.selectedItems.language)
     const [currentLanguage, setLanguage] = useState("");
@@ -226,24 +227,59 @@ export default function MyAccountScreen({ navigation }) {
                         }}
                     >
                         <View style={styles.centeredView}>
-                            <View style={styles.modalView}>
+                            <View style={
+                                {
+                                    margin: 20,
+                                    backgroundColor: "white",
+                                    borderRadius: 20,
+                                    padding: 35,
+                                    alignItems: "center",
+                                    shadowColor: "#000",
+                                    shadowOffset: {
+                                        width: 0,
+                                        height: 2
+                                    },
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 4,
+                                    elevation: 5,
+                                    backgroundColor: colors.background
+                                }
+                            }>
                                 <TouchableOpacity onPress={() => { setModalVisible(!modalVisible) }} >
                                     <Icon1
                                         size={20}
                                         name="close"
-                                        style={{ marginLeft: 265, marginTop: -20 }}
+                                        style={{ marginLeft: 265, marginTop: -20, color: colors.text }}
                                     />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>{t('Cập nhật thông tin')}</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.text }}>{t('Cập nhật thông tin')}</Text>
                                 <View style={{ marginTop: 15, }}>
                                     <TextInput
-                                        style={styles.textinput3}
+                                        style={{
+                                            width: 320,
+                                            borderWidth: 1,
+                                            borderColor: "#86939e",
+                                            marginHorizontal: 20,
+                                            borderRadius: 12,
+                                            marginBottom: 20,
+                                            paddingHorizontal: 10,
+                                            color: colors.text,
+                                        }}
                                         placeholder="Full Name"
                                         value={fullname1}
                                         onChangeText={(txt) => setfullname1(txt)}
                                     />
                                     <TextInput
-                                        style={styles.textinput3}
+                                        style={{
+                                            width: 320,
+                                            borderWidth: 1,
+                                            borderColor: "#86939e",
+                                            marginHorizontal: 20,
+                                            borderRadius: 12,
+                                            marginBottom: 20,
+                                            paddingHorizontal: 10,
+                                            color: colors.text,
+                                        }}
                                         placeholder="Phone Number"
                                         value={phonenumber1}
                                         onChangeText={(txt) => setphonenumber1(txt)}
@@ -258,6 +294,7 @@ export default function MyAccountScreen({ navigation }) {
                                                 borderRadius: 12,
                                                 marginBottom: 2,
                                                 paddingHorizontal: 10,
+                                                color: colors.text,
                                             }}
                                             placeholder="Date of Birth"
                                             value={date1}
@@ -266,7 +303,7 @@ export default function MyAccountScreen({ navigation }) {
                                         <Icon
                                             size={30}
                                             name="calendar"
-                                            style={{ marginLeft: 10, marginTop: 10 }}
+                                            style={{ marginLeft: 10, marginTop: 10, color: colors.text }}
                                             onPress={showDatepicker}
                                         />
                                         {show && (
@@ -280,23 +317,43 @@ export default function MyAccountScreen({ navigation }) {
                                             />
                                         )}
                                     </View>
+                                    <View style={{
+                                        height: 50,
+                                        width: 150,
+                                        borderWidth: 1,
+                                        borderColor: "#86939e",
+                                        marginHorizontal: 20,
+                                        borderRadius: 12,
+                                        marginBottom: 20,
+                                        marginTop: 20,
+                                        paddingHorizontal: 5,
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Picker
+                                            selectedValue={selectedValue}
+                                            style={{
+                                                color: colors.text,
+                                            }}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                setSelectedValue(itemValue);
+                                                setsex1(itemValue)
+                                            }}
+                                        >
+                                            <Picker.Item label="Nam" value="Nam" />
+                                            <Picker.Item label="Nữ" value="Nữ" />
+                                        </Picker>
+                                    </View>
                                     <TextInput
                                         style={{
-                                            marginTop: 17,
-                                            width: 210,
+                                            width: 320,
                                             borderWidth: 1,
                                             borderColor: "#86939e",
                                             marginHorizontal: 20,
                                             borderRadius: 12,
                                             marginBottom: 20,
                                             paddingHorizontal: 10,
+                                            color: colors.text,
                                         }}
-                                        placeholder="Sex"
-                                        value={sex1}
-                                        onChangeText={(txt) => setsex1(txt)}
-                                    />
-                                    <TextInput
-                                        style={styles.textinput3}
                                         placeholder="Address"
                                         value={address1}
                                         onChangeText={(txt) => setaddress1(txt)}
@@ -425,7 +482,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 22,
     },
     modalView: {
         margin: 20,
@@ -440,7 +497,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
     },
     textinput3: {
         width: 320,
