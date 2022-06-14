@@ -11,13 +11,24 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
 import { useTheme } from 'react-native-paper'
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
 });
 
 export default function DrawerContent(props) {
-
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { dispatchSignedIn } = useContext(SignInContext)
     const [getorder, setorder] = useState(0);
     const [getstatus, setstatus] = useState(0);
@@ -110,14 +121,14 @@ export default function DrawerContent(props) {
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
                                 <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getorder}</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>Đơn đang xử lý</Text>
+                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>{t('Đơn đang xử lý')}</Text>
                             </View>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
                                 <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getstatus}</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>Giỏ hàng</Text>
+                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>{t('Giỏ hàng')}</Text>
                             </View>
                         </View>
                     </View>
@@ -127,10 +138,10 @@ export default function DrawerContent(props) {
                 <DrawerItemList {...props} />
 
                 <View style={{ borderTopWidth: 1, borderTopColor: colors.grey5 }}>
-                    <Text style={styles.preferences}>Chủ đề</Text>
+                    <Text style={styles.preferences}>{t('Chủ đề')}</Text>
 
                     <View style={styles.switchText}>
-                        <Text style={styles.darkthemeText}>Dark Theme</Text>
+                        <Text style={styles.darkthemeText}>{t('Chủ đề tối')}</Text>
                         <View style={{ paddingRight: 10 }}>
                             <Switch
                                 value={DarkMode}
@@ -147,7 +158,7 @@ export default function DrawerContent(props) {
             <TouchableOpacity
                 onPress={() => { signOut() }}>
                 <DrawerItem
-                    label="Đăng xuất"
+                    label={t("Đăng xuất")}
                     icon={({ color, size }) => (
                         <Icon
                             type="material-community"

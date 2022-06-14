@@ -11,7 +11,20 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { useTheme } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 export default function MyOrder({ navigation, route }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const [loading, setLoading] = useState(false);
     const { colors } = useTheme();
     const [fullname, setfullname] = useState("")
@@ -92,12 +105,12 @@ export default function MyOrder({ navigation, route }) {
     return (
         <>
             <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
-                <HeaderOrder navigation={navigation} id={route.params.id} />
+                <HeaderOrder navigation={navigation} id={route.params.id} title={t("Thanh toán")} />
                 <ScrollView style={{ height: "100%" }}>
                     <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                         <View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
-                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginRight: 150 }}>Thông tin giao hàng</Text>
+                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginRight: 150 }}>{t("Thông tin giao hàng")}</Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         console.log(name_dis)
@@ -105,7 +118,7 @@ export default function MyOrder({ navigation, route }) {
                                     }}
                                 >
                                     <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
-                                        <Text style={{ color: 'red', fontWeight: 'bold' }}>Thay đổi</Text>
+                                        <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Thay đổi")}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -117,7 +130,7 @@ export default function MyOrder({ navigation, route }) {
                             <View style={{ marginTop: 5 }}>
                                 <Text style={{ color: colors.text }}>{address}</Text>
                                 <TextInput
-                                    placeholder='Thêm ghi chú. VD: tên tòa nhà, số tầng'
+                                    placeholder={t('Thêm ghi chú. VD: tên tòa nhà, số tầng')}
                                     style={{ color: colors.text }}
                                     placeholderTextColor={colors.text}
                                 />
@@ -143,11 +156,11 @@ export default function MyOrder({ navigation, route }) {
                     /> */}
                         <View style={{ marginTop: 20, marginBottom: 10, height: '15%' }}>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>
-                                <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 16 }}>{count} Sản phẩm</Text>
+                                <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 16 }}>{count} {t("Sản phẩm")}</Text>
                                 <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{cost}.000 đ</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10, marginTop: 10 }}>
-                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>Phí vận chuyển</Text>
+                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{t("Phí vận chuyển")}</Text>
                                 <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{costShip}.000 đ</Text>
                             </View>
                             <View style={num_dis == 0 ? styles.hideDis : styles.showDis}>
@@ -155,15 +168,15 @@ export default function MyOrder({ navigation, route }) {
                                 <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>-{num_dis * costShip}.000 đ</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 20 }}>
-                                <Text style={{ color: colors.text, fontSize: 15, fontWeight: 'bold' }}>Khuyễn mãi:  {discount.length}</Text>
+                                <Text style={{ color: colors.text, fontSize: 15, fontWeight: 'bold' }}>{t("Khuyễn mãi:")}  {discount.length}</Text>
                                 <TouchableOpacity onPress={() => { setModalVisible(true) }}>
                                     <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
-                                        <Text style={{ color: 'red', fontWeight: 'bold' }}>Chọn</Text>
+                                        <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Chọn")}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: 30, marginBottom: 10 }}>
-                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>Chọn hình thức thanh toán</Text>
+                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{t("Chọn hình thức thanh toán")}</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                                     <RadioButton
                                         value="first"
@@ -174,7 +187,7 @@ export default function MyOrder({ navigation, route }) {
                                         source={require('../global/image/Cash.png')}
                                         style={{ height: 43, width: "25%", resizeMode: "contain", marginRight: 10 }}
                                     />
-                                    <Text style={{ color: colors.text }}>Thanh toán khi nhận hàng (COD)</Text>
+                                    <Text style={{ color: colors.text }}>{t("Thanh toán khi nhận hàng (COD)")}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <RadioButton
@@ -186,7 +199,7 @@ export default function MyOrder({ navigation, route }) {
                                         source={require('../global/image/MoMo_Logo.png')}
                                         style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 10 }}
                                     />
-                                    <Text style={{ color: colors.text }}>Ví MoMo</Text>
+                                    <Text style={{ color: colors.text }}>{t("Ví MoMo")}</Text>
                                 </View>
                             </View>
                             <View style={{ marginTop: 20, marginBottom: 10, flexDirection: 'row', width: 350 }}>
@@ -194,7 +207,7 @@ export default function MyOrder({ navigation, route }) {
                                     source={require('../global/image/doc_rule.png')}
                                     style={{ height: "100%", width: "8%", resizeMode: "contain", marginRight: 10 }}
                                 />
-                                <Text style={{ color: colors.text, fontSize: 15 }}>Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo {<Text style={{ color: 'blue' }}>Điều khoản Medili</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 15, marginRight: 10 }}>{t("Nhấn Đặt hàng đồng nghĩa với việc bạn đồng ý tuân theo các điều khoản của chúng tôi")}</Text>
                             </View>
                         </View>
                     </View>
@@ -207,8 +220,8 @@ export default function MyOrder({ navigation, route }) {
                     <View style={styles.modal}>
                         <View style={styles.modalContainer}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>Chọn mã giảm giá</Text>
-                                <Text style={{ color: 'black', fontSize: 14 }}> Áp dụng tối đa: 1</Text>
+                                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{t("Chọn mã giảm giá")}</Text>
+                                <Text style={{ color: 'black', fontSize: 14 }}>{t(" Áp dụng tối đa: 1")}</Text>
                             </View>
                             <FlatList
                                 data={discount}
@@ -228,7 +241,7 @@ export default function MyOrder({ navigation, route }) {
                                                             <Image
                                                                 source={require('../global/image/time.png')}
                                                                 style={{ height: 20, width: 20, resizeMode: "contain" }} />
-                                                            <Text style={{ color: 'red', marginLeft: 5 }}>Hạn dùng: {item.endDate}</Text>
+                                                            <Text style={{ color: 'red', marginLeft: 5 }}>{t("Hạn dùng:")} {item.endDate}</Text>
                                                         </View>
                                                     </View>
                                                 </View>
@@ -249,7 +262,7 @@ export default function MyOrder({ navigation, route }) {
 
                                                     }}
                                                     style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 'auto', marginRight: 40 }}>
-                                                    <Text style={{ color: 'red', fontWeight: 'bold' }}>{choise_dis == item.id ? "Bỏ chọn" : "Sử dụng"}</Text>
+                                                    <Text style={{ color: 'red', fontWeight: 'bold' }}>{choise_dis == item.id ? t("Bỏ chọn") : t("Sử dụng")}</Text>
                                                 </TouchableOpacity>
                                             </View>
                                         </View>
@@ -262,15 +275,15 @@ export default function MyOrder({ navigation, route }) {
                                 }}
                             >
                                 <View style={{ backgroundColor: 'red', borderRadius: 15, height: 40, width: "90%", alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', fontSize: 17 }}>Xong</Text>
+                                    <Text style={{ color: 'white', fontSize: 17 }}>{t("Xong")}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal >
                 <View style={{ height: 50, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", marginRight: 20 }}>
-                        <Text style={{ color: colors.text, fontSize: 18, fontWeight: 'bold' }}>Tổng thanh toán:</Text>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginRight: 20 }}>
+                        <Text style={{ color: colors.text, fontSize: 18, fontWeight: 'bold' }}>{t("Tổng thanh toán:")}</Text>
                         <Text style={{ color: 'red', fontSize: 18, fontWeight: 'bold' }}>{total}.000đ</Text>
                     </View>
                     <TouchableOpacity
@@ -279,7 +292,7 @@ export default function MyOrder({ navigation, route }) {
                             addCartToFireBase()
                         }}>
                         <View>
-                            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Đặt hàng</Text>
+                            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>{t("Đặt hàng")}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

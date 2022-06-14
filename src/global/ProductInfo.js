@@ -15,8 +15,21 @@ import LottieView from "lottie-react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("en");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
     const user = auth().currentUser;
@@ -82,7 +95,7 @@ export default function ProductInfo({ navigation, route }) {
         });
     return (
         <View style={styles.container}>
-            <HeaderProject navigation={navigation} title="Thông tin sản phẩm" />
+            <HeaderProject navigation={navigation} title={t("Thông tin sản phẩm")} />
             <View style={{ flex: 1, marginTop: 10, backgroundColor: colors.background }}>
                 <ScrollView>
                     <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
@@ -112,7 +125,7 @@ export default function ProductInfo({ navigation, route }) {
 
                                     />
                                     <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: colors.text, fontWeight: 'bold' }}>
-                                        Thêm sản phẩm thành công
+                                        {t("Thêm sản phẩm thành công")}
                                     </Text>
                                 </ModalPoup>
                             </View>
@@ -120,7 +133,7 @@ export default function ProductInfo({ navigation, route }) {
                         <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
                             <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.text }}>{Totaldate[route.params.id].name}</Text>
                         </View>
-                        <Text style={{ fontSize: 15, color: colors.text, marginLeft: 10, marginTop: 10 }}>Đã bán 0</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, marginLeft: 10, marginTop: 10 }}>{t("Đã bán 0")}</Text>
                         <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{Totaldate[route.params.id].gia}</Text>
                     </View>
                     <View style={{ height: 150, backgroundColor: colors.boxes }}>
@@ -132,34 +145,34 @@ export default function ProductInfo({ navigation, route }) {
                             </View>
                             <View style={{ marginTop: 20, marginLeft: 15 }}>
                                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
-                                <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>Xem đánh giá</Text>
+                                <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>{t("Xem đánh giá")}</Text>
                             </View>
                             <TouchableOpacity onPress={() => { navigation.push("StoreDetail", Totaldate[route.params.id]) }}>
                                 <View style={{ marginTop: 20, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
-                                    <Text style={{ color: 'red' }}>Xem Shop</Text>
+                                    <Text style={{ color: 'red' }}>{t("Xem Shop")}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'baseline', marginTop: 15 }}>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16, color: colors.text }}>Đánh Giá</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>{t("Đánh Giá")}</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>4.9</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16, color: colors.text }}>Sản Phẩm</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>{t("Sản Phẩm")}</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>13</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 16, color: colors.text }}>Khoảng Cách</Text>
+                                <Text style={{ fontSize: 16, color: colors.text }}>{t("Khoảng Cách")}</Text>
                                 <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
                             </View>
                         </View>
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                            <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Thông tin sản phẩm</Text>
+                            <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>{t("Thông tin sản phẩm")}</Text>
                             <TouchableOpacity onPress={handleOpen}>
-                                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold', marginLeft: 150 }}>{isOpen == false ? "Xem thêm" : "Thu Gọn"}</Text>
+                                <Text style={{ color: 'blue', fontSize: 16, fontWeight: 'bold', marginLeft: 150 }}>{isOpen == false ? t("Xem thêm") : t("Thu gọn")}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={isOpen == true ? styles.moreDetail_close : styles.moreDetail_open}>
@@ -175,7 +188,7 @@ export default function ProductInfo({ navigation, route }) {
                             check();
                         }}>
                         <View style={styles.button_end}>
-                            <Text style={{ color: 'red' }}>THÊM VÀO GIỎ HÀNG</Text>
+                            <Text style={{ color: 'red' }}>{t("THÊM VÀO GIỎ HÀNG")}</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -184,7 +197,7 @@ export default function ProductInfo({ navigation, route }) {
                             navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>
-                            <Text style={{ color: 'white' }}>MUA NGAY</Text>
+                            <Text style={{ color: 'white' }}>{t("MUA NGAY")}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

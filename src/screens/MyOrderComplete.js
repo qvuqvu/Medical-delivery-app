@@ -6,8 +6,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import auth from "@react-native-firebase/auth"
 import { useTheme } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function MyOrderComplete({ navigation }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+        addd();
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const user = auth().currentUser;
     const [loading, setLoading] = useState(false);
@@ -126,7 +140,7 @@ export default function MyOrderComplete({ navigation }) {
                                 source={require('../global/image/store.png')} />
                             <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
                         </View>
-                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đang xử lý</Text>
+                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t("Đang xử lý")}</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
@@ -138,10 +152,10 @@ export default function MyOrderComplete({ navigation }) {
                     <View style={{ marginBottom: 20, height: 40 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text }}>
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày đặt: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>{t("Sản phẩm:")} {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>{t("Ngày đặt:")} {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
                             </View>
-                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>{t("Thành tiền:")} {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
@@ -151,7 +165,7 @@ export default function MyOrderComplete({ navigation }) {
                                 addCartToFireBase(item)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>Đã nhận hàng</Text>
+                                <Text style={{ color: 'white' }}>{t("Đã nhận hàng")}</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -160,7 +174,7 @@ export default function MyOrderComplete({ navigation }) {
                                 deleteCartToFireBase(item.id)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>Huỷ</Text>
+                                <Text style={{ color: 'white' }}>{t("Huỷ")}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -179,7 +193,7 @@ export default function MyOrderComplete({ navigation }) {
                                 source={require('../global/image/store.png')} />
                             <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
                         </View>
-                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>Đang xử lý</Text>
+                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t("Đang xử lý")}</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
@@ -191,10 +205,10 @@ export default function MyOrderComplete({ navigation }) {
                     <View style={{ marginBottom: 20, height: 40 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, borderBottomWidth: 0.5 }}>
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày đặt: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>{t("Sản phẩm:")} {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>{t("Ngày đặt:")} {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
                             </View>
-                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>{t("Thành tiền:")} {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
@@ -204,7 +218,7 @@ export default function MyOrderComplete({ navigation }) {
                                 addCartToFireBase(item)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>Đã nhận hàng</Text>
+                                <Text style={{ color: 'white' }}>{t("Đã nhận hàng")}</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -213,7 +227,7 @@ export default function MyOrderComplete({ navigation }) {
                                 deleteCartToFireBase(item.id)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>Huỷ</Text>
+                                <Text style={{ color: 'white' }}>{t("Huỷ")}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -224,9 +238,9 @@ export default function MyOrderComplete({ navigation }) {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <HeaderSimple title="Đang xử lý" navigation={navigation} />
+                <HeaderSimple title={t("Đang xử lý")} navigation={navigation} />
                 <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc!</Text>
+                    <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>{t("Cảm ơn bạn đã đặt thuốc!")}</Text>
                     <Icon
                         name="reload"
                         size={20}

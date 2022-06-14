@@ -12,17 +12,35 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { Thietbiyte, thuoc, thucphamchucnang, covid } from '../global/Data';
 import SearchComponent from '../components/SearchComponent';
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
+import firebase from '@react-native-firebase/app';
+import firestore from "@react-native-firebase/firestore"
+import auth from '@react-native-firebase/auth';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 
 export default function Categories({ navigation }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const user = auth().currentUser;
+
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const [selected, setSelected] = useState(null)
     const [data, setData] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         setData(thuoc)
-    },[]
+    }, []
     )
 
     const handleSelected = (value, data) => {
@@ -35,7 +53,7 @@ export default function Categories({ navigation }) {
         <View style={styles.container}>
 
             <View>
-                <HomeHeader navigation={navigation} title="Tìm kiếm" />
+                <HomeHeader navigation={navigation} title={t("Tìm kiếm")} />
                 <SearchComponent navigation={navigation} />
             </View>
 
@@ -43,7 +61,7 @@ export default function Categories({ navigation }) {
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <CategoriesCard
                         image={require('../global/image/categories/category__thuockhongkedon.png')}
-                        title={'Thuốc không kê đơn'}
+                        title={t('Thuốc không kê đơn')}
                         onPress={handleSelected}
                         value={selected}
                         data={thuoc}
@@ -57,14 +75,14 @@ export default function Categories({ navigation }) {
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thucphamchucnang.png')}
-                        title={'Thực phẩm chức năng'}
+                        title={t('Thực phẩm chức năng')}
                         onPress={handleSelected}
                         value={selected}
                         data={thucphamchucnang}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thietbiyte.png')}
-                        title={'Thiết bị y tế'}
+                        title={t('Thiết bị y tế')}
                         onPress={handleSelected}
                         value={selected}
                         data={Thietbiyte}
