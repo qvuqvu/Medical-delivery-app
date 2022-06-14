@@ -15,20 +15,24 @@ import { discount } from "../global/Data"
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
-
+import { useSelector } from 'react-redux';
 export default function MyAccountScreen({ navigation }) {
 
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState('vi');
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    const a =useSelector((state) => state.cartReducer.selectedItems.language)
+    const [currentLanguage, setLanguage] = useState("");
+    console.log(a)
+    const [check, setcheck] = useState(0);
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
-    }, [currentLanguage]);
+         console.log(currentLanguage)
+    },[a]);
 
     const { colors } = useTheme();
     const [fullname, setfullname] = useState("")

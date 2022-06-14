@@ -11,13 +11,13 @@ import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function MyOrderComplete({ navigation }) {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("vi");
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    const [currentLanguage, setLanguage] = useState("");
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
         addd();
@@ -251,7 +251,6 @@ export default function MyOrderComplete({ navigation }) {
                         style={{ marginLeft: 'auto', marginRight: 20 }}
                     />
                 </View>
-                <ScrollView>
                     <View style={{ height: '100%' }}>
                         {check ?
                             (
@@ -263,7 +262,6 @@ export default function MyOrderComplete({ navigation }) {
                                 showsVerticalScrollIndicator={false}
                             />)}
                     </View>
-                </ScrollView>
             </SafeAreaView >
             {loading ? (
                 <View

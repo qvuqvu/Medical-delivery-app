@@ -12,6 +12,8 @@ import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
 import { useTheme } from 'react-native-paper'
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux";
 import i18n from '../assets/language/i18n'
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -19,15 +21,19 @@ GoogleSignin.configure({
 
 export default function DrawerContent(props) {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("vi");
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    const currentLanguage = useSelector((state) => state.cartReducer.selectedItems.language)
+    const [check, setcheck] = useState(0)
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
+
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
+        console.log(currentLanguage)
+        setcheck(Math.random())
     }, [currentLanguage]);
     const { dispatchSignedIn } = useContext(SignInContext)
     const [getorder, setorder] = useState(0);
@@ -80,7 +86,27 @@ export default function DrawerContent(props) {
         .collection('cart' + user.uid).onSnapshot((snapshot) => {
             setstatus(snapshot.size)
         });
+    const update2 = (doc) => {
+        firestore()
+            .collection('User' + user.uid)
+            .doc(doc)
+            .update({
+                isLanguage: currentLanguage
+            })
+            .then(() => {
+                console.log("Update Success");
+                console.log(currentLanguage);
+            });
+    }
     async function signOut() {
+        firestore()
+            .collection('User' + user.uid)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    update2(documentSnapshot.id)
+                });
+            });
         try {
             auth()
                 .signOut()
@@ -98,6 +124,13 @@ export default function DrawerContent(props) {
             )
         }
     }
+    const dispatch = useDispatch();
+    const updatelang = (value) => dispatch({
+        type: "UPDATE_TO_LANGUAGE",
+        payload: {
+            language: value,
+        },
+    });
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -151,6 +184,35 @@ export default function DrawerContent(props) {
                             />
                         </View>
                     </View>
+
+                    <TouchableOpacity>
+                        <DrawerItem
+                            label={t("Viet")}
+                            icon={({ color, size }) => (
+                                <Icon
+                                    type="material-community"
+                                    name="logout-variant"
+                                    color={color}
+                                    size={40}
+                                    onPress={() => { updatelang("vi") }}
+                                />
+                            )}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <DrawerItem
+                            label={t("Anh")}
+                            icon={({ color, size }) => (
+                                <Icon
+                                    type="material-community"
+                                    name="logout-variant"
+                                    color={color}
+                                    size={40}
+                                    onPress={() => { updatelang("en") }}
+                                />
+                            )}
+                        />
+                    </TouchableOpacity>
                 </View>
 
             </DrawerContentScrollView>

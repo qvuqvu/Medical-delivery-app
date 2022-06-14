@@ -15,22 +15,24 @@ import i18n from '../assets/language/i18n'
 import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
 import auth from '@react-native-firebase/auth';
+import { useSelector } from 'react-redux';
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
     const { colors } = useTheme();
     const [indexCheck, setIndexCheck] = useState("0")
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("vi");
+    const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
+
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
-    }, [currentLanguage]);
+    },[currentLanguage]);
 
     return (
         <View style={styles.container}>

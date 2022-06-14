@@ -12,15 +12,15 @@ import firestore from "@react-native-firebase/firestore"
 import auth from '@react-native-firebase/auth';
 export default function MyFavoriteScreen({ navigation }) {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("vi");
+    const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
 
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);

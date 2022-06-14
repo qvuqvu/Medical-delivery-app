@@ -15,13 +15,13 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
 export default function MyOrder({ navigation, route }) {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("vi");
-    const changeLanguage = value => {
-        i18n
-            .changeLanguage(value)
-            .then(() => setLanguage(value))
-            .catch(err => console.log(err));
-    };
+    const [currentLanguage, setLanguage] = useState("");
+    // const changeLanguage = value => {
+    //     i18n
+    //         .changeLanguage(value)
+    //         .then(() => setLanguage(value))
+    //         .catch(err => console.log(err));
+    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
