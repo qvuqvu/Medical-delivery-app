@@ -316,8 +316,8 @@ export default function MyAccountScreen({ navigation }) {
                     <View>
                         <View style={styles.viewInfo}>
                             <Image
-                                source={require('../global/image/account_head.png')}
-                                style={styles.styleImgItem}
+                                source={{uri:"https://cdn2.iconfinder.com/data/icons/thin-line-color-1/21/38-256.png"}}
+                                style={{height:30,width:30,marginLeft:20,marginTop:5}}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
 
@@ -328,21 +328,25 @@ export default function MyAccountScreen({ navigation }) {
                     </View>
                     <View>
                         <View style={styles.viewInfo}>
-                            <Image
-                                source={require('../global/image/phone.png')}
-                                style={styles.styleImgItem}
+                        <Image
+                                source={{uri:"https://cdn3.iconfinder.com/data/icons/blue-line-interface/64/contact-256.png"}}
+                                style={{height:30,width:30,marginLeft:20,marginTop:5}}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
+<<<<<<< HEAD
                                 <Text style={{ color: colors.text }}>{t('Số điện thoại')}</Text>
+=======
+                                <Text style={{ color: colors.text}}>Số điện thoại</Text>
+>>>>>>> 13dbb27e21b8938a9208f1c61b97d9e922e20c63
                                 <Text style={{ color: colors.text, marginTop: 5 }} >{phonenumber}</Text>
                             </View>
                         </View>
                     </View>
                     <View>
                         <View style={styles.viewInfo}>
-                            <Image
-                                source={require('../global/image/calendar.png')}
-                                style={styles.styleImgItem}
+                        <Image
+                                source={{uri:"https://cdn4.iconfinder.com/data/icons/aircraft-blue-line/64/165_schedule-calendar-date-256.png"}}
+                                style={{height:30,width:30,marginLeft:20,marginTop:5}}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                                 <Text style={{ color: colors.text }}>{t('Ngày sinh')}</Text>
@@ -352,9 +356,9 @@ export default function MyAccountScreen({ navigation }) {
                     </View>
                     <View>
                         <View style={styles.viewInfo}>
-                            <Image
-                                source={require('../global/image/sex.png')}
-                                style={styles.styleImgItem}
+                        <Image
+                                source={{uri:"https://cdn4.iconfinder.com/data/icons/lgbt-6/64/bigender-sex-gender-shapes-256.png"}}
+                                style={{height:30,width:30,marginLeft:20,marginTop:5}}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
                                 <Text style={{ color: colors.text }}>{t('Giới tính')}</Text>
@@ -371,10 +375,10 @@ export default function MyAccountScreen({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                        <Image
-                            source={require('../global/image/location.png')}
-                            style={{ color: colors.text, height: 30, width: "10%", resizeMode: 'contain', marginLeft: 5, marginTop: 10 }}
-                        />
+                    <Image
+                                source={{uri:"https://cdn4.iconfinder.com/data/icons/universal-7/614/17_-_Location-256.png"}}
+                                style={{height:30,width:30,marginLeft:20,marginTop:5}}
+                            />
                         <View style={{ width: "85%", marginLeft: 5 }}>
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
                             <TouchableOpacity style={{ marginTop: 5 }} onPress={() => { navigation.navigate("Test") }}>
