@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import auth from '@react-native-firebase/auth';
 import { View, Text, Linking, Pressable, Alert, Switch, StyleSheet, TouchableOpacity } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
@@ -14,22 +14,19 @@ import { useTheme } from 'react-native-paper'
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import i18n from '../assets/language/i18n'
+import i18n from '../assets/language/i18n';
+import { Picker } from '@react-native-picker/picker';
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
 });
 
+
 export default function DrawerContent(props) {
+    const { colors } = useTheme();
     const { t, i18n } = useTranslation();
     const currentLanguage = useSelector((state) => state.cartReducer.selectedItems.language)
+    const [selectedValue, setSelectedValue] = useState(currentLanguage);
     const [check, setcheck] = useState(0)
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
-
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
         console.log(currentLanguage)
@@ -134,7 +131,7 @@ export default function DrawerContent(props) {
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
-                <View style={{ backgroundColor: colors.buttons, marginTop: -3 }}>
+                <View style={{ backgroundColor: colors.buttons, marginTop: -3, marginBottom: 10, borderBottomWidth: 1, borderBottomColor: colors.text }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.buttons, paddingLeft: 20, paddingVertical: 10 }}>
                         <Avatar
                             size={75}
@@ -144,24 +141,24 @@ export default function DrawerContent(props) {
                         />
 
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.cardbackground }}> {user.displayName ? user.displayName : fullname}</Text>
-                            <Text style={{ fontSize: 13, color: colors.cardbackground }}>{user.email ? user.email : ""}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.text }}> {user.displayName ? user.displayName : fullname}</Text>
+                            <Text style={{ fontSize: 13, color: colors.text }}>{user.email ? user.email : ""}</Text>
                         </View>
 
 
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: "space-evenly", paddingBottom: 5 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: "space-evenly", paddingBottom: 15, paddingTop: 10 }}>
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getorder}</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>{t('Đơn đang xử lý')}</Text>
+                                <Text style={{ fontWeight: 'bold', color: colors.text, fontSize: 18 }}>{getorder}</Text>
+                                <Text style={{ color: colors.text, fontSize: 14 }}>{t('Đơn đang xử lý')}</Text>
                             </View>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
                             <View style={{ marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ fontWeight: 'bold', color: colors.cardbackground, fontSize: 18 }}>{getstatus}</Text>
-                                <Text style={{ color: colors.cardbackground, fontSize: 14 }}>{t('Giỏ hàng')}</Text>
+                                <Text style={{ fontWeight: 'bold', color: colors.text, fontSize: 18 }}>{getstatus}</Text>
+                                <Text style={{ color: colors.text, fontSize: 14 }}>{t('Giỏ hàng')}</Text>
                             </View>
                         </View>
                     </View>
@@ -170,11 +167,40 @@ export default function DrawerContent(props) {
 
                 <DrawerItemList {...props} />
 
-                <View style={{ borderTopWidth: 1, borderTopColor: colors.grey5 }}>
-                    <Text style={styles.preferences}>{t('Chủ đề')}</Text>
-
+                <View style={{ borderTopWidth: 1, marginTop: 5, borderTopColor: colors.text }}>
+                    <Text style={{
+                        fontSize: 16,
+                        color: colors.text,
+                        paddingTop: 15,
+                        paddingLeft: 20,
+                    }}>{t('Chủ đề')}</Text>
                     <View style={styles.switchText}>
-                        <Text style={styles.darkthemeText}>{t('Chủ đề tối')}</Text>
+                        <Text style={{
+                            fontSize: 16,
+                            color: colors.text,
+                            paddingTop: 10,
+                            paddingLeft: 0,
+                            fontWeight: "bold"
+                        }}>{t('Ngôn ngữ')}</Text>
+                        <View style={{ marginTop: 10 }}>
+                            <Picker
+                                selectedValue={selectedValue}
+                                style={{ height: 50, width: 150, color: colors.text }}
+                                onValueChange={(itemValue, itemIndex) => { setSelectedValue(itemValue); updatelang(itemValue) }}
+                            >
+                                <Picker.Item label="Việt Nam" value="vi" />
+                                <Picker.Item label="English" value="en" />
+                            </Picker>
+                        </View>
+                    </View>
+                    <View style={styles.switchText}>
+                        <Text style={{
+                            fontSize: 16,
+                            color: colors.text,
+                            paddingTop: 10,
+                            paddingLeft: 0,
+                            fontWeight: "bold"
+                        }}>{t('Chủ đề tối')}</Text>
                         <View style={{ paddingRight: 10 }}>
                             <Switch
                                 value={DarkMode}
@@ -184,38 +210,9 @@ export default function DrawerContent(props) {
                             />
                         </View>
                     </View>
-
-                    <TouchableOpacity>
-                        <DrawerItem
-                            label={t("Viet")}
-                            icon={({ color, size }) => (
-                                <Icon
-                                    type="material-community"
-                                    name="logout-variant"
-                                    color={color}
-                                    size={40}
-                                    onPress={() => { updatelang("vi") }}
-                                />
-                            )}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <DrawerItem
-                            label={t("Anh")}
-                            icon={({ color, size }) => (
-                                <Icon
-                                    type="material-community"
-                                    name="logout-variant"
-                                    color={color}
-                                    size={40}
-                                    onPress={() => { updatelang("en") }}
-                                />
-                            )}
-                        />
-                    </TouchableOpacity>
                 </View>
 
-            </DrawerContentScrollView>
+            </DrawerContentScrollView >
 
             <TouchableOpacity
                 onPress={() => { signOut() }}>
@@ -232,7 +229,7 @@ export default function DrawerContent(props) {
                     )}
                 />
             </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 

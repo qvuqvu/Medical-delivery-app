@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { colors } from '../global/styles'
@@ -14,16 +14,22 @@ import MyShoppingScreen from '../screens/MyShoppingScreen'
 import MyFavoriteScreen from '../screens/MyFavoriteScreen'
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 const ClientTabs = createBottomTabNavigator();
 
 export default function RootClientTabs() {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("");
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const user = auth().currentUser;
     firestore()
-            .collection('cart' + user.uid).onSnapshot((snapshot) => {
-                snapshot.docs.map((doc) => {
-                });
+        .collection('cart' + user.uid).onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
             });
+        });
     return (
         <ClientTabs.Navigator
             initialRouteName='HomeScreen'
@@ -37,7 +43,7 @@ export default function RootClientTabs() {
                 component={HomeScreen}
                 options={
                     {
-                        tabBarLabel: "Màn hình chính",
+                        tabBarLabel: t("Màn hình chính"),
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='home'
@@ -53,7 +59,7 @@ export default function RootClientTabs() {
                 component={Categories}
                 options={
                     {
-                        tabBarLabel: "Tìm kiếm",
+                        tabBarLabel: t("Tìm kiếm"),
                         tabBarIcon: ({ color, size }) => (
                             <Icon
                                 name='search'
@@ -69,10 +75,10 @@ export default function RootClientTabs() {
                 component={MyFavoriteScreen}
                 options={
                     {
-                        tabBarLabel: "Yêu thích",
+                        tabBarLabel: t("News"),
                         tabBarIcon: ({ color, size }) => (
-                            <Icon4
-                                name='favorite-border'
+                            <Icon
+                                name='newspaper-o'
                                 color={color}
                                 size={size}
                             />
@@ -85,7 +91,7 @@ export default function RootClientTabs() {
                 component={MyAccountScreen}
                 options={
                     {
-                        tabBarLabel: "Tài khoản",
+                        tabBarLabel: t("Tài khoản"),
                         tabBarIcon: ({ color, size }) => (
                             <Icon2
                                 name='person'

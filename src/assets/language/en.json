@@ -78,7 +78,9 @@
         "Thu gọn": "Collapse",
         "THÊM VÀO GIỎ HÀNG": "ADD TO CART",
         "Giỏ Hàng": "Cart",
-        "Thanh toán": "Pay"
+        "Thanh toán": "Pay",
+        "Ngôn ngữ": "Language",
+        "News": "News"
 
     }
 }

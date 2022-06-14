@@ -18,7 +18,6 @@ import News3 from '../screens/News3';
 import News4 from '../screens/News4';
 import News5 from '../screens/News5';
 import auth from '@react-native-firebase/auth';
-import Test from '../screens/Test';
 import firestore from "@react-native-firebase/firestore"
 import { useDispatch } from "react-redux";
 const App = createNativeStackNavigator();
@@ -150,13 +149,6 @@ export function AppStack() {
             <App.Screen
                 name="News5"
                 component={News5}
-                options={{
-                    headerShown: false,
-                }}
-            />
-            <App.Screen
-                name="Test"
-                component={Test}
                 options={{
                     headerShown: false,
                 }}

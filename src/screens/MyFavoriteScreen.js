@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity, Image
 import HomeHeader from '../components/HomeHeader';
 import Icon3 from 'react-native-vector-icons/EvilIcons'
 import { colors } from "../global/styles"
-import { nhathuoc1, spbanchay } from "../global/Data"
+import { nhathuoc1, spbanchay, Totaldate } from "../global/Data"
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
@@ -14,13 +14,6 @@ export default function MyFavoriteScreen({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
-
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
@@ -67,7 +60,7 @@ export default function MyFavoriteScreen({ navigation }) {
                     />
                 </View>
                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', }}>{t('Nhà thuốc được ưa thích')}</Text>
-                <TouchableOpacity onPress={() => { }}>
+                <TouchableOpacity onPress={() => { navigation.push("StoreDetail", Totaldate[nhathuoc1[0].id]) }}>
                     <View style={{ backgroundColor: colors.boxes, width: 270, height: 100, justifyContent: 'center', marginTop: 15, borderRadius: 15 }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Image
