@@ -12,6 +12,8 @@ import LottieView from "lottie-react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductCard({ navigation,
     ProductName,
@@ -20,9 +22,20 @@ export default function ProductCard({ navigation,
     screenWidth,
     id
 }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const user = auth().currentUser;
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
-    const user = auth().currentUser;
     const [getcheck, setCheck] = useState(0)
     const addCartToFireBase = () => {
         const db = firebase.firestore();
@@ -124,7 +137,7 @@ export default function ProductCard({ navigation,
                                 navigation.navigate("MyOrder", { id: 1 })
                             }}
                             style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.secondary }} >
-                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.secondary }}>MUA NGAY</Text>
+                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.secondary }}>{t('MUA NGAY')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

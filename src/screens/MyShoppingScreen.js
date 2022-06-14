@@ -9,9 +9,23 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import ViewCart from './ViewCart';
 import { useDispatch } from "react-redux";
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 /** */
 
 export default function MyShoppingScreen({ navigation }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+        addd();
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const user = auth().currentUser;
     const [getdoc, setdoc] = useState([]);
@@ -186,7 +200,7 @@ export default function MyShoppingScreen({ navigation }) {
                     source={require('../global/image/cart_purchase.png')}
                     style={{ height: 30, width: "15%", resizeMode: "contain" }}
                 />
-                <Text style={{ color: 'black', fontSize: 15 }}>Vui lòng chọn sản phẩm bạn muốn mua!</Text>
+                <Text style={{ color: 'black', fontSize: 15 }}>{t('Vui lòng chọn sản phẩm bạn muốn mua!')}</Text>
                 <Icon
                     name="reload"
                     size={20}

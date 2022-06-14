@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
@@ -10,10 +10,27 @@ import ProductCard from '../components/ProductCard';
 import CountDown from 'react-native-countdown-component';
 import Swiper from 'react-native-swiper'
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
+import firebase from '@react-native-firebase/app';
+import firestore from "@react-native-firebase/firestore"
+import auth from '@react-native-firebase/auth';
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
     const { colors } = useTheme();
     const [indexCheck, setIndexCheck] = useState("0")
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const user = auth().currentUser;
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
 
     return (
         <View style={styles.container}>
@@ -82,13 +99,13 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.headerTextView}>
                 {/* <Text style={styles.headerText}>Sản phẩm</Text> */}
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.headerText}>Sản phẩm thay đổi sau:</Text>
+                    <Text style={styles.headerText}>{t('Sản phẩm thay đổi sau:')}</Text>
                     <CountDown
                         style={{ marginTop: -5, marginLeft: 20 }}
                         until={3600}
                         size={14}
                         digitStyle={{ backgroundColor: colors.primary }}
-                        digitTxtStyle={{ color: colors.text1}}
+                        digitTxtStyle={{ color: colors.text1 }}
                         timeToShow={['M', 'S']}
                         timeLabels={{ m: 'Min', s: 'Sec' }}
                         timeLabelStyle={{ color: colors.text }}
@@ -126,7 +143,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.backgroundColor 
+        backgroundColor: colors.backgroundColor
     },
     deliveryButton: {
         paddingHorizontal: 20,

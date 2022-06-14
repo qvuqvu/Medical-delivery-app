@@ -13,9 +13,23 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { firebase } from '@react-native-firebase/firestore';
 import { discount } from "../global/Data"
 import { useTheme } from 'react-native-paper';
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 
 export default function MyAccountScreen({ navigation }) {
+
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState('vi');
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
+
     const { colors } = useTheme();
     const [fullname, setfullname] = useState("")
     const [phonenumber, setphonenumber] = useState("")
@@ -179,7 +193,7 @@ export default function MyAccountScreen({ navigation }) {
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
                                 <Text style={{ color: colors.text }}>{getorder}</Text>
-                                <Text style={{ color: colors.text }}>Đơn đang xử lý</Text>
+                                <Text style={{ color: colors.text }}>{t('Đơn đang xử lý')}</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -192,7 +206,7 @@ export default function MyAccountScreen({ navigation }) {
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
                                 <Text style={{ color: colors.text }}>{getcomplete}</Text>
-                                <Text style={{ color: colors.text }}>Đơn đã mua</Text>
+                                <Text style={{ color: colors.text }}>{t('Đơn đã mua')}</Text>
                             </View>
                         </TouchableOpacity>
 
@@ -200,7 +214,7 @@ export default function MyAccountScreen({ navigation }) {
                 </View>
                 <View style={{ backgroundColor: colors.backgroundColor, width: "100%", height: '45%', marginTop: 10 }}>
                     <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
-                        <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', }}>Thông tin cá nhân</Text>
+                        <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', }}>{t('Thông tin cá nhân')}</Text>
                         <TouchableOpacity onPress={createuser}>
                             <Text style={{ marginLeft: 200, fontSize: 15, fontWeight: 'bold', color: 'red' }}>Sửa</Text>
                         </TouchableOpacity>
@@ -222,7 +236,7 @@ export default function MyAccountScreen({ navigation }) {
                                         style={{ marginLeft: 265, marginTop: -20 }}
                                     />
                                 </TouchableOpacity>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>Cập nhật thông tin</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>{t('Cập nhật thông tin')}</Text>
                                 <View style={{ marginTop: 15, }}>
                                     <TextInput
                                         style={styles.textinput3}
@@ -291,7 +305,7 @@ export default function MyAccountScreen({ navigation }) {
                                     />
                                 </View>
                                 <Button
-                                    title="Lưu thông tin"
+                                    title={t("Lưu thông tin")}
                                     buttonStyle={{ alignContent: "center", borderRadius: 20, height: 45, width: 250, backgroundColor: 'blue', marginLeft: 8 }}
                                     titleStyle={styles.buttonTitle}
                                     onPress={update}
@@ -307,7 +321,7 @@ export default function MyAccountScreen({ navigation }) {
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
 
-                                <Text style={{ color: colors.text }}>Tên người dùng</Text>
+                                <Text style={{ color: colors.text }}>{t('Tên người dùng')}</Text>
                                 <Text style={{ color: colors.text, marginTop: 5 }}>{fullname}</Text>
                             </View>
                         </View>
@@ -319,7 +333,7 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text style={{ color: colors.text }}>Số điện thoại</Text>
+                                <Text style={{ color: colors.text }}>{t('Số điện thoại')}</Text>
                                 <Text style={{ color: colors.text, marginTop: 5 }} >{phonenumber}</Text>
                             </View>
                         </View>
@@ -331,7 +345,7 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text style={{ color: colors.text }}>Ngày sinh</Text>
+                                <Text style={{ color: colors.text }}>{t('Ngày sinh')}</Text>
                                 <Text style={{ color: colors.text, marginTop: 5 }} >{date}</Text>
                             </View>
                         </View>
@@ -343,7 +357,7 @@ export default function MyAccountScreen({ navigation }) {
                                 style={styles.styleImgItem}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5, marginLeft: 10 }}>
-                                <Text style={{ color: colors.text }}>Giới tính</Text>
+                                <Text style={{ color: colors.text }}>{t('Giới tính')}</Text>
                                 <Text style={{ color: colors.text, marginTop: 5 }} >{sex}</Text>
                             </View>
                         </View>
@@ -351,9 +365,9 @@ export default function MyAccountScreen({ navigation }) {
                 </View>
                 <View style={styles.address}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 5 }}>
-                        <Text style={{ color: colors.text, marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>Sổ địa chỉ</Text>
+                        <Text style={{ color: colors.text, marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>{t('Sổ địa chỉ')}</Text>
                         <TouchableOpacity onPress={() => { navigation.navigate("Maps") }}>
-                            <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>Địa chỉ đã lưu</Text>
+                            <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>{t('Địa chỉ đã lưu')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', marginTop: 20 }}>
@@ -363,8 +377,8 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ width: "85%", marginLeft: 5 }}>
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
-                            <TouchableOpacity style={{ marginTop: 5 }}>
-                                <Text style={{ fontSize: 15, color: 'blue' }}>Mặc định</Text>
+                            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => { navigation.navigate("Test") }}>
+                                <Text style={{ fontSize: 15, color: 'blue' }}>{t('Mặc định')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

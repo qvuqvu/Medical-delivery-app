@@ -7,7 +7,20 @@ import Icon1 from 'react-native-vector-icons/AntDesign'
 import ModalPoup from '../global/ModalPoup';
 import LottieView from "lottie-react-native";
 import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 export default function ViewCart({ navigation }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("en");
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const [visible, setVisible] = useState(false);
     const [gettotal, settotal] = useState(1);
@@ -39,9 +52,9 @@ export default function ViewCart({ navigation }) {
     return (
         <View style={{ flexDirection: 'row', height: 60, justifyContent: "flex-end", borderTopWidth: 0.5, borderTopColor: "blue" }}>
             <View style={{ flexDirection: 'row' }}>
-                <View style={{  justifyContent: 'center',flexDirection:'row',alignItems:"center",marginRight:80,marginTop:10 }}>
-                    <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>Tổng tiền:</Text>
-                    <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 20 }}>{total ? total + ".000 đ" : "0 đ"}</Text>
+                <View style={{ justifyContent: 'center', width: 300, alignItems: "center" }}>
+                    <Text style={{ color: colors.text, fontSize: 20, marginLeft: 120, fontWeight: 'bold' }}>{t('Tổng tiền:')}</Text>
+                    <Text style={{ color: 'red', fontWeight: 'bold', marginLeft: 120, fontSize: 20 }}>{total ? total + ".000 đ" : "0 đ"}</Text>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <ModalPoup visible={visible}>
@@ -65,7 +78,7 @@ export default function ViewCart({ navigation }) {
 
                         />
                         <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: colors.text, fontWeight: 'bold' }}>
-                            {total == 0 ? "Không có sản phẩm nào trong giỏ hàng" : "Chúng tôi chỉ hỗ trợ đặt hàng theo từng nhà thuốc."}
+                            {total == 0 ? t("Không có sản phẩm nào trong giỏ hàng.") : t("Chúng tôi chỉ hỗ trợ đặt hàng theo từng nhà thuốc.")}
                         </Text>
                     </ModalPoup>
                 </View>
@@ -83,7 +96,7 @@ export default function ViewCart({ navigation }) {
                     }}
                 >
                     <View>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Mua Hàng</Text>
+                        <Text style={{ color: 'white', fontSize: 18 }}>{t('Mua Hàng')}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

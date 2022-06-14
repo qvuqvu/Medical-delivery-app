@@ -5,7 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Icon1 from 'react-native-vector-icons/AntDesign'
-
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
+import firebase from '@react-native-firebase/app';
+import firestore from "@react-native-firebase/firestore"
+import auth from '@react-native-firebase/auth';
 import { useTheme } from 'react-native-paper';
 import Header from './Header'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -14,6 +18,18 @@ import { Totaldate } from '../global/Data';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const SearchComponent = () => {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("vi");
+    const user = auth().currentUser;
+    const changeLanguage = value => {
+        i18n
+            .changeLanguage(value)
+            .then(() => setLanguage(value))
+            .catch(err => console.log(err));
+    };
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     const { colors } = useTheme();
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
@@ -85,7 +101,7 @@ const SearchComponent = () => {
                                 color: colors.text
                             }}
                         />
-                        <Text style={{ fontSize: 15, marginLeft: 10, color: colors.text }}>Tìm kiếm thuốc và dụng cụ y tế ?</Text>
+                        <Text style={{ fontSize: 15, marginLeft: 10, color: colors.text }}>{t('Tìm kiếm thuốc và dụng cụ y tế ?')}</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <Modal
