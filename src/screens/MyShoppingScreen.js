@@ -194,7 +194,7 @@ export default function MyShoppingScreen({ navigation }) {
     return (
 
         <View style={styles.container}>
-            <HeaderSimple navigation={navigation} title="Giỏ Hàng" />
+            <HeaderSimple navigation={navigation} title={t("Giỏ Hàng")} />
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                     source={require('../global/image/cart_purchase.png')}

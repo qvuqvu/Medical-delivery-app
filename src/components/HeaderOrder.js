@@ -8,7 +8,7 @@ import { Badge } from '@rneui/base'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-export default function HeaderOrder({ navigation, id }) {
+export default function HeaderOrder({ navigation, id, title }) {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.cartReducer.selectedItems.items)
     const selectItem = (item, checkboxValue, SL) =>
@@ -48,12 +48,12 @@ export default function HeaderOrder({ navigation, id }) {
                 />
             </View>
 
-            <View style={{marginLeft:25}}>
+            <View style={{ marginLeft: 25 }}>
                 <Text style={styles.headerText}>
-                    Thanh toán
+                    {title}
                 </Text>
             </View>
-            <View style={{marginRight:20}}>
+            <View style={{ marginRight: 20 }}>
                 <Icon
                     name='home'
                     color={colors.cardbackground}

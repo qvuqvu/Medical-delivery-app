@@ -14,7 +14,7 @@ export default function MyFavoriteScreen({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("vi");
     const user = auth().currentUser;
-    
+
     const changeLanguage = value => {
         i18n
             .changeLanguage(value)
@@ -28,7 +28,7 @@ export default function MyFavoriteScreen({ navigation }) {
     const { colors } = useTheme();
     return (
         <SafeAreaView style={styles.container}>
-            <HomeHeader navigation={navigation} title="Yêu thích" />
+            <HomeHeader navigation={navigation} title={t("Yêu thích")} />
             <View style={{ marginLeft: 20, marginTop: 30 }}>
                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{t('Sản phẩm bán chạy')}</Text>
 

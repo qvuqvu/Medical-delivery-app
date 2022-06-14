@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
 export default function MyOrder({ navigation, route }) {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setLanguage] = useState("en");
+    const [currentLanguage, setLanguage] = useState("vi");
     const changeLanguage = value => {
         i18n
             .changeLanguage(value)
@@ -105,7 +105,7 @@ export default function MyOrder({ navigation, route }) {
     return (
         <>
             <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
-                <HeaderOrder navigation={navigation} id={route.params.id} />
+                <HeaderOrder navigation={navigation} id={route.params.id} title={t("Thanh toán")} />
                 <ScrollView style={{ height: "100%" }}>
                     <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                         <View>

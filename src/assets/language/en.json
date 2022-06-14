@@ -53,7 +53,32 @@
         "Hạn dùng:": "Expiry date:",
         "Bỏ chọn": "Remove",
         "Sử dụng": "Use",
-        "Xong": "Done"
+        "Xong": "Done",
+        "Đang xử lý": "Processing",
+        "Sản phẩm:": "Product:",
+        "Ngày đặt:": "Order date:",
+        "Thành tiền:": "Total:",
+        "Đã nhận hàng": "Received",
+        "Huỷ": "Cancel",
+        "Cảm ơn bạn đã đặt thuốc!": "Thank you for ordering!",
+        "Ngày nhận hàng:": "Received date:",
+        "Đã giao": "Delivered",
+        "Tìm kiếm": "Search",
+        "Yêu thích": "Favorite",
+        "Tài khoản": "Account",
+        "Thông tin sản phẩm": "Product Information",
+        "Thêm sản phẩm thành công": "Add product successfully",
+        "Đã bán 0": "Sold 0",
+        "Xem Shop": "View Shop",
+        "Xem đánh giá": "View Review",
+        "Đánh Giá": "Review",
+        "Khoảng Cách": "Distance",
+        "Sản Phẩm": "Product",
+        "Xem thêm": "View more",
+        "Thu gọn": "Collapse",
+        "THÊM VÀO GIỎ HÀNG": "ADD TO CART",
+        "Giỏ Hàng": "Cart",
+        "Thanh toán": "Pay"
 
     }
 }

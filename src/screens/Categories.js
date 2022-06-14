@@ -24,7 +24,7 @@ export default function Categories({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("vi");
     const user = auth().currentUser;
-   
+
     const changeLanguage = value => {
         i18n
             .changeLanguage(value)
@@ -53,8 +53,8 @@ export default function Categories({ navigation }) {
         <View style={styles.container}>
 
             <View>
-                <HomeHeader navigation={navigation} title="Tìm kiếm" />
-                <SearchComponent navigation={navigation}  />
+                <HomeHeader navigation={navigation} title={t("Tìm kiếm")} />
+                <SearchComponent navigation={navigation} />
             </View>
 
             <View style={{ marginTop: 80, marginLeft: 10, marginBottom: 20 }}>
