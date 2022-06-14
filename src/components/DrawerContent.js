@@ -52,7 +52,8 @@ export default function DrawerContent(props) {
                     setfullname(doc.data().full_name)
                 });
             });
-    }, [])
+        setSelectedValue(currentLanguage)
+    }, [currentLanguage])
     const update1 = (doc) => {
         firestore()
             .collection('User' + user.uid)
@@ -128,6 +129,28 @@ export default function DrawerContent(props) {
             language: value,
         },
     });
+    const update3 = (value) => {
+        firestore()
+            .collection('User' + user.uid)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    update4(documentSnapshot.id, value)
+                });
+            });
+    }
+    const update4 = (doc, value) => {
+        firestore()
+            .collection('User' + user.uid)
+            .doc(doc)
+            .update({
+                isLanguage: value
+            })
+            .then(() => {
+                console.log("Update Success");
+                console.log(value);
+            });
+    }
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -186,7 +209,11 @@ export default function DrawerContent(props) {
                             <Picker
                                 selectedValue={selectedValue}
                                 style={{ height: 50, width: 150, color: colors.text }}
-                                onValueChange={(itemValue, itemIndex) => { setSelectedValue(itemValue); updatelang(itemValue) }}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    setSelectedValue(itemValue);
+                                    updatelang(itemValue)
+                                    update3(itemValue)
+                                }}
                             >
                                 <Picker.Item label="Việt Nam" value="vi" />
                                 <Picker.Item label="English" value="en" />

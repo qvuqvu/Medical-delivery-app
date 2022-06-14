@@ -23,16 +23,9 @@ export default function HomeScreen({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
-
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
-    },[currentLanguage]);
+    }, [currentLanguage]);
 
     return (
         <View style={styles.container}>
@@ -64,42 +57,7 @@ export default function HomeScreen({ navigation }) {
 
                 </Swiper>
             </View>
-
-            {/* <View style={styles.headerTextView}>
-                    <Text style={styles.headerText}>Danh mục</Text>
-                </View> */}
-
-            {/* <View>
-                    <FlatList
-                        style={{ marginLeft: 10, marginTop: 3 }}
-                        data={categoryData}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        keyExtractor={item => { return item.id }}
-                        extraData={indexCheck}
-                        renderItem={({ item, index }) => (
-                            <Pressable
-                                onPress={() => { setIndexCheck(item.id) }}
-                            >
-                                <View style={indexCheck === item.id ? { ...styles.smallCardSelected } : { ...styles.smallCard }}>
-                                    <Image
-                                        style={{ height: 75, width: 100 }}
-                                        source={item.image}
-                                    />
-                                    <View style={styles.categoryTextView}>
-                                        <Text style={indexCheck === item.id ? { ...styles.smallCardTextSected } :
-                                            { ...styles.smallCardText }}>{item.name}</Text>
-                                    </View>
-                                </View>
-                            </Pressable>
-                        )}
-
-                    />
-                </View> */}
-
-
             <View style={styles.headerTextView}>
-                {/* <Text style={styles.headerText}>Sản phẩm</Text> */}
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.headerText}>{t('Sản phẩm thay đổi sau:')}</Text>
                     <CountDown

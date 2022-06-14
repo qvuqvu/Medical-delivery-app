@@ -19,23 +19,21 @@ import firestore from "@react-native-firebase/firestore"
 import auth from '@react-native-firebase/auth';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-
 export default function Categories({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
-
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
+    const name = [
+        t('Thuốc không kê đơn'),
+        'COVID-19',
+        t('Thực phẩm chức năng'),
+        t('Thiết bị y tế')
+    ]
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
     const { colors } = useTheme();
-    const [selected, setSelected] = useState(null)
+    const [selected, setSelected] = useState(name[0])
     const [data, setData] = useState([])
 
     useEffect(() => {
@@ -46,6 +44,7 @@ export default function Categories({ navigation }) {
     const handleSelected = (value, data) => {
         setSelected(value);
         setData(data)
+
     };
 
 
@@ -61,28 +60,28 @@ export default function Categories({ navigation }) {
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <CategoriesCard
                         image={require('../global/image/categories/category__thuockhongkedon.png')}
-                        title={t('Thuốc không kê đơn')}
+                        title={name[0]}
                         onPress={handleSelected}
                         value={selected}
                         data={thuoc}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__covid19.png')}
-                        title={'COVID-19'}
+                        title={name[1]}
                         onPress={handleSelected}
                         value={selected}
                         data={covid}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thucphamchucnang.png')}
-                        title={t('Thực phẩm chức năng')}
+                        title={name[2]}
                         onPress={handleSelected}
                         value={selected}
                         data={thucphamchucnang}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thietbiyte.png')}
-                        title={t('Thiết bị y tế')}
+                        title={name[3]}
                         onPress={handleSelected}
                         value={selected}
                         data={Thietbiyte}
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 5,
-        width: 150,
+        width: 170,
         margin: 10,
         height: 120
     },
@@ -254,7 +253,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 5,
-        width: 150,
+        width: 170,
         margin: 10,
         height: 120,
 
@@ -272,5 +271,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: colors.cardbackground,
     },
+    frame: {
+
+    }
 
 })

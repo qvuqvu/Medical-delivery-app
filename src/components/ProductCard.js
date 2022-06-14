@@ -25,12 +25,6 @@ export default function ProductCard({ navigation,
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
@@ -94,7 +88,7 @@ export default function ProductCard({ navigation,
                     <View>
                         <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", marginBottom: 15 }}>
+                    <View style={{ flexDirection: "row", marginBottom: 15, marginTop: 12, }}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <ModalPoup visible={visible}>
                                 <View style={{ alignItems: 'center' }}>
@@ -117,11 +111,11 @@ export default function ProductCard({ navigation,
 
                                 />
                                 <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center', color: colors.text, fontWeight: 'bold' }}>
-                                    Thêm sản phẩm thành công
+                                    {t("Thêm sản phẩm thành công")}
                                 </Text>
                             </ModalPoup>
                         </View>
-                        <TouchableOpacity style={{ borderWidth: 0.7, borderRadius: 5, marginTop: 12, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.tertiary }}>
+                        <TouchableOpacity style={{ borderWidth: 0.7, borderRadius: 5, marginRight: 30, width: 50, height: 40, alignItems: "center", borderColor: colors.tertiary }}>
                             <Icon1
                                 onPress={() => {
                                     check()
@@ -136,8 +130,8 @@ export default function ProductCard({ navigation,
                                 selectItem(Totaldate[id], true)
                                 navigation.navigate("MyOrder", { id: 1 })
                             }}
-                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, marginTop: 12, marginRight: 10, borderColor: colors.secondary }} >
-                            <Text style={{ fontWeight: "bold", marginTop: 10, marginLeft: 6, color: colors.secondary }}>{t('MUA NGAY')}</Text>
+                            style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, alignItems: 'center', marginRight: 10, borderColor: colors.secondary }} >
+                            <Text style={{ fontWeight: "bold", marginTop: 10, color: colors.secondary }}>{t('MUA NGAY')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

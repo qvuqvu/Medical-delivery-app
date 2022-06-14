@@ -16,12 +16,6 @@ import i18n from '../assets/language/i18n'
 export default function MyOrder({ navigation, route }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
@@ -143,17 +137,6 @@ export default function MyOrder({ navigation, route }) {
                                 </View>
                             )}
                         </View>
-                        {/* <FlatList
-                        data={items}
-                        keyExtractor={item => { return item.id }}
-                        renderItem={({ item }) => (
-                            <View style={{ alignSelf: 'center', width: 380 }}>
-                                <ProductOrder
-                                    item={item}
-                                />
-                            </View>
-                        )}
-                    /> */}
                         <View style={{ marginTop: 20, marginBottom: 10, height: '15%' }}>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10 }}>
                                 <Text style={{ color: 'red', fontWeight: 'bold', fontSize: 16 }}>{count} {t("Sản phẩm")}</Text>

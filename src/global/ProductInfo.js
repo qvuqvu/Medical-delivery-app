@@ -21,12 +21,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductInfo({ navigation, route }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);

@@ -19,20 +19,14 @@ import { useSelector } from 'react-redux';
 export default function MyAccountScreen({ navigation }) {
 
     const { t, i18n } = useTranslation();
-    const a =useSelector((state) => state.cartReducer.selectedItems.language)
+    const a = useSelector((state) => state.cartReducer.selectedItems.language)
     const [currentLanguage, setLanguage] = useState("");
     console.log(a)
     const [check, setcheck] = useState(0);
-    // const changeLanguage = value => {
-    //     i18n
-    //         .changeLanguage(value)
-    //         .then(() => setLanguage(value))
-    //         .catch(err => console.log(err));
-    // };
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
-         console.log(currentLanguage)
-    },[a]);
+        console.log(currentLanguage)
+    }, [a]);
 
     const { colors } = useTheme();
     const [fullname, setfullname] = useState("")
@@ -185,7 +179,7 @@ export default function MyAccountScreen({ navigation }) {
                             {user.displayName ? user.displayName : fullname}
                         </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10, marginRight: 10 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10 }}>
                         <TouchableOpacity
                             onPress={() => {
                                 navigation.navigate('MyOrderComplete')
@@ -193,7 +187,7 @@ export default function MyAccountScreen({ navigation }) {
                             style={styles.viewItem}>
                             <Image
                                 source={require('../global/image/doc.png')}
-                                style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
+                                style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 5 }}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
                                 <Text style={{ color: colors.text }}>{getorder}</Text>
@@ -206,7 +200,7 @@ export default function MyAccountScreen({ navigation }) {
                         >
                             <Image
                                 source={require('../global/image/history_cart.png')}
-                                style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 20 }}
+                                style={{ height: "100%", width: "25%", resizeMode: "contain", marginRight: 5 }}
                             />
                             <View style={{ justifyContent: 'center', marginEnd: 5 }}>
                                 <Text style={{ color: colors.text }}>{getcomplete}</Text>
@@ -408,12 +402,11 @@ const styles = StyleSheet.create({
     },
     viewItem: {
         backgroundColor: colors.backgroundColor,
-        height: 60,
+        height: 50,
         width: '48%',
         borderRadius: 5,
-        paddingHorizontal: 16,
+        paddingHorizontal: 10,
         shadowRadius: 2,
-        marginLeft: 10,
         flexDirection: "row",
         borderWidth: 1,
     },
