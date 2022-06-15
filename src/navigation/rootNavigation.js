@@ -76,7 +76,11 @@ export default function RootNavigator() {
         <PaperProvider theme={theme}>
             <ReduxProvider store={store}>
                 <NavigationContainer theme={theme}>
-                    {signedIn.userToken === null ? <AuthStack /> : <>{auth().currentUser.email === "admin@123.com" ? <AdminStack /> : <AppStack />}</>}
+                    {signedIn.userToken === null ? <AuthStack /> :
+                        <>
+                            {auth().currentUser.email === "admin@123.com" ? <AdminStack /> : <AppStack />}
+                        </>
+                    }
                 </NavigationContainer>
             </ReduxProvider>
         </PaperProvider>
