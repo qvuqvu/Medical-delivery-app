@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper';
 import AuthStack from './authStack'
 import { AppStack } from './appStack'
+import { AdminStack } from '../admin/AdminStack';
 import { SignInContext } from '../contexts/authContext'
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from '../../redux/store'
@@ -75,7 +76,7 @@ export default function RootNavigator() {
         <PaperProvider theme={theme}>
             <ReduxProvider store={store}>
                 <NavigationContainer theme={theme}>
-                    {signedIn.userToken === null ? <AuthStack /> : <AppStack />}
+                    {signedIn.userToken === null ? <AuthStack /> : <>{auth().currentUser.email === "admin@123.com" ? <AdminStack /> : <AppStack />}</>}
                 </NavigationContainer>
             </ReduxProvider>
         </PaperProvider>

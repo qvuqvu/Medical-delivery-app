@@ -13,10 +13,30 @@ import auth from '@react-native-firebase/auth';
 export default function MyFavoriteScreen({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
+    const [getSpbanchay, setSpbanchay] = useState("");
+    const [getNhathuoc1, setNhathuoc1] = useState("");
     const user = auth().currentUser;
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc('Spbanchay')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setSpbanchay(data.Spbanchay)
+            });
+        firestore()
+            .collection('Data')
+            .doc('Nhathuoc1')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setNhathuoc1(data.Nhathuoc1)
+            });
+    }, [])
 
     const { colors } = useTheme();
     return (
@@ -27,11 +47,11 @@ export default function MyFavoriteScreen({ navigation }) {
 
                 <View style={{ marginBottom: 20 }}>
                     <FlatList
-                        data={spbanchay}
+                        data={getSpbanchay}
                         renderItem={({ item }) => (
                             <View style={{ width: 290, }}>
                                 <TouchableOpacity
-                                    onPress={() => navigation.push("ProductInfo", { id: item.id })}
+                                    onPress={() => navigation.push("ProductInfo", { item: item })}
                                 >
                                     <View style={{ backgroundColor: colors.boxes, width: 270, height: 120, justifyContent: 'center', marginTop: 15, borderRadius: 15 }}>
                                         <Text style={{ alignSelf: 'center', color: "#36a0ef", fontWeight: "bold", fontSize: 16, marginBottom: 10, marginRight: 74 }}>
@@ -60,29 +80,41 @@ export default function MyFavoriteScreen({ navigation }) {
                     />
                 </View>
                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', }}>{t('Nhà thuốc được ưa thích')}</Text>
-                <TouchableOpacity onPress={() => { navigation.push("StoreDetail", Totaldate[nhathuoc1[0].id]) }}>
-                    <View style={{ backgroundColor: colors.boxes, width: 270, height: 100, justifyContent: 'center', marginTop: 15, borderRadius: 15 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Image
-                                style={{ width: 50, height: 50, resizeMode: "cover", marginBottom: 5, marginLeft: 20, marginTop: 10 }}
-                                source={{ uri: "https://phieugiamgia.net/wp-content/uploads/2021/01/logo-duoc.png" }} />
-                            <View style={{ marginLeft: 20 }}>
-                                <Text style={{ color: "#36a0ef", fontSize: 15, fontWeight: "bold" }}>{nhathuoc1[0].nhathuoc}</Text>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                                        <Image
-                                            source={require('../global/image/star.png')}
-                                            style={{ height: 15, width: 15 }}
-                                        />
-                                        <Text style={{ marginLeft: 5, color: colors.text, fontWeight: "500" }}>{nhathuoc1[0].averageReview}</Text>
+                <View style={{ marginBottom: 20 }}>
+                    <FlatList
+                        data={getNhathuoc1}
+                        renderItem={({ item }) => (
+                            <View style={{ width: 290, }}>
+                                <TouchableOpacity onPress={() => { navigation.push("StoreDetail", {item:item}) }}>
+                                    <View style={{ backgroundColor: colors.boxes, width: 270, height: 100, justifyContent: 'center', marginTop: 15, borderRadius: 15 }}>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Image
+                                                style={{ width: 50, height: 50, resizeMode: "cover", marginBottom: 5, marginLeft: 20, marginTop: 10 }}
+                                                source={{ uri: "https://phieugiamgia.net/wp-content/uploads/2021/01/logo-duoc.png" }} />
+                                            <View style={{ marginLeft: 20 }}>
+                                                <Text style={{ color: "#36a0ef", fontSize: 15, fontWeight: "bold" }}>{item.nhathuoc}</Text>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between" }}>
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                                                        <Image
+                                                            source={require('../global/image/star.png')}
+                                                            style={{ height: 15, width: 15 }}
+                                                        />
+                                                        <Text style={{ marginLeft: 5, color: colors.text, fontWeight: "500" }}>{item.averageReview}</Text>
+                                                    </View>
+                                                    <Text style={{ color: colors.text, fontWeight: "500" }}>~{item.farway}</Text>
+                                                </View>
+                                                <Text style={{ marginTop: 5, color: "red" }}>{t('Phản hồi:')} {<Text style={{ color: "red" }}> {t('Rất tích cực')}</Text>}</Text>
+                                            </View>
+                                        </View>
                                     </View>
-                                    <Text style={{ color: colors.text, fontWeight: "500" }}>~{nhathuoc1[0].farway}</Text>
-                                </View>
-                                <Text style={{ marginTop: 5, color: "red" }}>{t('Phản hồi:')} {<Text style={{ color: "red" }}> {t('Rất tích cực')}</Text>}</Text>
+                                </TouchableOpacity>
                             </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold', marginTop: 15 }}>{t('Bản tin hôm nay')}</Text>
                 <View>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

@@ -53,7 +53,7 @@ export default function MyLastOrder({ navigation }) {
   })
   const List = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => { navigation.push("ProductInfo", { id: item.id }) }}>
+      <TouchableOpacity onPress={() => { navigation.push("ProductInfo", { item: item }) }}>
         <View style={{ flexDirection: 'row', marginTop: 15, backgroundColor: colors.boxes, height: 100, borderRadius: 10, width: SCREEN_WIDTH - 20, marginLeft: 10 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
             <Image

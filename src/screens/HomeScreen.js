@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressable, Image, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors, paremeter } from '../global/styles';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
 import HomeHeader from '../components/HomeHeader';
-import { ProductData, categoryData, Totaldate, thuoc } from '../global/Data';
 import ProductCard from '../components/ProductCard';
 import CountDown from 'react-native-countdown-component';
 import Swiper from 'react-native-swiper'
@@ -15,18 +11,26 @@ import i18n from '../assets/language/i18n'
 import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
 import auth from '@react-native-firebase/auth';
-import { useSelector } from 'react-redux';
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeScreen({ navigation }) {
     const { colors } = useTheme();
-    const [indexCheck, setIndexCheck] = useState("0")
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
+    const [getTotalData, setTotalData] = useState("");
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
-
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc('TotalData')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setTotalData(data.TotalData)
+            });
+    },[])
     return (
         <View style={styles.container}>
 
@@ -78,7 +82,7 @@ export default function HomeScreen({ navigation }) {
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
                     numColumns={2}
-                    data={Totaldate}
+                    data={getTotalData}
                     keyExtractor={item => { return item.id }}
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => (
@@ -86,10 +90,7 @@ export default function HomeScreen({ navigation }) {
                             <ProductCard
                                 navigation={navigation}
                                 screenWidth={SCREEN_WIDTH * 0.40}
-                                images={item.image}
-                                ProductName={item.name}
-                                Price={item.gia}
-                                id={item.id}
+                                item={item}
                             />
                         </View>)}
                 />

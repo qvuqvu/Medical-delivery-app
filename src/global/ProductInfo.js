@@ -42,7 +42,7 @@ export default function ProductInfo({ navigation, route }) {
         const db = firebase.firestore();
         db.collection('cart' + user.uid)
             .add({
-                items: Totaldate[route.params.id],
+                items: route.params.item,
             })
             .then(() => {
                 console.log('User added!');
@@ -52,7 +52,7 @@ export default function ProductInfo({ navigation, route }) {
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == Totaldate[route.params.id].id) {
+                    if (doc.data().items.id == route.params.item.id) {
                         setCheck(1)
                     }
                 });
@@ -64,7 +64,7 @@ export default function ProductInfo({ navigation, route }) {
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == Totaldate[route.params.id].id) {
+                    if (doc.data().items.id == route.params.item.id) {
                         setCheck(1)
                     }
                 });
@@ -96,7 +96,7 @@ export default function ProductInfo({ navigation, route }) {
                         <View style={{ borderWidth: 0.6, borderColor: 'blue', width: 360, height: 300, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
                             <Image
                                 style={{ width: '90%', height: '90%', resizeMode: "cover" }}
-                                source={{ uri: Totaldate[route.params.id].image }} />
+                                source={{ uri: route.params.item.image }} />
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <ModalPoup visible={visible}>
                                     <View style={{ alignItems: 'center' }}>
@@ -125,10 +125,10 @@ export default function ProductInfo({ navigation, route }) {
                             </View>
                         </View>
                         <View style={{ marginTop: 12, marginLeft: 10, alignItems: 'flex-start' }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.text }}>{Totaldate[route.params.id].name}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, color: colors.text }}>{route.params.item.name}</Text>
                         </View>
                         <Text style={{ fontSize: 15, color: colors.text, marginLeft: 10, marginTop: 10 }}>{t("Đã bán 0")}</Text>
-                        <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{Totaldate[route.params.id].gia}</Text>
+                        <Text style={{ color: 'red', fontSize: 20, marginTop: 10, marginLeft: 10, fontWeight: "bold" }}>{route.params.item.gia}</Text>
                     </View>
                     <View style={{ height: 150, backgroundColor: colors.boxes }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
@@ -138,10 +138,10 @@ export default function ProductInfo({ navigation, route }) {
                                     source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                             </View>
                             <View style={{ marginTop: 20, marginLeft: 15 }}>
-                                <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
+                                <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{route.params.item.nhathuoc}</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>{t("Xem đánh giá")}</Text>
                             </View>
-                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail", Totaldate[route.params.id]) }}>
+                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail", {item:route.params.item}) }}>
                                 <View style={{ marginTop: 20, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
                                     <Text style={{ color: 'red' }}>{t("Xem Shop")}</Text>
                                 </View>
@@ -171,7 +171,7 @@ export default function ProductInfo({ navigation, route }) {
                         </View>
                         <View style={isOpen == true ? styles.moreDetail_close : styles.moreDetail_open}>
                             <Text style={{ marginLeft: 10, color: colors.text, fontSize: 15, }}>
-                                {Totaldate[route.params.id].mota}
+                                {route.params.item.mota}
                             </Text>
                         </View>
                     </View>
@@ -187,7 +187,7 @@ export default function ProductInfo({ navigation, route }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            selectItem(Totaldate[route.params.id], true)
+                            selectItem(route.params.item, true)
                             navigation.navigate("MyOrder", { id: 1 })
                         }}>
                         <View style={styles.button_end1}>

@@ -1,15 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { View, Text, StyleSheet, Pressable, TextInput, Dimensions, TouchableOpacity, Image, Modal, TouchableWithoutFeedback, FlatList, Keyboard, ImageBackground } from 'react-native'
-import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome5'
-import Icon1 from 'react-native-vector-icons/AntDesign'
 import { colors } from "../global/styles"
 import ProductCard from '../components/ProductCard';
 import HomeHeader from '../components/HomeHeader';
 import { ScrollView } from 'react-native-gesture-handler'
-import { Thietbiyte, thuoc, thucphamchucnang, covid } from '../global/Data';
 import SearchComponent from '../components/SearchComponent';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +17,10 @@ export default function Categories({ navigation }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
     const user = auth().currentUser;
+    const [getThuoc, setThuoc] = useState("");
+    const [getCovid, setCovid] = useState("");
+    const [getThucpham, setThucpham] = useState("");
+    const [getThietbi, setThietbi] = useState("");
     const name = [
         t('Thuốc không kê đơn'),
         'COVID-19',
@@ -32,14 +30,46 @@ export default function Categories({ navigation }) {
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
-    const { colors } = useTheme();
     const [selected, setSelected] = useState(name[0])
     const [data, setData] = useState([])
 
     useEffect(() => {
-        setData(thuoc)
-    }, []
-    )
+        firestore()
+            .collection('Data')
+            .doc('Thuoc')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setThuoc(data.Thuoc)
+            });
+        firestore()
+            .collection('Data')
+            .doc('Covid')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setCovid(data.Covid)
+            });
+        firestore()
+            .collection('Data')
+            .doc('Thucphamchucnang')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setThucpham(data.Thucphamchucnang)
+            });
+        firestore()
+            .collection('Data')
+            .doc('Thietbiyte')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setThietbi(data.Thietbiyte)
+            });
+    }, [])
+    useEffect(() => {
+        setData(getThuoc)
+    }, [getThuoc])
 
     const handleSelected = (value, data) => {
         setSelected(value);
@@ -63,28 +93,28 @@ export default function Categories({ navigation }) {
                         title={name[0]}
                         onPress={handleSelected}
                         value={selected}
-                        data={thuoc}
+                        data={getThuoc}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__covid19.png')}
                         title={name[1]}
                         onPress={handleSelected}
                         value={selected}
-                        data={covid}
+                        data={getCovid}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thucphamchucnang.png')}
                         title={name[2]}
                         onPress={handleSelected}
                         value={selected}
-                        data={thucphamchucnang}
+                        data={getThucpham}
                     />
                     <CategoriesCard
                         image={require('../global/image/categories/category__thietbiyte.png')}
                         title={name[3]}
                         onPress={handleSelected}
                         value={selected}
-                        data={Thietbiyte}
+                        data={getThietbi}
                     />
 
 
@@ -107,10 +137,7 @@ export default function Categories({ navigation }) {
                             <ProductCard
                                 navigation={navigation}
                                 screenWidth={SCREEN_WIDTH * 0.40}
-                                images={item.image}
-                                ProductName={item.name}
-                                Price={item.gia}
-                                id={item.id}
+                                item={item}
                             />
                         </View>)}
                 />

@@ -432,7 +432,17 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ width: "85%", marginLeft: 5 }}>
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
-                            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => { navigation.navigate("Test") }}>
+                            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => { 
+                                firestore()
+                                .collection('Data')
+                                .doc('Discount')
+                                .set({
+                                    Discount:discount,
+                                  })
+                                  .then(() => {
+                                    console.log('User added!');
+                                  });
+                             }}>
                                 <Text style={{ fontSize: 15, color: 'blue' }}>{t('Mặc định')}</Text>
                             </TouchableOpacity>
                         </View>

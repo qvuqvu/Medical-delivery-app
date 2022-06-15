@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, Pressab
 import HeaderOrder from '../components/HeaderOrder';
 import { TextInput } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
-import { discount } from '../global/Data';
 import auth from "@react-native-firebase/auth"
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import ProductOrder from '../components/ProductOrder';
@@ -36,7 +35,17 @@ export default function MyOrder({ navigation, route }) {
     const costShip = 50.000;
     var cost = 0, s = 0;
     const user = auth().currentUser;
-
+    const [getDiscount, setDiscount] = useState("");
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc('Discount')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setDiscount(data.Discount)
+            });
+    }, [])
     for (var i = 0; i <= items.length - 1; i++) {
         s = parseInt(items[i].gia);
         cost += s * items[i].SL
@@ -151,7 +160,7 @@ export default function MyOrder({ navigation, route }) {
                                 <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>-{num_dis * costShip}.000 đ</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 20 }}>
-                                <Text style={{ color: colors.text, fontSize: 15, fontWeight: 'bold' }}>{t("Khuyễn mãi:")}  {discount.length}</Text>
+                                <Text style={{ color: colors.text, fontSize: 15, fontWeight: 'bold' }}>{t("Khuyễn mãi:")}  {getDiscount.length}</Text>
                                 <TouchableOpacity onPress={() => { setModalVisible(true) }}>
                                     <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
                                         <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Chọn")}</Text>
@@ -207,7 +216,7 @@ export default function MyOrder({ navigation, route }) {
                                 <Text style={{ color: 'black', fontSize: 14 }}>{t(" Áp dụng tối đa: 1")}</Text>
                             </View>
                             <FlatList
-                                data={discount}
+                                data={getDiscount}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item }) => (
                                     <ScrollView style={{ marginTop: 20 }}>

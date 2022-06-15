@@ -11,8 +11,6 @@ import firebase from '@react-native-firebase/app';
 import firestore from "@react-native-firebase/firestore"
 import auth from '@react-native-firebase/auth';
 import { useTheme } from 'react-native-paper';
-import Header from './Header'
-import { ScrollView } from 'react-native-gesture-handler'
 import { Totaldate } from '../global/Data';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -20,10 +18,21 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const SearchComponent = () => {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
-    const user = auth().currentUser;
+    const [getTotalData, setTotalData] = useState("");
+
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage]);
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc('TotalData')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setTotalData(data.TotalData)
+            });
+    },[])
     const { colors } = useTheme();
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,7 +43,7 @@ const SearchComponent = () => {
 
     const handleSearch = (text) => {
         if (text) {
-            const newData = Totaldate.filter(item => {
+            const newData = getTotalData.filter(item => {
                 const itemData = item.name ?
                     item.name.toUpperCase()
                     : ''.toUpperCase();
@@ -55,7 +64,7 @@ const SearchComponent = () => {
                     Keyboard.dismiss()
                     setModalVisible(false)
                     setTextInputFossued(true)
-                    navigation.push("ProductInfo", { id: item.id })
+                    navigation.push("ProductInfo", { item: item})
                 }}
             >
                 <View style={{ backgroundColor: colors.background }}>

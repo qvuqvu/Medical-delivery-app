@@ -11,6 +11,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInContext } from '../../contexts/authContext';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import LottieView from "lottie-react-native";
+import firestore from "@react-native-firebase/firestore"
 
 GoogleSignin.configure({
     webClientId: '359199845323-h10e31djcqb9fbobv2vknmh1h1h5hge0.apps.googleusercontent.com',
@@ -26,6 +27,9 @@ export default function SignInScreen({ navigation }) {
     const [getemail, setemail] = useState("")
     const [getVisible, setVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
+    const [getuid, setuid] = useState([])
+    const [getuid1, setuid1] = useState([])
+
 
 
     async function signIn(data) {
@@ -57,6 +61,23 @@ export default function SignInScreen({ navigation }) {
             // Sign-in the user with the credential
             const user = await auth().signInWithCredential(googleCredential);
             if (user) {
+                firestore()
+                    .collection('Admin')
+                    .doc('User')
+                    .get()
+                    .then(documentSnapshot => {
+                        setuid(documentSnapshot.data().uid)
+                        setuid1([...getuid,user.user.uid])
+                    });
+                firestore()
+                    .collection('Admin')
+                    .doc('User')
+                    .set({
+                        uid: getuid1,
+                    })
+                    .then(() => {
+                        console.log('User added!');
+                    });
                 setTimeout(() => {
                     setLoading(false);
                     dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })

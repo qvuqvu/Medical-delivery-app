@@ -16,11 +16,8 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function ProductCard({ navigation,
-    ProductName,
-    Price,
-    images,
     screenWidth,
-    id
+    item,
 }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
@@ -35,7 +32,7 @@ export default function ProductCard({ navigation,
         const db = firebase.firestore();
         db.collection('cart' + user.uid)
             .add({
-                items: Totaldate[id],
+                items: item,
             })
             .then(() => {
                 console.log('User added!');
@@ -46,7 +43,7 @@ export default function ProductCard({ navigation,
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
                 setCheck(0)
                 snapshot.docs.map((doc) => {
-                    if (doc.data().items.id == Totaldate[id].id) {
+                    if (doc.data().items.id == item.id) {
                         setCheck(1)
                     }
                 });
@@ -72,21 +69,21 @@ export default function ProductCard({ navigation,
     return (
         <TouchableWithoutFeedback
             onPress={() => {
-                navigation.push("ProductInfo", { id: id })
+                navigation.push("ProductInfo", { item:item })
             }}
         >
             <View style={[styles.cardView, { backgroundColor: colors.background }]}>
                 <View style={[styles.imageView, { marginTop: 20 }, { width: screenWidth }]}>
                     <ImageBackground
                         style={styles.image}
-                        source={{ uri: images }}
+                        source={{ uri: item.image }}
                     >
                     </ImageBackground>
                     <View>
-                        <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{ProductName}</Text>
+                        <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{item.name}</Text>
                     </View>
                     <View>
-                        <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{Price}</Text>
+                        <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
                     </View>
                     <View style={{ flexDirection: "row", marginBottom: 15, marginTop: 12, }}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -127,7 +124,7 @@ export default function ProductCard({ navigation,
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => {
-                                selectItem(Totaldate[id], true)
+                                selectItem(item, true)
                                 navigation.navigate("MyOrder", { id: 1 })
                             }}
                             style={{ borderWidth: 1.25, borderRadius: 5, height: 40, width: 85, alignItems: 'center', marginRight: 10, borderColor: colors.secondary }} >

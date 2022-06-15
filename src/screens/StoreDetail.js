@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { useTheme } from "react-native-paper";
 import ProductCard from '../components/ProductCard';
-import { filterData2, nhathuochamy, Totaldate, nhathuoclongchau, nhathuocminhchau, nhathuocngoclong, nhathuoclenguyen, nhathuocgreenpharma, nhathuocthuytrang } from '../global/Data';
+import firestore from "@react-native-firebase/firestore"
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function StoreDetail({ navigation, route }) {
     const { colors } = useTheme();
@@ -14,6 +14,15 @@ export default function StoreDetail({ navigation, route }) {
     const [data, setData] = useState([])
     const [data1, setdata1] = useState([])
     const [search, setSearch] = useState("")
+    let a = 0;
+    const [getnhathuocthuytrang, setnhathuocthuytrang] = useState("")
+    const [getnhathuocgreenpharma, setnhathuocgreenpharma] = useState("")
+    const [getnhathuoclenguyen, setnhathuoclenguyen] = useState("")
+    const [getnhathuocngoclong, setnhathuocngoclong] = useState("")
+    const [getnhathuocminhchau, setnhathuocminhchau] = useState("")
+    const [getnhathuoclongchau, setnhathuoclongchau] = useState("")
+    const [getnhathuochamy, setnhathuochamy] = useState("")
+
     const handleSearch = (text) => {
         if (text) {
             const newData = data.filter(item => {
@@ -31,41 +40,98 @@ export default function StoreDetail({ navigation, route }) {
         }
     }
     useEffect(() => {
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Hà My") {
-            setdata1(nhathuochamy)
-            setData(nhathuochamy)
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Long Châu") {
-            setdata1(nhathuoclongchau)
-            setData(nhathuoclongchau)
-
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Minh Châu") {
-            setdata1(nhathuocminhchau)
-            setData(nhathuocminhchau)
-
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Ngọc Long") {
-            setdata1(nhathuocngoclong)
-            setData(nhathuocngoclong)
-
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Lê Nguyên") {
-            setdata1(nhathuoclenguyen)
-            setData(nhathuoclenguyen)
-
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Green Pharma") {
-            setdata1(nhathuocgreenpharma)
-            setData(nhathuocgreenpharma)
-
-        }
-        if (Totaldate[route.params.id].nhathuoc == "Nhà thuốc Thùy Trang") {
-            setdata1(nhathuocthuytrang)
-            setData(nhathuocthuytrang)
-
-        }
+        firestore()
+            .collection('Data')
+            .doc('nhathuocthuytrang')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuocthuytrang(data.nhathuocthuytrang)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuocgreenpharma')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuocgreenpharma(data.nhathuocgreenpharma)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuoclenguyen')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuoclenguyen(data.nhathuoclenguyen)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuocngoclong')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuocngoclong(data.nhathuocngoclong)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuocminhchau')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuocminhchau(data.nhathuocminhchau)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuoclongchau')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuoclongchau(data.nhathuoclongchau)
+            });
+        firestore()
+            .collection('Data')
+            .doc('nhathuochamy')
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                setnhathuochamy(data.nhathuochamy)
+            });
     }, [])
+    useEffect(() => {
+        if (route.params.item.nhathuoc == "Nhà thuốc Hà My") {
+            setdata1(getnhathuochamy)
+            setData(getnhathuochamy)
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Long Châu") {
+            setdata1(getnhathuoclongchau)
+            setData(getnhathuoclongchau)
+
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Minh Châu") {
+            setdata1(getnhathuocminhchau)
+            setData(getnhathuocminhchau)
+
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Ngọc Long") {
+            setdata1(getnhathuocngoclong)
+            setData(getnhathuocngoclong)
+
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Lê Nguyên") {
+            setdata1(getnhathuoclenguyen)
+            setData(getnhathuoclenguyen)
+
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Green Pharma") {
+            setdata1(getnhathuocgreenpharma)
+            setData(getnhathuocgreenpharma)
+
+        }
+        if (route.params.item.nhathuoc == "Nhà thuốc Thùy Trang") {
+            setdata1(getnhathuocthuytrang)
+            setData(getnhathuocthuytrang)
+        }
+    })
 
     const renderItem = ({ item }) => {
         return (
@@ -73,7 +139,7 @@ export default function StoreDetail({ navigation, route }) {
                 onPress={() => {
                     Keyboard.dismiss()
                     setTextInputFossued(true)
-                    navigation.push("ProductInfo", { id: item.id })
+                    navigation.push("ProductInfo", { item: item })
                 }}
             >
                 <View>
@@ -144,7 +210,7 @@ export default function StoreDetail({ navigation, route }) {
                             source={{ uri: 'https://cdn2.iconfinder.com/data/icons/medical-77/512/39-256.png' }} />
                     </View>
                     <View style={{ marginTop: 35, alignSelf: 'center', marginLeft: 40 }}>
-                        <Text style={{ color: colors.text, fontSize: 19, fontWeight: 'bold' }}>{Totaldate[route.params.id].nhathuoc}</Text>
+                        <Text style={{ color: colors.text, fontSize: 19, fontWeight: 'bold' }}>{route.params.item.nhathuoc}</Text>
                         <Text style={{ marginTop: 5 }}></Text>
                     </View>
                 </View>
@@ -173,10 +239,7 @@ export default function StoreDetail({ navigation, route }) {
                             <ProductCard
                                 navigation={navigation}
                                 screenWidth={SCREEN_WIDTH * 0.40}
-                                images={item.image}
-                                ProductName={item.name}
-                                Price={item.gia}
-                                id={item.id}
+                                item={item}
                             />
                         </View>)}
                     horizontal={false}
