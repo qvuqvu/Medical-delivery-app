@@ -39,7 +39,12 @@ export default function HomeHeader({ navigation, title }) {
             <View style={{flexDirection:"row"}}>
                 <View >
                     <Icon1
-                        onPress={() => { navigation.navigate('MyShopping') }}
+                        onPress={() => { 
+                            firestore()
+                            .collection('cart' + user.uid).onSnapshot((snapshot) => {
+                            });
+                            navigation.navigate('MyShopping') 
+                        }}
                         name='shoppingcart'
                         color={colors.cardbackground}
                         size={35}>

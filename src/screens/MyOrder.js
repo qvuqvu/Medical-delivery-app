@@ -67,7 +67,8 @@ export default function MyOrder({ navigation, route }) {
                 address: address,
                 ship: costShip - num_dis * costShip,
                 total: total,
-                id: Math.random()
+                id: Math.random(),
+                status: "Đang xử lý"
             })
             .then(() => {
                 setTimeout(() => {

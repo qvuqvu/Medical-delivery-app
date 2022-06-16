@@ -22,11 +22,9 @@ export default function MyAccountScreen({ navigation }) {
     const { t, i18n } = useTranslation();
     const a = useSelector((state) => state.cartReducer.selectedItems.language)
     const [currentLanguage, setLanguage] = useState("");
-    console.log(a)
     const [check, setcheck] = useState(0);
     useEffect(() => {
         i18n.changeLanguage(currentLanguage);
-        console.log(currentLanguage)
     }, [a]);
 
     const { colors } = useTheme();
@@ -183,7 +181,10 @@ export default function MyAccountScreen({ navigation }) {
                     <View style={{ flexDirection: 'row', justifyContent: "space-around", marginTop: 10 }}>
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate('MyOrderComplete')
+                                firestore()
+                                    .collection('order' + user.uid).onSnapshot((snapshot) => {
+                                    });
+                                    navigation.navigate('MyOrderComplete')
                             }}
                             style={styles.viewItem}>
                             <Image
@@ -432,17 +433,17 @@ export default function MyAccountScreen({ navigation }) {
                         />
                         <View style={{ width: "85%", marginLeft: 5 }}>
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
-                            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => { 
+                            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => {
                                 firestore()
-                                .collection('Data')
-                                .doc('Discount')
-                                .set({
-                                    Discount:discount,
-                                  })
-                                  .then(() => {
-                                    console.log('User added!');
-                                  });
-                             }}>
+                                    .collection('Data')
+                                    .doc('Discount')
+                                    .set({
+                                        Discount: discount,
+                                    })
+                                    .then(() => {
+                                        console.log('User added!');
+                                    });
+                            }}>
                                 <Text style={{ fontSize: 15, color: 'blue' }}>{t('Mặc định')}</Text>
                             </TouchableOpacity>
                         </View>

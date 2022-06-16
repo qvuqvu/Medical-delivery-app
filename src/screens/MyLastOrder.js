@@ -25,7 +25,7 @@ export default function MyLastOrder({ navigation }) {
       date: ""
     });
   const item = [];
-  const [check, getcheck] = useState(false)
+  const [check, getcheck] = useState(true)
   firestore()
     .collection('lastorder' + user.uid).onSnapshot((snapshot) => {
 

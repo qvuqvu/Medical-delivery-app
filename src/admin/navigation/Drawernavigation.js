@@ -6,22 +6,22 @@ import HomeAdmin from '../screen/HomeAdmins';
 import ListOrder from '../screen/ListOrder';
 const Drawer = createDrawerNavigator();
 
-export default function Drawernavigation(){
+export default function Drawernavigation() {
     return (
         <Drawer.Navigator>
             <Drawer.Screen
                 name="Home"
                 component={HomeAdmin}
                 options={{
-                    headerShown:false
+                    headerShown: false
                 }}
             />
             <Drawer.Screen
-            name="ListOrder"
-            component={ListOrder}
-            options={{
-                headerShown:false
-            }}
+                name="ListOrder"
+                component={ListOrder}
+                options={{
+                    headerShown: false
+                }}
             />
         </Drawer.Navigator>
     )

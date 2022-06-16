@@ -22,11 +22,11 @@ export default function MyOrderComplete({ navigation }) {
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
         {
-            items: [{ "SL": "", "gia": "", "id": "", "image": null, "name": "", "nhathuoc": "" }],
+            items: [{ "SL": "", "gia": "", "id": "", "image": null, "name": "", "nhathuoc": "", "status": "" }],
             date: ""
         });
     const item = [];
-    const [check, getcheck] = useState(false)
+    const [check, getcheck] = useState(true)
     firestore()
         .collection('order' + user.uid).onSnapshot((snapshot) => {
 
@@ -134,7 +134,7 @@ export default function MyOrderComplete({ navigation }) {
                                 source={require('../global/image/store.png')} />
                             <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
                         </View>
-                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t("Đang xử lý")}</Text>
+                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t(item.status)}</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
@@ -187,7 +187,7 @@ export default function MyOrderComplete({ navigation }) {
                                 source={require('../global/image/store.png')} />
                             <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 17, marginLeft: 10, }}>{item.nhathuocchung}</Text>
                         </View>
-                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t("Đang xử lý")}</Text>
+                        <Text style={{ color: 'red', fontSize: 14.5, marginLeft: 'auto', marginRight: 20, fontWeight: '500' }}>{t(item.status)}</Text>
                     </View>
                     <FlatList data={item.items}
                         renderItem={({ item, index }) => <List item={item} />}
@@ -245,17 +245,17 @@ export default function MyOrderComplete({ navigation }) {
                         style={{ marginLeft: 'auto', marginRight: 20 }}
                     />
                 </View>
-                    <View style={{ height: '100%' }}>
-                        {check ?
-                            (
-                                ListItem1(getdoc1)
-                            )
-                            : (<FlatList data={item}
-                                renderItem={({ item, index }) => <ListItem item={item} />}
-                                contentContainerStyle={{ paddingBottom: 100 }}
-                                showsVerticalScrollIndicator={false}
-                            />)}
-                    </View>
+                <View style={{ height: '100%' }}>
+                    {check ?
+                        (
+                            ListItem1(getdoc1)
+                        )
+                        : (<FlatList data={item}
+                            renderItem={({ item, index }) => <ListItem item={item} />}
+                            contentContainerStyle={{ paddingBottom: 100 }}
+                            showsVerticalScrollIndicator={false}
+                        />)}
+                </View>
             </SafeAreaView >
             {loading ? (
                 <View

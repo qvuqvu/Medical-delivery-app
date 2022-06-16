@@ -3,8 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors, parameters } from '../global/styles'
 import { useDispatch } from "react-redux";
+import firestore from "@react-native-firebase/firestore"
+import auth from "@react-native-firebase/auth"
+
 
 export default function HeaderProject({ navigation, title }) {
+    const user = auth().currentUser;
     const dispatch = useDispatch();
     const setnull = (item, checkboxValue) => {
         dispatch({
@@ -24,6 +28,9 @@ export default function HeaderProject({ navigation, title }) {
                     size={25}
                     onPress={() => {
                         setnull([], false)
+                        firestore()
+                        .collection('order' + user.uid).onSnapshot((snapshot) => {
+                        });
                         navigation.goBack()
                     }}
                 />
