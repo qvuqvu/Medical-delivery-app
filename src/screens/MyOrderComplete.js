@@ -154,7 +154,7 @@ export default function MyOrderComplete({ navigation }) {
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
                         <TouchableOpacity
-                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
+                            style={item.status == 'Đang xử lý' ? {} : { borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
                             onPress={() => {
                                 addCartToFireBase(item)
                             }}>
@@ -163,7 +163,7 @@ export default function MyOrderComplete({ navigation }) {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
+                            style={item.status == 'Đang xử lý' ? { borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 } : {}}
                             onPress={() => {
                                 deleteCartToFireBase(item.id)
                             }}>
@@ -207,7 +207,7 @@ export default function MyOrderComplete({ navigation }) {
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 20, justifyContent: "flex-end", marginTop: 15 }}>
                         <TouchableOpacity
-                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
+                            style={item.status == 'Đang xử lý' ? {} : { borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", justifyContent: "center", alignItems: "center", width: 120 }}
                             onPress={() => {
                                 addCartToFireBase(item)
                             }}>
@@ -216,7 +216,7 @@ export default function MyOrderComplete({ navigation }) {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{ borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 }}
+                            style={item.status == 'Đang xử lý' ? { borderRadius: 10, marginLeft: 40, backgroundColor: "#36a0ef", alignItems: 'center', justifyContent: 'center', width: 120, marginRight: 20 } : {}}
                             onPress={() => {
                                 deleteCartToFireBase(item.id)
                             }}>
