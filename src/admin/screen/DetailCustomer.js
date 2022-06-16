@@ -136,11 +136,11 @@ export default function DetailCustomer({ route, navigation }) {
         return (
             <View>
                 <View style={index == 0 ? {} : { height: 0 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: 10, marginRight: 10 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginLeft: 10, marginRight: 10,marginTop:10 }}>
                         <Text style={{ color: 'black', }}>Tên: {item.name}</Text>
                         <Text style={{ color: 'black' }}>Số điện thoại: {item.phone}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: 20, marginLeft: 10 }}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: 'black', }}>Địa chỉ nhận hàng: </Text>
                         <View style={{ width: 245, marginLeft: 10, height: '100%' }}>
                             <Text>{item.address}</Text>
