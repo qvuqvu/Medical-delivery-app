@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 import AuthStack from './authStack'
 import { AppStack } from './appStack'
-import { AdminStack } from '../admin/AdminStack';
+import AdminStack  from '../admin/navigation/AdminStack';
 import { SignInContext } from '../contexts/authContext'
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from '../../redux/store'

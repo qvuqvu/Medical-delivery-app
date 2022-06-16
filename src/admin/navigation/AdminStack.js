@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeAdmin from '../admin/HomeAdmins'
+import Drawernavigation from './Drawernavigation';
 
 const App = createNativeStackNavigator();
 
-export function AdminStack() {
-
+export default function AdminStack() {
     return (
         <App.Navigator>
             <App.Screen
-                name="HomeAdmin"
-                component={HomeAdmin}
+                name="App"
+                component={Drawernavigation}
                 options={{
                     headerShown: false,
                 }}
             />
-        </App.Navigator>
+     </App.Navigator>
     )
 }
 
