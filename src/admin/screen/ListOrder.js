@@ -1,10 +1,14 @@
 import React from "react";
 import {View,Text} from "react-native"
+import HomeAdminHeader from "../components/HomeAdminHeader";
 
-export default function ListOrder(){
+export default function ListOrder({navigation}){
     return (
+       <View>
         <View>
-            <Text>ListOrder</Text>
+                <HomeAdminHeader navigation={navigation} title="List Order" />
         </View>
+       </View>
+        
     )
 }
