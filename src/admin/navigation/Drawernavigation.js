@@ -3,12 +3,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { colors } from '../../global/styles'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeAdmin from '../screen/HomeAdmins';
-import ListOrder from '../screen/ListOrder';
+import ListOrder from '../screen/ListOrder'
+import DrawerContent from "../components/DrawerContent"
 const Drawer = createDrawerNavigator();
 
 export default function Drawernavigation() {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator drawerContent={props => <DrawerContent{...props} />}>
             <Drawer.Screen
                 name="Home"
                 component={HomeAdmin}
