@@ -209,7 +209,7 @@ export default function MyOrderComplete({ navigation }) {
                                 deleteCartToFireBase(item.id)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>{t("Huỷ")}</Text>
+                                <Text style={{ color: 'white' }}>{item.status == 'Đang xử lý' ? t("Huỷ") : ""}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -262,7 +262,7 @@ export default function MyOrderComplete({ navigation }) {
                                 deleteCartToFireBase(item.id)
                             }}>
                             <View style={{ height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: 'white' }}>{t("Huỷ")}</Text>
+                                <Text style={{ color: 'white' }}>{item.status == 'Đang xử lý' ? t("Huỷ") : ""}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

@@ -219,6 +219,7 @@ export default function StoreDetail({ navigation, route }) {
                     horizontal={false}
                     showsverticalScrollIndicator={true}
                     numColumns={2}
+                    contentContainerStyle={{ paddingBottom: 320 }}
                     onScroll={Keyboard.dismiss}
                 />
             </View>

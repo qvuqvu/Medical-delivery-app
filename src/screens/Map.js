@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         height: 30,
     }
 });
+
 const requestCameraPermission = async () => {
     try {
         const granted = await PermissionsAndroid.request(
@@ -60,7 +61,7 @@ export default function Map({ navigation }) {
         latitudeDelta: 0,
         longitudeDelta: 0,
     });
-
+    const [far, setfar] = useState(0);
     const componentDidMount = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             var lat = parseFloat(position.coords.latitude)
@@ -103,7 +104,6 @@ export default function Map({ navigation }) {
             latitude: item.latitude,
             longitude: item.longitude,
         })
-        console.log(d)
     }
     return (
         <View style={{ flex: 1 }}>
@@ -136,6 +136,7 @@ export default function Map({ navigation }) {
                         onReady={result => {
                             console.log(`Distance: ${result.distance} km`)
                             console.log(`Duration: ${result.duration} min.`)
+                            setfar(result.distance)
                         }}
 
                     />
@@ -143,8 +144,9 @@ export default function Map({ navigation }) {
 
                         <Marker
                             onPress={() => { index(marker) }}
+
                             title={marker.nhathuoc}
-                            description='Bán lẻ thuốc tây'
+                            description={'Khoảng cách: ' + far + ' km'}
                             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}>
                             <Image style={styles.markerIcon}
                                 source={{ uri: marker.markerImage }} />
@@ -161,6 +163,6 @@ export default function Map({ navigation }) {
                     />
                 </MapView>
             </View>
-        </View>
+        </View >
     )
 }
