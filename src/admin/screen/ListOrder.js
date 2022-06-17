@@ -71,7 +71,7 @@ const ListItem = ({ item, index }) => {
 }
 return (
     <View style={{ flex: 1}}>
-        <HomeAdminHeader navigation={navigation} title="Home" />
+        <HomeAdminHeader navigation={navigation} title="Người dùng" />
     <View style={{ alignSelf: 'center' }}>
         <View>
             <Text style={{ fontWeight: 'bold', color: 'black', fontSize: 20, marginTop: 20 }}>Danh sách người dùng đặt hàng</Text>

@@ -97,7 +97,7 @@ export default function Sales({navigation}) {
                         <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, borderBottomWidth: 0.5 }}>
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
                             <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Người nhận: {<Text style={{ color: 'red' }}>{item.name}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Số điện thoại: {<Text style={{ color: 'red' }}>{item.phone}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Địa chỉ: {<Text style={{ color: 'red' }}>{item.address}</Text>}</Text>
@@ -133,7 +133,7 @@ export default function Sales({navigation}) {
                         <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, }}>
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Người nhận: {<Text style={{ color: 'red' }}>{item.name}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Số điện thoại: {<Text style={{ color: 'red' }}>{item.phone}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Địa chỉ: {<Text style={{ color: 'red' }}>{item.address}</Text>}</Text>
