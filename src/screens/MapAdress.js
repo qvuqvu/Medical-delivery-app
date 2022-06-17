@@ -126,7 +126,7 @@ export default function MapAdress({ navigation }) {
 
                     }}
                     onPress={(data, details = null) => {
-                        console.log(data.description);
+                        console.log(details);
                         setAddress1(data.description)
                     }}
                     query={{

@@ -12,6 +12,13 @@ import { useTheme } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
 import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
+import MapViewDirections from 'react-native-maps-directions';
+const { width, height } = Dimensions.get('window')
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH = width
+const ASPECT_RATIO = width / height
+const LATITUDE_DELTA = 0.0922
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 export default function MyOrder({ navigation, route }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
@@ -32,12 +39,12 @@ export default function MyOrder({ navigation, route }) {
     const [choise_dis, setChoise_dis] = useState(-1);
     const items = useSelector((state) => state.cartReducer.selectedItems.items)
     const count = items.length;
-    const costShip = 50.000;
     var cost = 0, s = 0;
     const user = auth().currentUser;
     const [getDiscount, setDiscount] = useState("");
     var a = 0;
     useEffect(() => {
+
         firestore()
             .collection('Data')
             .doc('Discount')
@@ -47,11 +54,33 @@ export default function MyOrder({ navigation, route }) {
                 setDiscount(data.Discount)
             });
     }, [])
+    const [getTotalData, setTotalData] = useState([]);
+    const [d, setD] = useState({
+        latitude: 0,
+        longitude: 0,
+    });
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc(items[0].nhathuoc)
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                if (data) {
+                    setD({
+                        latitude: data.latitude,
+                        longitude: data.longitude,
+                    })
+                    console.log(d)
+                }
+            }
+            )
+    }, [])
     for (var i = 0; i <= items.length - 1; i++) {
         s = parseInt(items[i].gia);
         cost += s * items[i].SL
     }
-    var total = cost + costShip - num_dis * costShip;
+
     const addCartToFireBase = () => {
         setLoading(true);
         a = 0
@@ -67,8 +96,8 @@ export default function MyOrder({ navigation, route }) {
                 name: fullname,
                 phone: phonenumber,
                 address: address,
-                ship: costShip - num_dis * costShip,
-                total: total,
+                ship: far * 3 - num_dis * far * 3,
+                total: cost + far * 3 - num_dis * far * 3,
                 id: Math.random(),
                 status: "Đang xử lý"
             })
@@ -127,7 +156,34 @@ export default function MyOrder({ navigation, route }) {
                 });
             });
     });
+    const [region, setRegion] = useState({
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+    });
+    const [far, setFar] = useState(0);
+    const componentDidMount = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            var lat = parseFloat(position.coords.latitude)
+            var long = parseFloat(position.coords.longitude)
 
+            var initialRegion = {
+                latitude: lat,
+                longitude: long,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+            }
+
+            setRegion(initialRegion)
+            console.log(initialRegion)
+        },
+            (error) => alert(JSON.stringify(error)),
+            { enableHighAccuracy: true });
+    }
+    useEffect(() => {
+        componentDidMount()
+    }, []);
     return (
         <>
             <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
@@ -135,6 +191,26 @@ export default function MyOrder({ navigation, route }) {
                 <ScrollView style={{ height: "100%" }}>
                     <View style={{ marginTop: 15, marginLeft: 12, marginRight: 12 }}>
                         <View>
+                            <MapViewDirections
+                                origin={
+                                    {
+                                        latitude: parseFloat(region.latitude),
+                                        longitude: parseFloat(region.longitude),
+                                    }
+                                }
+                                destination={{
+                                    latitude: parseFloat(d.latitude),
+                                    longitude: parseFloat(d.longitude),
+                                }}
+                                apikey={'AIzaSyBPJiW_244NDw39hMqRkLt2_Evm4TCMBXc'} // insert your API Key here
+                                strokeWidth={5}
+                                strokeColor="hotpink"
+                                onReady={result => {
+                                    console.log(`Distance: ${result.distance} km`)
+                                    setFar(result.distance)
+                                }}
+
+                            />
                             <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
                                 <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginRight: 150 }}>{t("Thông tin giao hàng")}</Text>
                                 <TouchableOpacity
@@ -144,7 +220,9 @@ export default function MyOrder({ navigation, route }) {
                                     }}
                                 >
                                     <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
-                                        <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Thay đổi")}</Text>
+                                        <TouchableOpacity onPress={() => { navigation.navigate("MapAdress") }}>
+                                            <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Thay đổi")}</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -176,11 +254,11 @@ export default function MyOrder({ navigation, route }) {
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginRight: 10, marginTop: 10 }}>
                                 <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{t("Phí vận chuyển")}</Text>
-                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{costShip}.000 đ</Text>
+                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{far * 3} đ</Text>
                             </View>
                             <View style={num_dis == 0 ? styles.hideDis : styles.showDis}>
                                 <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16 }}>{name_dis}</Text>
-                                <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>-{num_dis * costShip}.000 đ</Text>
+                                <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 16 }}>-{num_dis * far * 3} đ</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 20 }}>
                                 <Text style={{ color: colors.text, fontSize: 15, fontWeight: 'bold' }}>{t("Khuyễn mãi:")}  {getDiscount.length}</Text>
@@ -299,7 +377,7 @@ export default function MyOrder({ navigation, route }) {
                 <View style={{ height: 50, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <View style={{ justifyContent: "center", alignItems: "center", marginRight: 20 }}>
                         <Text style={{ color: colors.text, fontSize: 18, fontWeight: 'bold' }}>{t("Tổng thanh toán:")}</Text>
-                        <Text style={{ color: 'red', fontSize: 18, fontWeight: 'bold' }}>{total}.000đ</Text>
+                        <Text style={{ color: 'red', fontSize: 18, fontWeight: 'bold' }}>{cost + far * 3 - num_dis * far * 3}đ</Text>
                     </View>
                     <TouchableOpacity
                         style={{ backgroundColor: 'red', width: 130, justifyContent: 'center', alignItems: 'center' }}

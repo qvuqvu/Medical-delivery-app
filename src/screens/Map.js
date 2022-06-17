@@ -73,12 +73,10 @@ export default function Map({ navigation }) {
     useEffect(() => {
         componentDidMount()
     }, []);
-    const [coordinates] = useState([
-        {
-            latitude: 10.886297564286638,
-            longitude: 106.78121399906671,
-        }
-    ]);
+    const [d, setD] = useState({
+        latitude: 0,
+        longitude: 0,
+    });
     const [marker, setMarker] = useState({ latitude: 0, longitude: 0 });
     const [getTotalData, setTotalData] = useState([]);
     useEffect(() => {
@@ -91,6 +89,13 @@ export default function Map({ navigation }) {
                 setTotalData(data)
             });
     }, [])
+    const index = (item) => {
+        setD({
+            latitude: item.latitude,
+            longitude: item.longitude,
+        })
+        console.log(d)
+    }
     return (
         <View style={styles.container}>
             <MapView
@@ -110,7 +115,10 @@ export default function Map({ navigation }) {
                             longitude: parseFloat(region.longitude),
                         }
                     }
-                    destination={coordinates[0]}
+                    destination={{
+                        latitude: parseFloat(d.latitude),
+                        longitude: parseFloat(d.longitude),
+                    }}
                     apikey={'AIzaSyBPJiW_244NDw39hMqRkLt2_Evm4TCMBXc'} // insert your API Key here
                     strokeWidth={5}
                     strokeColor="hotpink"
