@@ -32,25 +32,25 @@ export default function SignInWelcomeScreen({ navigation }) {
                 <Swiper autoplay={true} style={{ marginTop: 5 }}>
                     <View style={styles.slide1}>
                         <Image
-                            source={{ uri: "https://cdn.thukyluat.vn//uploads/NewsThumbnail/2020/08/28/092236Cac-danh-muc-thuoc-do-Bo-Y-te-ban-hanh-kem-theo-Thong-tu-15.jpg" }}
+                            source={{ uri: "https://i.imgur.com/ggO0GMB.jpg" }}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
                     <View style={styles.slide2}>
                         <Image
-                            source={{ uri: "https://suckhoedoisong.qltns.mediacdn.vn/Images/hahien/2017/06/09/Univadis_9.6_Mot_so_thuoc_tim_mach_co_the_lam_tang_nguy_co_nga_BS_P.Lien.jpg" }}
+                            source={{ uri: "https://i.imgur.com/oVkw1D7.jpg" }}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
                     <View style={styles.slide3}>
                         <Image
-                            source={{ uri: "https://hovo.vn/wp-content/uploads/2021/04/HDH_0278.jpg" }}
+                            source={{ uri: "https://i.imgur.com/k8JgqLU.jpg" }}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
                     <View style={styles.slide3}>
                         <Image
-                            source={{ uri: "https://chupanhsanpham.com.vn/wp-content/uploads/2017/12/Untitled-Catalog-00263.jpg" }}
+                            source={{ uri: "https://i.imgur.com/MTBdUBa.jpg" }}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
@@ -59,7 +59,7 @@ export default function SignInWelcomeScreen({ navigation }) {
             <View style={{ marginTop: 10 }}>
                 <Text style={{ marginLeft: 30, marginTop: 20, fontWeight: "bold", color: colors.welcome, fontSize: 32 }}>Chào mừng!</Text>
                 <Text style={{ marginLeft: 30, fontSize: 20, color: colors.black }}>Tạo tài khoản hoặc đăng nhập để đặt thuốc ngay trên</Text>
-                <Text style={{ marginLeft: 174, marginTop: -27, fontSize: 20, fontWeight: "bold", color: colors.black }}>MedSOS</Text>
+                <Text style={{ marginLeft: 174, marginTop: -27, fontSize: 20, fontWeight: "bold", color: colors.black }}>MEDELI</Text>
             </View>
             <View style={{ flex: 4, marginBottom: 20, marginTop: 10, justifyContent: "flex-end" }}>
                 <View style={{ marginHorizontal: 20, marginLeft: 12 }}>

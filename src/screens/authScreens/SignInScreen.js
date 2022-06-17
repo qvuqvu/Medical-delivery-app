@@ -29,14 +29,10 @@ export default function SignInScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false)
     async function signIn(data) {
         try {
-            setLoading(true)
             const { password, email } = data
             const user = await auth().signInWithEmailAndPassword(email, password)
             if (user) {
-                setTimeout(() => {
-                    setLoading(false);
-                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
-                }, 2500);
+                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
             }
         }
         catch (error) {
@@ -49,15 +45,14 @@ export default function SignInScreen({ navigation }) {
 
     async function onGoogleButtonPress() {
         try {
-            setLoading(true)
+
             const { idToken } = await GoogleSignin.signIn();
             const googleCredential = auth.GoogleAuthProvider.credential(idToken);
             const user = await auth().signInWithCredential(googleCredential);
             if (user) {
-                setTimeout(() => {
-                    setLoading(false);
-                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
-                }, 2500);
+
+                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+
             }
         }
         catch (error) {
@@ -70,7 +65,7 @@ export default function SignInScreen({ navigation }) {
 
     async function onFacebookButtonPress() {
         try {
-            setLoading(true)
+
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
             if (result.isCancelled) {
@@ -83,10 +78,9 @@ export default function SignInScreen({ navigation }) {
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
             const user = await auth().signInWithCredential(facebookCredential);
             if (user) {
-                setTimeout(() => {
-                    setLoading(false);
-                    dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
-                }, 2500);
+
+                dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
+
             }
         }
         catch (error) {
@@ -113,9 +107,9 @@ export default function SignInScreen({ navigation }) {
         <>
             <View style={styles.container}>
 
-                <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
+                <Header title="ĐĂNG NHẬP" type="arrow-left" navigation={navigation} />
                 <View style={{ marginLeft: 20, marginTop: 10 }}>
-                    <Text style={title}>Đăng nhập </Text>
+                    
                 </View>
                 <View style={{ alignItems: "center", marginTop: 10 }}>
                     <Text style={styles.text1}>
@@ -158,7 +152,7 @@ export default function SignInScreen({ navigation }) {
                                     <TextInput
                                         autoCapitalize="none"
                                         style={{ width: "76%" }}
-                                        placeholder="Password"
+                                        placeholder="Mật khẩu"
                                         ref={textinput2}
                                         onFocus={() => {
                                             setTextInput2Fossued(false)
@@ -280,28 +274,7 @@ export default function SignInScreen({ navigation }) {
                     </View>
                 </Modal>
             </View>
-            {loading ? (
-                <View
-                    style={{
-                        backgroundColor: "black",
-                        position: "absolute",
-                        opacity: 0.6,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                        width: "100%",
-                    }}
-                >
-                    <LottieView
-                        style={{ height: 200 }}
-                        source={require("../../assets/animations/98288-loading.json")}
-                        autoPlay
-                        speed={3}
-                    />
-                </View>
-            ) : (
-                <></>
-            )}
+            
         </>
     )
 }

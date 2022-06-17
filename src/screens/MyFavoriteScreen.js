@@ -41,7 +41,7 @@ export default function MyFavoriteScreen({ navigation }) {
     const { colors } = useTheme();
     return (
         <SafeAreaView style={styles.container}>
-            <HomeHeader navigation={navigation} title={t("Yêu thích")} />
+            <HomeHeader navigation={navigation} title={t("Tin tức")} />
             <View style={{ marginLeft: 20, marginTop: 30 }}>
                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{t('Sản phẩm bán chạy')}</Text>
 
@@ -97,6 +97,7 @@ export default function MyFavoriteScreen({ navigation }) {
                                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                                                         <Image
                                                             source={require('../global/image/star.png')}
+                                                            
                                                             style={{ height: 15, width: 15 }}
                                                         />
                                                         <Text style={{ marginLeft: 5, color: colors.text, fontWeight: "500" }}>{item.averageReview}</Text>

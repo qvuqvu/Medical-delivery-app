@@ -129,6 +129,7 @@ export default function Categories({ navigation }) {
                     numColumns={2}
                     data={data}
                     extraData={data}
+                    contentContainerStyle={{ paddingBottom: 280 }}
                     keyExtractor={item => { return item.id }}
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item }) => (

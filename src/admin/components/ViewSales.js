@@ -21,7 +21,7 @@ export default function ViewSales() {
             date: ""
         });
     const item = [];
-    var s=0;
+    var s = 0;
     const [check, getcheck] = useState(true)
     firestore()
         .collection('AdminSales').onSnapshot((snapshot) => {
@@ -31,14 +31,14 @@ export default function ViewSales() {
         firestore()
             .collection('AdminSales').onSnapshot((snapshot) => {
                 snapshot.docs.map((doc) => {
-                    s=s+doc.data().total
+                    s = s + doc.data().total
                     setValue(s)
                 });
             });
     }, []);
     return (
-        <View style={{height:60,backgroundColor:"#36a0ef",borderTopColor: "blue",justifyContent:"center",alignItems:"center"}}>
-            <Text style={{color:"white",fontWeight:"bold",fontSize:22}}>Tổng doanh thu: {isValue}.000đ</Text>
+        <View style={{ height: 60, backgroundColor: "#36a0ef", borderTopColor: "blue", justifyContent: 'center' }}>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 22, alignSelf: 'center', marginBottom: 15 }}>Tổng doanh thu: {isValue}.000đ</Text>
         </View>
     )
 }
