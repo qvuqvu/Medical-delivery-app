@@ -85,6 +85,7 @@ export default function MyAccountScreen({ navigation }) {
                     setdate(doc.data().datetime)
                     setsex(doc.data().sex)
                     setaddress(doc.data().address)
+                    setSelectedValue(doc.data().sex)
                 });
             });
         if (count == 0) {
@@ -93,7 +94,6 @@ export default function MyAccountScreen({ navigation }) {
             setphonenumber1(phonenumber)
             setdate1(date)
             setsex1(sex)
-            setaddress1(address)
         }
     }, [getnum]);
     const updateGmail = (doc) => {
@@ -104,7 +104,6 @@ export default function MyAccountScreen({ navigation }) {
                 phone_number: phonenumber1,
                 full_name: fullname1,
                 datetime: formattedDate,
-                address: address1,
                 sex: sex1
             })
             .then(() => {
@@ -117,7 +116,6 @@ export default function MyAccountScreen({ navigation }) {
                 phone_number: phonenumber1,
                 full_name: fullname1,
                 datetime: formattedDate,
-                address: address1,
                 sex: sex1
             }).then(() => {
                 console.log("Update User");
@@ -135,7 +133,6 @@ export default function MyAccountScreen({ navigation }) {
         }
         setModalVisible(!modalVisible)
         setfullname1("");
-        setaddress1("");
         setdatetime(new Date());
         setsex1("");
         setphonenumber1("");
@@ -344,21 +341,6 @@ export default function MyAccountScreen({ navigation }) {
                                             <Picker.Item label="Nữ" value="Nữ" />
                                         </Picker>
                                     </View>
-                                    <TextInput
-                                        style={{
-                                            width: 320,
-                                            borderWidth: 1,
-                                            borderColor: "#86939e",
-                                            marginHorizontal: 20,
-                                            borderRadius: 12,
-                                            marginBottom: 20,
-                                            paddingHorizontal: 10,
-                                            color: colors.text,
-                                        }}
-                                        placeholder="Address"
-                                        value={address1}
-                                        onChangeText={(txt) => setaddress1(txt)}
-                                    />
                                 </View>
                                 <Button
                                     title={t("Lưu thông tin")}
@@ -422,7 +404,7 @@ export default function MyAccountScreen({ navigation }) {
                 <View style={styles.address}>
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", marginTop: 5 }}>
                         <Text style={{ color: colors.text, marginLeft: 15, fontSize: 16, fontWeight: "bold" }}>{t('Sổ địa chỉ')}</Text>
-                        <TouchableOpacity onPress={() => { navigation.navigate("Maps") }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("MapAdress") }}>
                             <Text style={{ color: 'red', marginRight: 15, fontSize: 16, fontWeight: "bold" }}>{t('Địa chỉ đã lưu')}</Text>
                         </TouchableOpacity>
                     </View>

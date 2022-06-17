@@ -1600,6 +1600,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   "version" "1.1.0"
 
+"@react-native-community/geolocation@^2.1.0":
+  "integrity" "sha512-xDAl5S85cRVGeUxpjX/+5lyVFNHHArXN18NQnfzCLxxiVxtC2sKENuLE4J0kjAlD5lEp+IXVqfd3iGQfo99tkA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/geolocation/-/geolocation-2.1.0.tgz"
+  "version" "2.1.0"
+
 "@react-native-community/voice@^1.1.9":
   "integrity" "sha512-6QC51lIxdtPyIWyJEG7qsZ0nyRQFV7wUREcnvlQD3+xyk3p5na9LELR+rkIGdxVbLb3WJ73rhgjrc/ywyUh10Q=="
   "resolved" "https://registry.npmjs.org/@react-native-community/voice/-/voice-1.1.9.tgz"
@@ -6203,6 +6208,11 @@
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   "version" "2.1.1"
 
+"qs@~6.9.1":
+  "integrity" "sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw=="
+  "resolved" "https://registry.npmjs.org/qs/-/qs-6.9.7.tgz"
+  "version" "6.9.7"
+
 "query-string@^7.0.0":
   "integrity" "sha512-MplouLRDHBZSG9z7fpuAAcI7aAYjDLhtsiVZsevsfaHWDS2IDdORKbSd1kWUA+V4zyva/HZoSfpwnYMMQDhb0w=="
   "resolved" "https://registry.npmjs.org/query-string/-/query-string-7.1.1.tgz"
@@ -6339,6 +6349,15 @@
     "lodash" "^4.17.21"
     "prop-types" "^15.7.2"
 
+"react-native-google-places-autocomplete@^2.4.1":
+  "integrity" "sha512-NJrzZ5zsguhTqe0C5tIW9PfxOn2wkWDiGYIBFksHzFOIIURxFPUlO0cJmfOjs5CBIDtMampgNXBdgADExBen5w=="
+  "resolved" "https://registry.npmjs.org/react-native-google-places-autocomplete/-/react-native-google-places-autocomplete-2.4.1.tgz"
+  "version" "2.4.1"
+  dependencies:
+    "lodash.debounce" "^4.0.8"
+    "prop-types" "^15.7.2"
+    "qs" "~6.9.1"
+
 "react-native-gradle-plugin@^0.0.5":
   "integrity" "sha512-kGupXo+pD2mB6Z+Oyowor3qlCroiS32FNGoiGQdwU19u8o+NNhEZKwoKfC5Qt03bMZSmFlcAlTyf79vrS2BZKQ=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.5.tgz"
@@ -6425,7 +6444,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.68 || 1000.0.0", "react-native@>= 0.55.x", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.46", "react-native@>=0.57", "react-native@>=0.59", "react-native@>=0.63.3", "react-native@0.68.0":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.68 || 1000.0.0", "react-native@>= 0.55.x", "react-native@>= 0.59", "react-native@>=0.40.0", "react-native@>=0.42.0", "react-native@>=0.46", "react-native@>=0.57", "react-native@>=0.59", "react-native@>=0.63.3", "react-native@0.68.0":
   "integrity" "sha512-Qi8KpG9rqiU0hVp05GKkuRe8iAVhblYMwpnwG3wkBi99Z/X8iZ0jD1b1UW0/y6oesmCyGQAxpsB36imU8zg1AQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.0.tgz"
   "version" "0.68.0"

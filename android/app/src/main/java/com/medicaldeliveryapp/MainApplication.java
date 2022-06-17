@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.wenkesj.voice.VoicePackage;
 import com.wenkesj.voice.VoicePackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;

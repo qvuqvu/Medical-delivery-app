@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Success from '../global/Success';
 import ProductInfo from '../global/ProductInfo';
@@ -17,6 +17,7 @@ import News2 from '../screens/News2';
 import News3 from '../screens/News3';
 import News4 from '../screens/News4';
 import News5 from '../screens/News5';
+import MapAdress from '../screens/MapAdress';
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import { useDispatch } from "react-redux";
@@ -25,20 +26,20 @@ const App = createNativeStackNavigator();
 export function AppStack() {
     const user = auth().currentUser;
     const dispatch = useDispatch();
-    const updatelang=(value)=>dispatch({
+    const updatelang = (value) => dispatch({
         type: "UPDATE_TO_LANGUAGE",
         payload: {
-          language: value,
+            language: value,
         },
-      });
+    });
     useEffect(() => {
         firestore()
-                .collection('User' + user.uid).onSnapshot((snapshot) => {
-                    snapshot.docs.map((doc) => {
-                        updatelang(doc.data().isLanguage)
-                    });
+            .collection('User' + user.uid).onSnapshot((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    updatelang(doc.data().isLanguage)
                 });
-    },[]);
+            });
+    }, []);
     return (
         <App.Navigator>
 
@@ -149,6 +150,13 @@ export function AppStack() {
             <App.Screen
                 name="News5"
                 component={News5}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <App.Screen
+                name="MapAdress"
+                component={MapAdress}
                 options={{
                     headerShown: false,
                 }}
