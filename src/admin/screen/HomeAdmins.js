@@ -115,7 +115,7 @@ export default function HomeAdmin({ navigation }) {
     }
     return (
         <View>
-            <HomeAdminHeader navigation={navigation} title="Home" />
+            <HomeAdminHeader navigation={navigation} title="Màn hình chính" />
             <FlatList
                 style={{ marginLeft: 5, marginBottom: 10, marginTop: 20 }}
                 showsVerticalScrollIndicator={false}
