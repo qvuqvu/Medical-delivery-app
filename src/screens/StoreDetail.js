@@ -225,7 +225,7 @@ export default function StoreDetail({ navigation, route }) {
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={{ fontSize: 16, color: colors.text }}>Khoảng Cách</Text>
-                        <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
+                        <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~{parseInt(route.params.kc)}Km</Text>
                     </View>
                 </View>
             </View>

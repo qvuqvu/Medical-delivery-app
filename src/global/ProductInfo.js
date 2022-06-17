@@ -12,12 +12,19 @@ import firestore, { firebase } from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth"
 import ModalPoup from './ModalPoup';
 import LottieView from "lottie-react-native";
+import MapViewDirections from 'react-native-maps-directions';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import i18n from '../assets/language/i18n'
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const { width, height } = Dimensions.get('window')
+const SCREEN_HEIGHT = height
+const SCREEN_WIDTH1 = width
+const ASPECT_RATIO = width / height
+const LATITUDE_DELTA = 0.0922
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 export default function ProductInfo({ navigation, route }) {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setLanguage] = useState("");
@@ -48,6 +55,55 @@ export default function ProductInfo({ navigation, route }) {
                 console.log('User added!');
             });
     };
+    const [region, setRegion] = useState({
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+    });
+    const [far, setFar] = useState(0);
+    const componentDidMount = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            var lat = parseFloat(position.coords.latitude)
+            var long = parseFloat(position.coords.longitude)
+
+            var initialRegion = {
+                latitude: lat,
+                longitude: long,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+            }
+
+            setRegion(initialRegion)
+            console.log(initialRegion)
+        },
+            (error) => alert(JSON.stringify(error)),
+            { enableHighAccuracy: true });
+    }
+    useEffect(() => {
+        componentDidMount()
+    }, []);
+    const [d, setD] = useState({
+        latitude: 0,
+        longitude: 0,
+    });
+    useEffect(() => {
+        firestore()
+            .collection('Data')
+            .doc(route.params.item.nhathuoc)
+            .get()
+            .then(documentSnapshot => {
+                const data = documentSnapshot.data();
+                if (data) {
+                    setD({
+                        latitude: data.latitude,
+                        longitude: data.longitude,
+                    })
+                    console.log(d)
+                }
+            }
+            )
+    }, [])
     useEffect(() => {
         firestore()
             .collection('cart' + user.uid).onSnapshot((snapshot) => {
@@ -93,6 +149,26 @@ export default function ProductInfo({ navigation, route }) {
             <View style={{ flex: 1, marginTop: 10, backgroundColor: colors.background }}>
                 <ScrollView>
                     <View style={{ width: 380, height: 450, alignSelf: 'center' }}>
+                        <MapViewDirections
+                            origin={
+                                {
+                                    latitude: parseFloat(region.latitude),
+                                    longitude: parseFloat(region.longitude),
+                                }
+                            }
+                            destination={{
+                                latitude: parseFloat(d.latitude),
+                                longitude: parseFloat(d.longitude),
+                            }}
+                            apikey={'AIzaSyBPJiW_244NDw39hMqRkLt2_Evm4TCMBXc'} // insert your API Key here
+                            strokeWidth={5}
+                            strokeColor="hotpink"
+                            onReady={result => {
+                                console.log(`Distance: ${result.distance} km`)
+                                setFar(result.distance)
+                            }}
+
+                        />
                         <View style={{ borderWidth: 0.6, borderColor: 'blue', width: 360, height: 300, justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
                             <Image
                                 style={{ width: '90%', height: '90%', resizeMode: "cover" }}
@@ -141,7 +217,7 @@ export default function ProductInfo({ navigation, route }) {
                                 <Text style={{ color: colors.text, fontSize: 17, fontWeight: 'bold' }}>{route.params.item.nhathuoc}</Text>
                                 <Text style={{ color: 'red', fontSize: 15, marginTop: 5 }}>{t("Xem đánh giá")}</Text>
                             </View>
-                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail", {item:route.params.item}) }}>
+                            <TouchableOpacity onPress={() => { navigation.push("StoreDetail", { item: route.params.item, kc: far }) }}>
                                 <View style={{ marginTop: 20, marginLeft: 43, borderWidth: 1, justifyContent: 'center', borderColor: 'red', width: 80, height: 25, alignItems: 'center' }}>
                                     <Text style={{ color: 'red' }}>{t("Xem Shop")}</Text>
                                 </View>
@@ -158,7 +234,7 @@ export default function ProductInfo({ navigation, route }) {
                             </View>
                             <View style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 16, color: colors.text }}>{t("Khoảng Cách")}</Text>
-                                <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~13Km</Text>
+                                <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold', marginTop: 7 }}>~{parseInt(far)}Km</Text>
                             </View>
                         </View>
                     </View>

@@ -212,18 +212,13 @@ export default function MyOrder({ navigation, route }) {
 
                             />
                             <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
-                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginRight: 150 }}>{t("Thông tin giao hàng")}</Text>
+                                <Text style={{ color: colors.text, fontWeight: 'bold', fontSize: 16, marginRight: 220 }}>{t("Thông tin giao hàng")}</Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         console.log(name_dis)
                                         console.log(num_dis)
                                     }}
                                 >
-                                    <View style={{ borderWidth: 1, marginRight: 10, width: 75, height: 25, borderColor: 'red', alignItems: 'center', borderRadius: 5, justifyContent: 'center' }}>
-                                        <TouchableOpacity onPress={() => { navigation.navigate("MapAdress") }}>
-                                            <Text style={{ color: 'red', fontWeight: 'bold' }}>{t("Thay đổi")}</Text>
-                                        </TouchableOpacity>
-                                    </View>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: 'row', marginTop: 10 }}>
