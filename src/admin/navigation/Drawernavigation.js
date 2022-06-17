@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeAdmin from '../screen/HomeAdmins';
 import ListOrder from '../screen/ListOrder'
 import DrawerContent from "../components/DrawerContent"
+import Sales from '../screen/Sales';
 const Drawer = createDrawerNavigator();
 
 export default function Drawernavigation() {
@@ -20,6 +21,13 @@ export default function Drawernavigation() {
             <Drawer.Screen
                 name="ListOrder"
                 component={ListOrder}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Drawer.Screen
+                name="Sales"
+                component={Sales}
                 options={{
                     headerShown: false
                 }}

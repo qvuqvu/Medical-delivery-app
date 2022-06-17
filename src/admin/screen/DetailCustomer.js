@@ -131,7 +131,7 @@ export default function DetailCustomer({ route, navigation }) {
                                     <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm:{<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
                                     <Text style={{ color: colors.text, fontSize: 16 }}>Ngày đặt: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
                                 </View>
-                                <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Thành tiền:" {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
+                                <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Thành tiền: {<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                             </View>
                         </View>
                         <View style={item.status == "Đang giao hàng" ? { height: 0 } : { flexDirection: 'row', marginRight: 10, justifyContent: "flex-end", marginTop: 15 }}>

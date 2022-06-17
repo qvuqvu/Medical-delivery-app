@@ -125,6 +125,19 @@ export default function MyOrderComplete({ navigation }) {
             })
             .then(() => {
                 deleteCartToFireBase(item.id);
+                db.collection('AdminSales')
+                    .add({
+                        nhathuocchung: item.nhathuocchung,
+                        date: date + '-' + month + '-' + year,
+                        items: item.items,
+                        name: item.name,
+                        phone: item.phone,
+                        address: item.address,
+                        ship: item.ship,
+                        total: item.total,
+                    })
+                    .then(() => {
+                    })
                 setTimeout(() => {
                     setLoading(false);
                     navigation.navigate('MyLastOrder')
