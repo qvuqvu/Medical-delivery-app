@@ -44,12 +44,20 @@ export default function HomeAdmin({ navigation }) {
         setModalVisible(!modalVisible)
     }
     const add = () => {
+        const a=Math.random()
         firestore()
             .collection('Data')
             .doc('TotalData')
             .get()
             .then(documentSnapshot => {
-                updatethuoc([...documentSnapshot.data().TotalData, { "SL": 1, "gia": gia1, "id": Math.random(), "image": image1, "mota": mota1, "name": name1, "nhathuoc": nhathuoc1 },])
+                updatethuoc([...documentSnapshot.data().TotalData, { "SL": 1, "gia": gia1, "id": a, "image": image1, "mota": mota1, "name": name1, "nhathuoc": nhathuoc1 },])
+            });
+        firestore()
+            .collection('DataNhathuoc')
+            .doc(nhathuoc1)
+            .get()
+            .then(documentSnapshot => {
+                updatethuoc1([...documentSnapshot.data().item, { "SL": 1, "gia": gia1, "id": a, "image": image1, "mota": mota1, "name": name1, "nhathuoc": nhathuoc1 },])
             });
         setModalVisible(!modalVisible)
         setrender(Math.random())
@@ -81,6 +89,22 @@ export default function HomeAdmin({ navigation }) {
                     }
                 });
             });
+        firestore()
+            .collection("DataNhathuoc")
+            .doc(nhathuoc1)
+            .get()
+            .then(documentSnapshot => {
+                documentSnapshot.data().item.map((items) => {
+                    if (items.id == item.id) {
+                        items.gia = gia1,
+                            items.image = image1,
+                            items.mota = mota1,
+                            items.name = name1,
+                            items.nhathuoc = nhathuoc1
+                        updatethuoc1(documentSnapshot.data().item)
+                    }
+                });
+            })
         setModalVisible1(!modalVisible1)
         setitemthuoc("")
         setgia1("")
@@ -102,6 +126,17 @@ export default function HomeAdmin({ navigation }) {
                 setrender(Math.random())
             });
     }
+    const updatethuoc1 = (add) => {
+        firestore()
+            .collection('DataNhathuoc')
+            .doc(nhathuoc1)
+            .update({
+                item: add
+            })
+            .then(() => {
+                console.log('Thuoc updated!');
+            });
+    }
     const delete1 = (item) => {
         firestore()
             .collection('Data')
@@ -109,6 +144,13 @@ export default function HomeAdmin({ navigation }) {
             .get()
             .then(documentSnapshot => {
                 updatethuoc(documentSnapshot.data().TotalData.filter(items => items.id != item.id))
+            });
+        firestore()
+            .collection('DataNhathuoc')
+            .doc(nhathuoc1)
+            .get()
+            .then(documentSnapshot => {
+                updatethuoc1(documentSnapshot.data().item.filter(items => items.id != item.id))
             });
         setModalVisible1(!modalVisible1)
         setitemthuoc("")

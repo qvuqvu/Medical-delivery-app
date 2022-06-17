@@ -41,7 +41,7 @@ export default function StoreDetail({ navigation, route }) {
     useEffect(() => {
         firestore()
             .collection('DataNhathuoc')
-            .doc('Hoàng Anh')
+            .doc('Nhà Thuốc Hoàng Anh')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
@@ -49,7 +49,7 @@ export default function StoreDetail({ navigation, route }) {
             });
         firestore()
             .collection('DataNhathuoc')
-            .doc('Hương Giang')
+            .doc('Nhà Thuốc Hương Giang')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
@@ -57,7 +57,7 @@ export default function StoreDetail({ navigation, route }) {
             });
         firestore()
             .collection('DataNhathuoc')
-            .doc('Long Châu')
+            .doc('Nhà Thuốc FPT Long Châu')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
@@ -65,7 +65,7 @@ export default function StoreDetail({ navigation, route }) {
             });
         firestore()
             .collection('DataNhathuoc')
-            .doc('Minh Châu')
+            .doc('Nhà Thuốc Minh Châu')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
@@ -73,7 +73,7 @@ export default function StoreDetail({ navigation, route }) {
             });
         firestore()
             .collection('DataNhathuoc')
-            .doc('Pharmarcity')
+            .doc('Nhà Thuốc Pharmacity')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
@@ -90,7 +90,7 @@ export default function StoreDetail({ navigation, route }) {
             setData(getfptlongchau)
 
         }
-        if (route.params.item.nhathuoc == "Nhà thuốc Minh Châu") {
+        if (route.params.item.nhathuoc == "Nhà Thuốc Minh Châu") {
             setdata1(getminhchau)
             setData(getminhchau)
 
