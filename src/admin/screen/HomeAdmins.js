@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import auth from '@react-native-firebase/auth';
 import { colors, paremeter } from '../../global/styles';
 import { Avatar, Button } from 'react-native-elements'
-import { View, Text, Linking, Pressable, Alert, Modal, StyleSheet, TouchableOpacity, ImageBackground, Image, Dimensions,TextInput } from 'react-native'
+import { View, Text, Linking, Pressable, Alert, Modal, StyleSheet, TouchableOpacity, ImageBackground, Image, Dimensions, TextInput } from 'react-native'
 import { SignInContext } from '../contexts/authContext';
 import Icon1 from "react-native-vector-icons/FontAwesome"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -15,11 +15,6 @@ GoogleSignin.configure({
 });
 const SCREEN_WIDTH = Dimensions.get('window').width
 export default function HomeAdmin({ navigation }) {
-    const [gia, setgia] = useState("")
-    const [image, setimage] = useState("")
-    const [mota, setmota] = useState("")
-    const [name, setname] = useState("")
-    const [nhathuoc, setnhathuoc] = useState("")
     const [getTotalData, setTotalData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible1, setModalVisible1] = useState(false)
@@ -28,10 +23,8 @@ export default function HomeAdmin({ navigation }) {
     const [mota1, setmota1] = useState("")
     const [name1, setname1] = useState("")
     const [nhathuoc1, setnhathuoc1] = useState("")
-    const [arr,setarr]=useState([])
-    const [itemthuoc,setitemthuoc]=useState("")
-    const [render,setrender]=useState(0)
-    var count = 0
+    const [itemthuoc, setitemthuoc] = useState("")
+    const [render, setrender] = useState(0)
     useEffect(() => {
         firestore()
             .collection('Data')
@@ -41,7 +34,7 @@ export default function HomeAdmin({ navigation }) {
                 const data = documentSnapshot.data();
                 setTotalData(data.TotalData)
             });
-    },[render])
+    }, [render])
     const showmodal = () => {
         setgia1("")
         setname1("")
@@ -56,37 +49,19 @@ export default function HomeAdmin({ navigation }) {
             .doc('TotalData')
             .get()
             .then(documentSnapshot => {
-             console.log([...documentSnapshot.data().TotalData,[name1,gia1,image1,mota1,nhathuoc1]])
+                updatethuoc([...documentSnapshot.data().TotalData, { "SL": 1, "gia": gia1, "id": Math.random(), "image": image1, "mota": mota1, "name": name1, "nhathuoc": nhathuoc1 },])
             });
-            setrender(1)
+        setModalVisible(!modalVisible)
+        setrender(Math.random())
     }
     const showmodal1 = (item) => {
-        count = 0;
-        firestore()
-        .collection('Data')
-        .doc('TotalData')
-        .get()
-        .then(documentSnapshot => {
-            documentSnapshot.data().TotalData.map((items) => {
-                if(items.id == item.id) {
-                    setgia(items.gia)
-                    setimage(items.image)
-                    setmota(items.mota)
-                    setname(items.name)
-                    setnhathuoc(items.nhathuoc)
-                }
-            })
-        })
-    if(count == 0) {
-        count = 1;
-        setgia1(gia)
-        setimage1(image)
-        setmota1(mota)
-        setname1(name)
-        setnhathuoc1(nhathuoc)
-    }
-    setitemthuoc(item)
-    setModalVisible1(!modalVisible1)
+        setgia1(item.gia)
+        setimage1(item.image)
+        setmota1(item.mota)
+        setname1(item.name)
+        setnhathuoc1(item.nhathuoc)
+        setitemthuoc(item)
+        setModalVisible1(!modalVisible1)
     }
 
     const update = (item) => {
@@ -116,7 +91,6 @@ export default function HomeAdmin({ navigation }) {
         setrender(Math.random())
     }
     const updatethuoc = (add) => {
-
         firestore()
             .collection('Data')
             .doc('TotalData')
@@ -125,6 +99,7 @@ export default function HomeAdmin({ navigation }) {
             })
             .then(() => {
                 console.log('Thuoc updated!');
+                setrender(Math.random())
             });
     }
     const delete1 = (item) => {
@@ -133,11 +108,10 @@ export default function HomeAdmin({ navigation }) {
             .doc('TotalData')
             .get()
             .then(documentSnapshot => {
-                updatethuoc(documentSnapshot.data().TotalData.filter(items=>items.id!=item.id))
+                updatethuoc(documentSnapshot.data().TotalData.filter(items => items.id != item.id))
             });
-            setrender(1)
-            setModalVisible1(!modalVisible1)
-            setitemthuoc("")
+        setModalVisible1(!modalVisible1)
+        setitemthuoc("")
     }
     return (
         <View>
@@ -152,24 +126,24 @@ export default function HomeAdmin({ navigation }) {
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <View >
-            <TouchableOpacity onPress={() => {showmodal1(item)}}>
-                <View style={[styles.cardView, { backgroundColor: colors.background }]}>
-                    <View style={[styles.imageView, { marginTop: 20 }, { width: SCREEN_WIDTH*0.4 }]}>
-                        <ImageBackground
-                            style={styles.image}
-                            source={{ uri:item.image }}
-                        >
-                        </ImageBackground>
-                        <View>
-                            <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{item.name}</Text>
-                        </View>
-                        <View>
-                            <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity >
-            </View>)}
+                        <TouchableOpacity onPress={() => { showmodal1(item) }}>
+                            <View style={[styles.cardView, { backgroundColor: colors.background }]}>
+                                <View style={[styles.imageView, { marginTop: 20 }, { width: SCREEN_WIDTH * 0.4 }]}>
+                                    <ImageBackground
+                                        style={styles.image}
+                                        source={{ uri: item.image }}
+                                    >
+                                    </ImageBackground>
+                                    <View>
+                                        <Text style={{ color: colors.text, marginTop: 10, marginRight: 10, textAlign: 'center' }}>{item.name}</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={[{ color: colors.accent, textAlign: 'center', fontWeight: "bold", marginTop: 10 }]}>{item.gia}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity >
+                    </View>)}
             />
             <Modal
                 animationType="slide"
@@ -267,7 +241,7 @@ export default function HomeAdmin({ navigation }) {
                     />
                     <View style={{ flexDirection: "row" }}>
                         <Button
-                            onPress={() => { delete1(item) }}
+                            onPress={() => { delete1(itemthuoc) }}
                             title="Xóa"
                             buttonStyle={{ backgroundColor: colors.blue, borderRadius: 30, width: 100, marginLeft: 140 }}
                         />
@@ -381,7 +355,7 @@ export default function HomeAdmin({ navigation }) {
                         <Button
                             title="Thêm"
                             buttonStyle={{ backgroundColor: colors.blue, borderRadius: 30, width: 100, alignSelf: "center", marginLeft: 15 }}
-                            onPress={() => { add()}}
+                            onPress={() => { add() }}
                         />
                     </View>
                 </View>
