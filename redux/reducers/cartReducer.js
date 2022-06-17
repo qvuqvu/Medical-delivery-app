@@ -22,7 +22,7 @@ let cartReducer = (state = defaultState, action) => {
                     ],
                 }
             }
-            console.log(newState.selectedItems, "👉");
+            // console.log(newState.selectedItems, "👉");
             return newState;
         }
         case 'DELETE_TO_CART': {
@@ -30,7 +30,7 @@ let cartReducer = (state = defaultState, action) => {
             newState.selectedItems = {
                 items: [],
             };
-            console.log(newState, "👉");
+            // console.log(newState, "👉");
             return newState;
         }
         case 'UPDATE_TO_CART': {
@@ -43,7 +43,7 @@ let cartReducer = (state = defaultState, action) => {
                         : item
                 )]
             }
-            console.log(newState.selectedItems, "👉");
+            // console.log(newState.selectedItems, "👉");
             return newState;
         }
         case 'UPDATE1_TO_CART': {
@@ -56,7 +56,7 @@ let cartReducer = (state = defaultState, action) => {
                         : item
                 )]
             }
-            console.log(newState.selectedItems, "👉");
+            // console.log(newState.selectedItems, "👉");
             return newState;
         }
         case 'UPDATE_TO_LANGUAGE': {
@@ -66,7 +66,7 @@ let cartReducer = (state = defaultState, action) => {
                 items: [],
                 language: action.payload.language,
             }
-            console.log(newState.selectedItems.language, "👉");
+            // console.log(newState.selectedItems.language, "👉");
             return newState;
         }
         default:

@@ -74,8 +74,36 @@ export default function MyOrderComplete({ navigation }) {
             .doc(item)
             .delete()
             .then(() => {
+                firestore()
+                    .collection('order' + user.uid)
+                    .get()
+                    .then(querySnapshot => {
+                        if (querySnapshot.size == 0) {
+                            firestore()
+                                .collection('Admin')
+                                .get()
+                                .then(querySnapshot => {
+                                    querySnapshot.forEach(documentSnapshot => {
+                                        if (documentSnapshot.data().uid == user.uid) {
+                                            deleteAdmin(documentSnapshot.id);
+                                        }
+                                    });
+                                });
+                        }
+                        querySnapshot.forEach(documentSnapshot => {
+                        });
+                    });
                 console.log('order deleted!');
                 addd();
+            });
+    }
+    const deleteAdmin = (item) => {
+        firestore()
+            .collection('Admin')
+            .doc(item)
+            .delete()
+            .then(() => {
+                console.log('delete admin!');
             });
     }
     const addCartToFireBase = (item) => {

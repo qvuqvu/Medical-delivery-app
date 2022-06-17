@@ -36,6 +36,7 @@ export default function MyOrder({ navigation, route }) {
     var cost = 0, s = 0;
     const user = auth().currentUser;
     const [getDiscount, setDiscount] = useState("");
+    var a = 0;
     useEffect(() => {
         firestore()
             .collection('Data')
@@ -53,6 +54,7 @@ export default function MyOrder({ navigation, route }) {
     var total = cost + costShip - num_dis * costShip;
     const addCartToFireBase = () => {
         setLoading(true);
+        a = 0
         var date = new Date().getDate();
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
@@ -71,6 +73,26 @@ export default function MyOrder({ navigation, route }) {
                 status: "Đang xử lý"
             })
             .then(() => {
+                firestore()
+                    .collection('Admin').onSnapshot((snapshot) => {
+                        snapshot.docs.map((doc) => {
+                            if (doc.data().uid == user.uid) {
+                                a = 1
+                            }
+                        });
+                        if (a == 1) {
+                        }
+                        else {
+                            firestore()
+                                .collection('Admin')
+                                .add({
+                                    uid: user.uid,
+                                })
+                                .then(() => {
+                                    console.log('add uid success');
+                                });
+                        }
+                    });
                 setTimeout(() => {
                     setLoading(false);
                     setnull([], false)

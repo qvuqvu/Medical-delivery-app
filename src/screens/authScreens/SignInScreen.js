@@ -27,34 +27,12 @@ export default function SignInScreen({ navigation }) {
     const [getemail, setemail] = useState("")
     const [getVisible, setVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
-    var a = 0;
     async function signIn(data) {
         try {
-            a = 0
             setLoading(true)
             const { password, email } = data
             const user = await auth().signInWithEmailAndPassword(email, password)
             if (user) {
-                firestore()
-                    .collection('Admin').onSnapshot((snapshot) => {
-                        snapshot.docs.map((doc) => {
-                            if (doc.data().uid == user.user.uid) {
-                                a = 1
-                            }
-                        });
-                        if (a == 1) {
-                        }
-                        else {
-                            firestore()
-                                .collection('Admin')
-                                .add({
-                                    uid: user.user.uid,
-                                })
-                                .then(() => {
-                                    console.log('add uid success');
-                                });
-                        }
-                    });
                 setTimeout(() => {
                     setLoading(false);
                     dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
@@ -71,34 +49,11 @@ export default function SignInScreen({ navigation }) {
 
     async function onGoogleButtonPress() {
         try {
-            a = 0
             setLoading(true)
             const { idToken } = await GoogleSignin.signIn();
-            // Create a Google credential with the token
             const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-            // Sign-in the user with the credential
             const user = await auth().signInWithCredential(googleCredential);
             if (user) {
-                firestore()
-                    .collection('Admin').onSnapshot((snapshot) => {
-                        snapshot.docs.map((doc) => {
-                            if (doc.data().uid == user.user.uid) {
-                                a = 1
-                            }
-                        });
-                        if (a == 1) {
-                        }
-                        else {
-                            firestore()
-                                .collection('Admin')
-                                .add({
-                                    uid: user.user.uid,
-                                })
-                                .then(() => {
-                                    console.log('add uid success');
-                                });
-                        }
-                    });
                 setTimeout(() => {
                     setLoading(false);
                     dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
@@ -115,43 +70,19 @@ export default function SignInScreen({ navigation }) {
 
     async function onFacebookButtonPress() {
         try {
-            a = 0
             setLoading(true)
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
             if (result.isCancelled) {
                 throw 'User cancelled the login process';
             }
-            // Once signed in, get the users AccesToken
             const data = await AccessToken.getCurrentAccessToken();
             if (!data) {
                 throw 'Something went wrong obtaining access token';
             }
-            // Create a Firebase credential with the AccessToken
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-            // Sign-in the user with the credential
             const user = await auth().signInWithCredential(facebookCredential);
             if (user) {
-                firestore()
-                    .collection('Admin').onSnapshot((snapshot) => {
-                        snapshot.docs.map((doc) => {
-                            if (doc.data().uid == user.user.uid) {
-                                a = 1
-                            }
-                        });
-                        if (a == 1) {
-                        }
-                        else {
-                            firestore()
-                                .collection('Admin')
-                                .add({
-                                    uid: user.user.uid,
-                                })
-                                .then(() => {
-                                    console.log('add uid success');
-                                });
-                        }
-                    });
                 setTimeout(() => {
                     setLoading(false);
                     dispatchSignedIn({ type: "UPDATE_SIGN_IN", payload: { userToken: "signed-in" } })
