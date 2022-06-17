@@ -6,6 +6,7 @@ import Icon1 from 'react-native-vector-icons/AntDesign'
 import { useTheme } from "react-native-paper";
 import ProductCard from '../components/ProductCard';
 import firestore from "@react-native-firebase/firestore"
+import { set } from "react-native-reanimated";
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function StoreDetail({ navigation, route }) {
     const { colors } = useTheme();
@@ -15,13 +16,11 @@ export default function StoreDetail({ navigation, route }) {
     const [data1, setdata1] = useState([])
     const [search, setSearch] = useState("")
     let a = 0;
-    const [getnhathuocthuytrang, setnhathuocthuytrang] = useState("")
-    const [getnhathuocgreenpharma, setnhathuocgreenpharma] = useState("")
-    const [getnhathuoclenguyen, setnhathuoclenguyen] = useState("")
-    const [getnhathuocngoclong, setnhathuocngoclong] = useState("")
-    const [getnhathuocminhchau, setnhathuocminhchau] = useState("")
-    const [getnhathuoclongchau, setnhathuoclongchau] = useState("")
-    const [getnhathuochamy, setnhathuochamy] = useState("")
+    const [getpharmacity, setpharmacity] = useState("")
+    const [getfptlongchau, setfptlongchau] = useState("")
+    const [getminhchau, setminhchau] = useState("")
+    const [gethoanganh, sethoanganh] = useState("")
+    const [getnhahuonggiang, sethuonggiang] = useState("")
 
     const handleSearch = (text) => {
         if (text) {
@@ -41,95 +40,70 @@ export default function StoreDetail({ navigation, route }) {
     }
     useEffect(() => {
         firestore()
-            .collection('Data')
-            .doc('nhathuocthuytrang')
+            .collection('DataNhathuoc')
+            .doc('Nhà Thuốc Hoàng Anh')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
-                setnhathuocthuytrang(data.nhathuocthuytrang)
+                sethoanganh(data.item)
             });
         firestore()
-            .collection('Data')
-            .doc('nhathuocgreenpharma')
+            .collection('DataNhathuoc')
+            .doc('Nhà Thuốc Hương Giang')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
-                setnhathuocgreenpharma(data.nhathuocgreenpharma)
+                sethuonggiang(data.item)
             });
         firestore()
-            .collection('Data')
-            .doc('nhathuoclenguyen')
+            .collection('DataNhathuoc')
+            .doc('Nhà Thuốc FPT Long Châu')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
-                setnhathuoclenguyen(data.nhathuoclenguyen)
+                setfptlongchau(data.item)
             });
         firestore()
-            .collection('Data')
-            .doc('nhathuocngoclong')
+            .collection('DataNhathuoc')
+            .doc('Nhà Thuốc Minh Châu')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
-                setnhathuocngoclong(data.nhathuocngoclong)
+                setminhchau(data.item)
             });
         firestore()
-            .collection('Data')
-            .doc('nhathuocminhchau')
+            .collection('DataNhathuoc')
+            .doc('Nhà Thuốc Pharmacity')
             .get()
             .then(documentSnapshot => {
                 const data = documentSnapshot.data();
-                setnhathuocminhchau(data.nhathuocminhchau)
-            });
-        firestore()
-            .collection('Data')
-            .doc('nhathuoclongchau')
-            .get()
-            .then(documentSnapshot => {
-                const data = documentSnapshot.data();
-                setnhathuoclongchau(data.nhathuoclongchau)
-            });
-        firestore()
-            .collection('Data')
-            .doc('nhathuochamy')
-            .get()
-            .then(documentSnapshot => {
-                const data = documentSnapshot.data();
-                setnhathuochamy(data.nhathuochamy)
+                setpharmacity(data.item)
             });
     }, [])
     useEffect(() => {
-        if (route.params.item.nhathuoc == "Nhà thuốc Hà My") {
-            setdata1(getnhathuochamy)
-            setData(getnhathuochamy)
+        if (route.params.item.nhathuoc == "Nhà Thuốc Pharmacity") {
+            setdata1(getpharmacity)
+            setData(getpharmacity)
         }
-        if (route.params.item.nhathuoc == "Nhà thuốc Long Châu") {
-            setdata1(getnhathuoclongchau)
-            setData(getnhathuoclongchau)
+        if (route.params.item.nhathuoc == "Nhà Thuốc FPT Long Châu") {
+            setdata1(getfptlongchau)
+            setData(getfptlongchau)
 
         }
-        if (route.params.item.nhathuoc == "Nhà thuốc Minh Châu") {
-            setdata1(getnhathuocminhchau)
-            setData(getnhathuocminhchau)
+        if (route.params.item.nhathuoc == "Nhà Thuốc Minh Châu") {
+            setdata1(getminhchau)
+            setData(getminhchau)
 
         }
-        if (route.params.item.nhathuoc == "Nhà thuốc Ngọc Long") {
-            setdata1(getnhathuocngoclong)
-            setData(getnhathuocngoclong)
+        if (route.params.item.nhathuoc == "Nhà Thuốc Hoàng Anh") {
+            setdata1(gethoanganh)
+            setData(gethoanganh)
 
         }
-        if (route.params.item.nhathuoc == "Nhà thuốc Lê Nguyên") {
-            setdata1(getnhathuoclenguyen)
-            setData(getnhathuoclenguyen)
+        if (route.params.item.nhathuoc == "Nhà Thuốc Hương Giang") {
+            setdata1(getnhahuonggiang)
+            setData(getnhahuonggiang)
 
-        }
-        if (route.params.item.nhathuoc == "Nhà thuốc Green Pharma") {
-            setdata1(getnhathuocgreenpharma)
-            setData(getnhathuocgreenpharma)
-
-        }
-        if (route.params.item.nhathuoc == "Nhà thuốc Thùy Trang") {
-            setdata1(getnhathuocthuytrang)
-            setData(getnhathuocthuytrang)
         }
     })
 
