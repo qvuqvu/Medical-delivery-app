@@ -18,6 +18,7 @@ import News3 from '../screens/News3';
 import News4 from '../screens/News4';
 import News5 from '../screens/News5';
 import MapAdress from '../screens/MapAdress';
+import Map from '../screens/Map';
 import auth from '@react-native-firebase/auth';
 import firestore from "@react-native-firebase/firestore"
 import { useDispatch } from "react-redux";
@@ -157,6 +158,13 @@ export function AppStack() {
             <App.Screen
                 name="MapAdress"
                 component={MapAdress}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <App.Screen
+                name="Map"
+                component={Map}
                 options={{
                     headerShown: false,
                 }}

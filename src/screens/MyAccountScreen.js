@@ -181,7 +181,7 @@ export default function MyAccountScreen({ navigation }) {
                                 firestore()
                                     .collection('order' + user.uid).onSnapshot((snapshot) => {
                                     });
-                                    navigation.navigate('MyOrderComplete')
+                                navigation.navigate('MyOrderComplete')
                             }}
                             style={styles.viewItem}>
                             <Image
@@ -416,15 +416,7 @@ export default function MyAccountScreen({ navigation }) {
                         <View style={{ width: "85%", marginLeft: 5 }}>
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
                             <TouchableOpacity style={{ marginTop: 5 }} onPress={() => {
-                                firestore()
-                                    .collection('DataNhaThuoc')
-                                    .doc('Hà My')
-                                    .set({
-                                        item: item=[{name:"aaa",phone:"123456789",address:"123456789",date:"123456789"}],
-                                    })
-                                    .then(() => {
-                                        console.log('User added!');
-                                    });
+                                navigation.navigate("Map")
                             }}>
                                 <Text style={{ fontSize: 15, color: 'blue' }}>{t('Mặc định')}</Text>
                             </TouchableOpacity>
