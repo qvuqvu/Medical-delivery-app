@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../assets/language/i18n';
 import HeaderSales from '../components/HeaderSales';
 import HomeAdminHeader from '../components/HomeAdminHeader';
+import ViewSales from '../components/ViewSales';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Sales({navigation}) {
     const { t, i18n } = useTranslation();
@@ -18,7 +19,7 @@ export default function Sales({navigation}) {
     }, [currentLanguage]);
     const { colors } = useTheme();
     const user = auth().currentUser;
-    const [isValue, setValue] = useState(false);
+    const [isValue, setValue] = useState(0);
     const [getdoc, setdoc] = useState([]);
     const [getdoc1, setdoc1] = useState(
         {
@@ -92,11 +93,14 @@ export default function Sales({navigation}) {
                     />
                 </View>
                 <View>
-                    <View style={{ marginBottom: 20, height: 40 }}>
+                    <View style={{ marginBottom: 20, height: 95 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 0.5, borderBottomColor: colors.text, borderTopColor: colors.text, borderBottomWidth: 0.5 }}>
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
-                                <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
+                            <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Người nhận: {<Text style={{ color: 'red' }}>{item.name}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Số điện thoại: {<Text style={{ color: 'red' }}>{item.phone}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Địa chỉ: {<Text style={{ color: 'red' }}>{item.address}</Text>}</Text>
                             </View>
                             <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Tổng tiền:{<Text style={{ color: 'red' }}>{item.total}k</Text>} </Text>
                         </View>
@@ -130,8 +134,11 @@ export default function Sales({navigation}) {
                             <View style={{ marginLeft: 15, marginTop: 10, marginBottom: 10 }}>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Sản phẩm: {<Text style={{ color: 'red' }}>{item.items.length}</Text>}</Text>
                                 <Text style={{ color: colors.text, fontSize: 16 }}>Ngày nhận hàng: {<Text style={{ color: 'red' }}>{item.date}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Người nhận: {<Text style={{ color: 'red' }}>{item.name}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Số điện thoại: {<Text style={{ color: 'red' }}>{item.phone}</Text>}</Text>
+                                <Text style={{ color: colors.text, fontSize: 16 }}>Địa chỉ: {<Text style={{ color: 'red' }}>{item.address}</Text>}</Text>
                             </View>
-                            <Text style={{ marginLeft: 'auto', marginRight: 15, color: colors.text, fontSize: 16 }}>Tổng tiền:<Text style={{ color: 'red' }}>{item.total}k</Text> </Text>
+                            <Text style={{ marginLeft: 'auto', marginRight: 10, color: colors.text, fontSize: 16 }}>Tổng tiền:<Text style={{ color: 'red' }}>{item.total}k</Text> </Text>
                         </View>
                     </View>
                 </View>
@@ -142,7 +149,7 @@ export default function Sales({navigation}) {
         <SafeAreaView style={styles.container}>
             <HomeAdminHeader navigation={navigation} title={"Doanh thu"}/>
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc</Text>
+                <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Thông tin tất cả các đơn hàng đã giao</Text>
                 <Icon
                     name="reload"
                     size={20}
@@ -164,7 +171,7 @@ export default function Sales({navigation}) {
                         showsVerticalScrollIndicator={false}
                     />)}
             </View>
-            <View style={{height:65,backgroundColor:'#7FFFD4'}}></View>
+            <ViewSales></ViewSales>
         </SafeAreaView >
     )
 }
