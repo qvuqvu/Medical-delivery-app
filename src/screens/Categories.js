@@ -74,7 +74,6 @@ export default function Categories({ navigation }) {
     const handleSelected = (value, data) => {
         setSelected(value);
         setData(data)
-
     };
 
 
