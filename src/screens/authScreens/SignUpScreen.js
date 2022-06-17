@@ -78,18 +78,18 @@ const SignUpScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
+            <Header title="ĐĂNG KÝ" type="arrow-left" navigation={navigation} />
             <ScrollView keyboardShouldPersistTaps="always">
                 <View style={styles.view1}>
-                    <Text style={styles.text1}>Đăng ký</Text>
+                    
                 </View>
                 <View style={styles.view2}>
                     <View>
-                        <Text style={styles.text2}>Tài khoản mới với MedSOS ?</Text>
+                        <Text style={styles.text2}>Tài khoản mới với MEDELI ?</Text>
                     </View>
                     <View style={styles.view6}>
                         <TextInput
-                            placeholder="Mobile Number"
+                            placeholder="Số điện thoại"
                             style={styles.input1}
                             keyboardType="number-pad"
                             autoFocus={true}
@@ -99,7 +99,7 @@ const SignUpScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.view6}>
                         <TextInput
-                            placeholder="Name"
+                            placeholder="Họ và tên"
                             style={styles.input1}
                             autoFocus={false}
                             onChangeText={(txt) => setfullname(txt)}
@@ -171,7 +171,7 @@ const SignUpScreen = ({ navigation }) => {
                             />
                         </Animatable.View>
                         <TextInput
-                            placeholder="Password"
+                            placeholder="Mật khẩu"
                             style={{ flex: 1 }}
                             autoFocus={false}
                             onChangeText={(txt) => setpassword(txt)}
@@ -216,7 +216,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.view19}>
                     <View style={styles.view20}>
-                        <Text style={{ color: colors.grey1 }}>Bạn đã sẵn sàng tạo một tài khoản với MedSOS ?</Text>
+                        <Text style={{ color: colors.grey1 }}>Bạn đã sẵn sàng tạo một tài khoản với MEDELI ?</Text>
                     </View>
                     <View style={[styles.view21, { marginTop: 16 }]}>
                         <Button

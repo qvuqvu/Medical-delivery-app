@@ -107,9 +107,9 @@ export default function SignInScreen({ navigation }) {
         <>
             <View style={styles.container}>
 
-                <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
+                <Header title="ĐĂNG NHẬP" type="arrow-left" navigation={navigation} />
                 <View style={{ marginLeft: 20, marginTop: 10 }}>
-                    <Text style={title}>Đăng nhập </Text>
+                    
                 </View>
                 <View style={{ alignItems: "center", marginTop: 10 }}>
                     <Text style={styles.text1}>
@@ -152,7 +152,7 @@ export default function SignInScreen({ navigation }) {
                                     <TextInput
                                         autoCapitalize="none"
                                         style={{ width: "76%" }}
-                                        placeholder="Password"
+                                        placeholder="Mật khẩu"
                                         ref={textinput2}
                                         onFocus={() => {
                                             setTextInput2Fossued(false)
