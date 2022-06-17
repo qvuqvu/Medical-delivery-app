@@ -3,11 +3,15 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity, PermissionsAndroi
 import React, { useState, useEffect } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import MapViewDirections from 'react-native-maps-directions';
+import HeaderAdress from '../components/HeaderAdress';
+import { useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+import i18n from '../assets/language/i18n'
 import firestore from "@react-native-firebase/firestore"
 import { nhathuoc1 } from '../global/Data';
 const styles = StyleSheet.create({
     container: {
-        ...StyleSheet.absoluteFillObject,
+        flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
@@ -44,6 +48,11 @@ const ASPECT_RATIO = width / height
 const LATITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 export default function Map({ navigation }) {
+    const { t, i18n } = useTranslation();
+    const [currentLanguage, setLanguage] = useState("");
+    useEffect(() => {
+        i18n.changeLanguage(currentLanguage);
+    }, [currentLanguage]);
     let i = 0;
     const [region, setRegion] = useState({
         latitude: 0,
@@ -97,58 +106,61 @@ export default function Map({ navigation }) {
         console.log(d)
     }
     return (
-        <View style={styles.container}>
-            <MapView
-                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                style={styles.map}
-                region={{
-                    latitude: parseFloat(region.latitude),
-                    longitude: parseFloat(region.longitude),
-                    latitudeDelta: parseFloat(region.latitudeDelta),
-                    longitudeDelta: parseFloat(region.longitudeDelta),
-                }}
-            >
-                <MapViewDirections
-                    origin={
-                        {
-                            latitude: parseFloat(region.latitude),
-                            longitude: parseFloat(region.longitude),
+        <View style={{ flex: 1 }}>
+            <HeaderAdress navigation={navigation} title={t("Địa chỉ")} />
+            <View style={styles.container}>
+                <MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={styles.map}
+                    region={{
+                        latitude: parseFloat(region.latitude),
+                        longitude: parseFloat(region.longitude),
+                        latitudeDelta: parseFloat(region.latitudeDelta),
+                        longitudeDelta: parseFloat(region.longitudeDelta),
+                    }}
+                >
+                    <MapViewDirections
+                        origin={
+                            {
+                                latitude: parseFloat(region.latitude),
+                                longitude: parseFloat(region.longitude),
+                            }
                         }
+                        destination={{
+                            latitude: parseFloat(d.latitude),
+                            longitude: parseFloat(d.longitude),
+                        }}
+                        apikey={'AIzaSyBPJiW_244NDw39hMqRkLt2_Evm4TCMBXc'} // insert your API Key here
+                        strokeWidth={5}
+                        strokeColor="hotpink"
+                        onReady={result => {
+                            console.log(`Distance: ${result.distance} km`)
+                            console.log(`Duration: ${result.duration} min.`)
+                        }}
+
+                    />
+                    {getTotalData.map(marker => (
+
+                        <Marker
+                            onPress={() => { index(marker) }}
+                            title={marker.nhathuoc}
+                            description='Bán lẻ thuốc tây'
+                            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}>
+                            <Image style={styles.markerIcon}
+                                source={{ uri: marker.markerImage }} />
+                        </Marker>
+                    ))
+
                     }
-                    destination={{
-                        latitude: parseFloat(d.latitude),
-                        longitude: parseFloat(d.longitude),
-                    }}
-                    apikey={'AIzaSyBPJiW_244NDw39hMqRkLt2_Evm4TCMBXc'} // insert your API Key here
-                    strokeWidth={5}
-                    strokeColor="hotpink"
-                    onReady={result => {
-                        console.log(`Distance: ${result.distance} km`)
-                        console.log(`Duration: ${result.duration} min.`)
-                    }}
-
-                />
-                {getTotalData.map(marker => (
-
+                    <Marker coordinate={{
+                        latitude: marker.latitude,
+                        longitude: marker.longitude,
+                    }} />
                     <Marker
-                        onPress={() => { index(marker) }}
-                        title={marker.nhathuoc}
-                        description='Bán lẻ thuốc tây'
-                        coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}>
-                        <Image style={styles.markerIcon}
-                            source={{ uri: marker.markerImage }} />
-                    </Marker>
-                ))
-
-                }
-                <Marker coordinate={{
-                    latitude: marker.latitude,
-                    longitude: marker.longitude,
-                }} />
-                <Marker
-                    coordinate={{ latitude: region.latitude, longitude: region.longitude }}
-                />
-            </MapView>
+                        coordinate={{ latitude: region.latitude, longitude: region.longitude }}
+                    />
+                </MapView>
+            </View>
         </View>
     )
 }
