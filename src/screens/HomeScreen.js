@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.container}>
 
             <View>
-                <HomeHeader navigation={navigation} title="MEDILI" />
+                <HomeHeader navigation={navigation} title="MEDELI" />
             </View>
 
             <View style={{ height: '30%' }}>

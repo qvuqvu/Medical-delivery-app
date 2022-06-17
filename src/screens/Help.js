@@ -22,7 +22,7 @@ export default function Help({ navigation }) {
                     <Text style={{ textAlign: "center", fontSize: 23, fontWeight: "bold", color: colors.text }}>{t("Chúng tôi có thể giúp gì cho bạn ?")}</Text>
                 </View>
                 <View style={{ marginTop: 15, width: 350, alignSelf: "center" }}>
-                    <Text style={{ textAlign: "center", fontSize: 18, color: colors.text }}> {t("Có vẻ như bạn đang gặp vấn đề khi trải nghiệm Medili, nếu cần sự trợ giúp bạn có thể liên hệ chúng tôi")}</Text>
+                    <Text style={{ textAlign: "center", fontSize: 18, color: colors.text }}> {t("Có vẻ như bạn đang gặp vấn đề khi trải nghiệm Medeli, nếu cần sự trợ giúp bạn có thể liên hệ chúng tôi")}</Text>
                 </View>
                 <ScrollView horizontal={true}>
                     <View style={{ borderWidth: 1, width: 170, marginLeft: 10, marginTop: 35, borderRadius: 40, borderColor: "#36a0ef" }}>
@@ -38,7 +38,7 @@ export default function Help({ navigation }) {
                             source={{ uri: "https://cdn1.iconfinder.com/data/icons/business-finance-vol-3-39/512/mailbox_mail_post_email-256.png" }}
                             style={{ width: 100, height: 130, alignSelf: "center" }}
                         />
-                        <Text style={{ color: colors.text, alignSelf: "center", fontWeight: "bold" }}>medili@gmail.com</Text>
+                        <Text style={{ color: colors.text, alignSelf: "center", fontWeight: "bold" }}>medeli@gmail.com</Text>
                         <Text style={{ marginTop: 5, marginBottom: 10, color: colors.text, alignSelf: "center", fontWeight: "bold" }}>Email</Text>
                     </View>
                 </ScrollView>
