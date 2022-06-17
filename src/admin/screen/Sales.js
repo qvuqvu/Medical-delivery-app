@@ -7,6 +7,7 @@ import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../assets/language/i18n';
 import HeaderSales from '../components/HeaderSales';
+import HomeAdminHeader from '../components/HomeAdminHeader';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Sales({navigation}) {
     const { t, i18n } = useTranslation();
@@ -52,6 +53,7 @@ export default function Sales({navigation}) {
     })
     const List = ({ item }) => {
         return (
+            
             <View style={{ flexDirection: 'row', marginTop: 15, backgroundColor: colors.boxes, height: 100, borderRadius: 10, width: SCREEN_WIDTH - 20, marginLeft: 10 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
                     <Image
@@ -138,7 +140,7 @@ export default function Sales({navigation}) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <HeaderSales navigation={navigation} title={"Doanh thu"}/>
+            <HomeAdminHeader navigation={navigation} title={"Doanh thu"}/>
             <View style={{ height: 50, backgroundColor: '#eff2cc', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ color: 'black', fontSize: 16, fontWeight: 'bold', marginLeft: 25 }}>Cảm ơn bạn đã đặt thuốc</Text>
                 <Icon

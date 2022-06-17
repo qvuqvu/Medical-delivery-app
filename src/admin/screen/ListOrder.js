@@ -5,6 +5,7 @@ import { SignInContext } from '../contexts/authContext';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import firestore, { firebase } from '@react-native-firebase/firestore';
+import HomeAdminHeader from '../components/HomeAdminHeader';
 import { useTheme } from 'react-native-paper';
 // import ProductCard from '../components/ProductCard';
 GoogleSignin.configure({
@@ -69,7 +70,9 @@ const ListItem = ({ item, index }) => {
     )
 }
 return (
-    <View style={{ alignSelf: 'center', flex: 1 }}>
+    <View style={{ flex: 1}}>
+        <HomeAdminHeader navigation={navigation} title="Home" />
+    <View style={{ alignSelf: 'center' }}>
         <View>
             <Text style={{ fontWeight: 'bold', color: 'black', fontSize: 20, marginTop: 20 }}>Danh sách người dùng đặt hàng</Text>
             {check ?
@@ -86,6 +89,7 @@ return (
                 )
             }
         </View>
+    </View>
     </View>
 )
 }
