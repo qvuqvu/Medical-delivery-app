@@ -435,10 +435,10 @@ export default function MyAccountScreen({ navigation }) {
                             <Text style={{ fontSize: 16, color: colors.text }}>{address}</Text>
                             <TouchableOpacity style={{ marginTop: 5 }} onPress={() => {
                                 firestore()
-                                    .collection('Data')
-                                    .doc('Discount')
+                                    .collection('DataNhaThuoc')
+                                    .doc('Hà My')
                                     .set({
-                                        Discount: discount,
+                                        item: item=[{name:"aaa",phone:"123456789",address:"123456789",date:"123456789"}],
                                     })
                                     .then(() => {
                                         console.log('User added!');
