@@ -418,7 +418,7 @@ export default function MyAccountScreen({ navigation }) {
                             <TouchableOpacity style={{ marginTop: 5 }} onPress={() => {
                                 navigation.navigate("Map")
                             }}>
-                                <Text style={{ fontSize: 15, color: 'blue' }}>{t('Mặc định')}</Text>
+                                <Text style={{ fontSize: 15, color: 'blue' }}>{t('Bản đồ')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

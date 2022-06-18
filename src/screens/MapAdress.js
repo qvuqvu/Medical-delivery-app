@@ -95,7 +95,7 @@ export default function MapAdress({ navigation }) {
                         <Text style={{ fontSize: 15, color: 'red', fontWeight: 'bold' }}>{change == true ? t("Lưu") : t("Sửa")}</Text>
                     </TouchableOpacity>
                 </View>
-                <Text style={{ color: colors.text, marginLeft: 10, fontSize: 16, marginTop: 10 }}>{address==""?"Hãy chọn địa":address}</Text>
+                <Text style={{ color: colors.text, marginLeft: 10, fontSize: 16, marginTop: 10 }}>{address==""?"Hãy chọn địa chỉ mới!":address}</Text>
             </View>
             <View style={change ? { marginLeft: 20, height: 350, marginTop: 10, marginRight: 20, backgroundColor: colors.background } : { marginTop: 1000 }}>
                 <Text style={{ color: colors.text, marginLeft: 10, fontSize: 16, fontWeight: 'bold' }}>Tìm kiếm địa chỉ mới</Text>

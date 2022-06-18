@@ -106,6 +106,7 @@ export default function Map({ navigation }) {
         })
     }
     return (
+        requestCameraPermission(),
         <View style={{ flex: 1 }}>
             <HeaderAdress navigation={navigation} title={t("Địa chỉ")} />
             <View style={styles.container}>

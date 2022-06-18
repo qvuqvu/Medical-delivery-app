@@ -104,7 +104,7 @@ export default function DetailCustomer({ route, navigation }) {
                         <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
                             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>Địa chỉ nhận hàng: </Text>
                             <View style={{ width: 245, marginLeft: 10, height: '100%' }}>
-                                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15, marginBottom: 10 }}>{item.address}</Text>
+                                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15, marginBottom: 10,marginRight:30 }}>{item.address}</Text>
                             </View>
                         </View>
                     </View>

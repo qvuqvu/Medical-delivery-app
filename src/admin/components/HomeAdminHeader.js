@@ -22,6 +22,7 @@ export default function HomeAdminHeader({ navigation, title }) {
                     {title}
                 </Text>
             </View>
+            <View></View>
         </View>
     )
 }
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
         fontSize: 21,
         textAlign:"center",
         fontWeight: "bold",
-        marginRight:160,
+        justifyContent: 'center',
+        marginRight:30
     }
 })
