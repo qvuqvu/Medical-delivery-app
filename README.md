@@ -16,5 +16,5 @@ Team project for a medical delivery mobile app based on React native
     
 # Run project
 - Open and our project in Visual Studio.
-- Using command 'npm install' to install node_modules
-- Using command 'npm react-native run-android' to build this project.
+- Using command `npm install` to install node_modules
+- Using command `npm react-native run-android` to build this project.
