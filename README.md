@@ -12,9 +12,9 @@ Team project for a medical delivery mobile app based on React native
 - Download and install Git from (https://git-scm.com/downloads)
 - Clone the project from the Github link above.
     + Open CMD and go to the folder you want to clone our project.
-    + Using command : git clone https://github.com/qvuqvu/Medical-delivery-app.git to clone our project.
+    + Using command `git clone https://github.com/qvuqvu/Medical-delivery-app.git` to clone our project.
     
 # Run project
-- Open and our project in Visual Studio.
-- Using command `npm install` to install node_modules
+- Open and our project in Visual Studio Code.
+- Using command `npm install` to install node modules
 - Using command `npm react-native run-android` to build this project.
