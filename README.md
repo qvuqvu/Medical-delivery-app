@@ -2,11 +2,11 @@
 Team project for a medical delivery mobile app based on React native
 
 # Team members
- 20521236 - Nguyễn Đình Duy
- 20521420 - Vũ Viết Huy
- 20521250 - Trần Quốc Duy
- 20520583 - Nguyễn Anh Khoa
- 20520352 - Nguyễn Quang Vũ
+ - 20521236 - Nguyễn Đình Duy
+ - 20521420 - Vũ Viết Huy
+ - 20521250 - Trần Quốc Duy
+ - 20520583 - Nguyễn Anh Khoa
+ - 20520352 - Nguyễn Quang Vũ
 
 # Installation Instructions
 - Download and install Git from (https://git-scm.com/downloads)
